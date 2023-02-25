@@ -282,16 +282,16 @@ export default function Sidebar() {
 					      	  <li>
                       <Link href="/admin/repport">
 					      	    	<a href="#"
-					      	    		class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Income</a>
+					      	    		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Income</a>
                       </Link>
 					      	  </li>
 					      	  <li>
 					      	  	<a href="#"
-					      	  		class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">E-pin</a>
+					      	  		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">E-pin</a>
 					      	  </li>
 					      	  <li>
 					      	  	<a href="#"
-					      	  		class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Joining</a>
+					      	  		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Joining</a>
 					      	  </li>
 					        </ul>
                 </div>  

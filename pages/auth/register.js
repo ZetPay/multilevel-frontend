@@ -1,10 +1,16 @@
 import React from "react";
+import { useRouter } from 'next/router'
 
 // layout for page
 
 import Auth from "layouts/Auth.js";
+import Button from "components/Atoms/Button/Button";
+import Input from "components/Atoms/Input/Input";
+import Option from "components/Atoms/Option/Option";
 
 export default function Register() {
+  const router = useRouter();
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -14,10 +20,10 @@ export default function Register() {
               <div className="rounded-t mb-0 px-6 py-6">
                 <div className="text-center mb-3">
                   <h6 className="text-blueGray-500 text-sm font-bold">
-                    Sign up with
+                    Sign Up
                   </h6>
                 </div>
-                <div className="btn-wrapper text-center">
+                {/* <div className="btn-wrapper text-center">
                   <button
                     className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
@@ -32,7 +38,7 @@ export default function Register() {
                     <img alt="..." className="w-5 mr-1" src="/img/google.svg" />
                     Google
                   </button>
-                </div>
+                </div> */}
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -41,49 +47,40 @@ export default function Register() {
                 </div>
                 <form>
                   <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Name
-                    </label>
-                    <input
-                      type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Name"
-                    />
+                    <Input type="text" label="Username" placeholder="Input username" />
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
-                    />
+                    <Input type="email" label="Email" placeholder="Input Email" />
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"
-                    />
+                    <Input type="password" label="Password" placeholder="Input Password" />
+                    <div
+                      className="absolute top-0 right-0 text-blueGray-400 bg-transparent rounded text-base font-normal block w-8 py-3 px-1 leading-normal cursor-pointer text-center mt-5 mr-2"
+                      onClick={() => {  }}>
+                        <i className="fas fa-eye"></i>
+                    </div>
+                  </div>
+
+                  <div className="relative w-full mb-3">
+                    <Input type="number" label="Phone" placeholder="Input Phone Number" />
+                  </div>
+
+                  <div className="relative w-full mb-3">
+                    <Input type="text" label="Referal Code" placeholder="Input Referal Code" />
+                  </div>
+
+                  <div className="relative w-full mb-4">
+                      <Option label="Position" placeholder="Chose Position" data={["Kiri","Kanan"]} />
+                  </div>
+
+                  <div className="relative w-full mb-4">
+                    <Option label="Select Packet Deposit" placeholder="Chose Deposite" data={["Rp 1.500.000,-","Rp 2.700.000,-","Rp 3.500.000,-"]} />
                   </div>
 
                   <div>
-                    <label className="inline-flex items-center cursor-pointer">
+                    <label className="inline-flex items-center cursor-pointer py-5">
                       <input
                         id="customCheckLogin"
                         type="checkbox"
@@ -103,12 +100,18 @@ export default function Register() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <button
-                      className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      Create Account
-                    </button>
+                    <Button label="Register" />
+                  </div>
+                  <div className="flex flex-row align-center">
+                    <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
+                    <p className="text-gray-200 text-sm text-center px-2">or</p>
+                    <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
+                  </div>
+                  <div className="text-center mt-2">
+                    <Button label="Login" onClick={e => {
+                      e.preventDefault()
+                      router.push('/auth/login')
+                    }} />
                   </div>
                 </form>
               </div>

@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { createPopper } from "@popperjs/core";
 
-const PagesDropdown = () => {
+const PagesDropdown = (props) => {
+  const { label } = props
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -27,7 +28,7 @@ const PagesDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        Demo Pages
+        {label}
       </a>
       <div
         ref={popoverDropdownRef}
