@@ -13,6 +13,19 @@ export const AuthActions = {
     type: Types.POST_LOGIN_FAILURE,
     error,
   }),
+  // register
+  doRegisterRequest: data => ({
+    type: Types.POST_REGISTER_REQUEST,
+    payload: data,
+  }),
+  doRegisterSuccess: data => ({
+    type: Types.POST_REGISTER_SUCCESS,
+    payload: data,
+  }),
+  doRegisterFailure: error => ({
+    type: Types.POST_REGISTER_FAILURE,
+    error,
+  }),
   // verification
   doVerificationRequest: data => ({
     type: Types.POST_VERIFICATION_REQUEST,
@@ -125,6 +138,7 @@ export const AuthActions = {
 
 const initialState = {
   login: {data: [], fetching: false, error: null},
+  register: {data: [], fetching: false, error: null},
   verif: {data: [], fetching: false, error: null},
   pin: {data: [], fetching: false, error: null},
   pin_confirm: {data: [], fetching: false, error: null},
@@ -156,6 +170,22 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         login: {data: [], fetching: false, error: action.error},
+      };
+    // Register
+    case Types.POST_REGISTER_REQUEST:
+      return {
+        ...state,
+        register: {data: [], fetching: true, error: null},
+      };
+    case Types.POST_REGISTER_SUCCESS:
+      return {
+        ...state,
+        register: {data: action.payload, fetching: false, error: null},
+      };
+    case Types.POST_REGISTER_FAILURE:
+      return {
+        ...state,
+        register: {data: [], fetching: false, error: action.error},
       };
     // verivication otp
     case Types.POST_VERIFICATION_REQUEST:

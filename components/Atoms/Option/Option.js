@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 
 const Option = (props) => {
-  const { label, placeholder, data } = props;
+  const { label, placeholder, data, ...restProps } = props;
   return (
     <>
         <label
@@ -9,10 +9,12 @@ const Option = (props) => {
           htmlFor="grid-password">
           {label}
         </label>
-        <select className="border-0 appearance-none w-full px-3 py-3 bg-white rounded" name="whatever" id="frm-whatever">
-          <option label={placeholder} ></option>
+        <select 
+          {...restProps} 
+          className="border-1 border-gray-300 appearance-none w-full px-3 py-3 bg-white rounded">
+          <option label={placeholder} value="default" ></option>
           {data.map((item, index) => (
-            <option value={index}>{item}</option>
+            <option key={index} value={item}>{item}</option>
           ))}
         </select>
     </>

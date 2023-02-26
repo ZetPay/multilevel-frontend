@@ -11,37 +11,16 @@ const api = axios.create({
   timeout: 1000,
   headers: {
     'User-Agent': userAgentList[Math.floor(Math.random() * userAgentList.length)],
+    'accept': 'application/json',
   },
 });
 
 const URL = {
     LOGIN: 'sign-in',
+    REGISTER: 'auth/register',
     PROFILE: 'profile',
-    VERIFICATION: 'verification',
-    CREATE_PIN: 'create-pin',
-    VERIF_PIN: 'check-pin',
-    FORGOT_PIN: 'forgot-pin',
-    CODE_RESET_PIN: 'code-reset-pin',
-    RESET_PIN: 'reset-pin',
-    UPLOAD_AVATAR: 'json',
-    UPDATE_PROFILE: 'profile/update',
-    ANNOUNCEMENT_ALL: 'announcements',
-    ANNOUNCEMENT_INDIVIDU: 'announcements/individual',
-    CHECK_BILL: 'transaction/check-bill',
-    PRABAYAR: 'transaction/prabayar',
-    PASCABAYAR: 'transaction/pascabayar',
-    // serpul fetch
-    PAYMENT_LIST: 'topup',
-    DEPOSIT: 'topup',
-    STATUS_DEPOSIT: 'topup/status',
-    GET_PRABAYAR_OPRATOR: 'prabayar/operator',
-    GET_PRABAYAR_OPRATOR_PRODUCT: 'prabayar/product',
-    GET_PASCABAYAR_CATEGORY: 'pascabayar/category',
-    GET_PASCABAYAR_PRODUCT: 'pascabayar/product',
-    CHECK_ID_PELANGGAN_PLN: 'checkplnprepaid',
-    CHECK_PASCABAYAR_BILL: 'pascabayar/check',
-    HISTORY_TOPUP: 'topup/history',
-    CHECK_ID_GAMES: 'initPayment.action',
-  };
+    // payment
+    DEPOSIT_LIST: 'list-deposit'
+};
 
 export {URL, api};

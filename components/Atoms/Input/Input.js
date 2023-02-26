@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 
 const Input = (props) => {
-  const { label, type, placeholder } = props;
+  const { label, type, placeholder, ...restProps } = props;
   return (
     <>
       <label
@@ -11,8 +11,9 @@ const Input = (props) => {
       </label>
       <input
         type={type}
-        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-xs focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+        className="border-1 border-red-500 w-full rounded px-3 py-3"
         placeholder={placeholder}
+        {...restProps}
       />
     </>
   )

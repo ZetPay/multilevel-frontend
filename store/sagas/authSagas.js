@@ -16,6 +16,18 @@ function* doLogin(data) {
   }
 }
 
+function* doRegister(data) {
+    try {
+      const {payload} = data;
+      const response = yield call(api.post, URL.REGISTER, payload);
+  
+      yield put(AuthActions.doRegisterSuccess(response.data));
+    } catch (error) {
+      yield put(AuthActions.doRegisterFailure(error));
+    }
+}
+
+
 function* doVerification(data) {
   try {
     const {payload} = data;
@@ -100,6 +112,7 @@ function* doUpdateProfiles(data) {
 
 export default function* actionWatchAuth() {
   yield takeLatest(Types.POST_LOGIN_REQUEST, doLogin);
+  yield takeLatest(Types.POST_REGISTER_REQUEST, doRegister);
   yield takeLatest(Types.POST_VERIFICATION_REQUEST, doVerification);
   yield takeLatest(Types.CREATE_PIN_REQUEST, doPinCreated);
   yield takeLatest(Types.CONFIRMATION_PIN_REQUEST, doPinVerificate);

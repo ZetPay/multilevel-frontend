@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from "react-redux";
+import { PaymentActions } from "../../store/redux/paymentReducer";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 // layout for page
-
 import Auth from "layouts/Auth.js";
 import Button from "components/Atoms/Button/Button";
 import Input from "components/Atoms/Input/Input";
@@ -10,6 +13,40 @@ import Option from "components/Atoms/Option/Option";
 
 export default function Register() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  // const useSelector = useSelector(state => state.authReducer.register);
+
+  // console.log("==== state ====",useSelector);
+  useEffect(()=>{
+    dispatch(PaymentActions.doGetDepositListRequest());
+  },[])
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      username: '',
+      password: '',
+      phone: '',
+      referal: '',
+      position: '',
+      paket: ''
+    },
+    onSubmit: value => {
+      console.log("==== VALUE ====",value)
+    },
+    validationSchema: yup.object({
+      username: yup.string().required('Username is required'),
+      email: yup
+        .string()
+        .email('Must be a valid email')
+        .required('Email is required'),
+      password: yup.string().required('Password is required'),
+      phone: yup.number().required('Phone is required'),
+      referal: yup.string(),
+      position: yup.string(),
+      paket: yup.string(),
+    }),
+  });
 
   return (
     <>
@@ -23,60 +60,128 @@ export default function Register() {
                     Sign Up
                   </h6>
                 </div>
-                {/* <div className="btn-wrapper text-center">
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img alt="..." className="w-5 mr-1" src="/img/github.svg" />
-                    Github
-                  </button>
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img alt="..." className="w-5 mr-1" src="/img/google.svg" />
-                    Google
-                  </button>
-                </div> */}
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <div className="text-blueGray-400 text-center mb-3 font-bold">
                   <small>Or sign up with credentials</small>
                 </div>
-                <form>
+                <form onSubmit={formik.handleSubmit}>
                   <div className="relative w-full mb-3">
-                    <Input type="text" label="Username" placeholder="Input username" />
+                    <Input 
+                      type="text" 
+                      label="Username" 
+                      placeholder="Input username" 
+                      name="username"
+                      value={formik.values.name}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{borderColor: formik.errors.username ? 'red' : ''}}
+                    />
+                    { formik.errors.username && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.username}</p>
+                    )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <Input type="email" label="Email" placeholder="Input Email" />
+                    <Input 
+                      type="email" 
+                      label="Email" 
+                      placeholder="Input Email" 
+                      name="email"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{borderColor: formik.errors.email ? 'red' : ''}}
+                    />
+                    { formik.errors.email && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <Input type="password" label="Password" placeholder="Input Password" />
+                    <Input 
+                      type="password" 
+                      label="Password" 
+                      placeholder="Input Password"
+                      name="password"
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{borderColor: formik.errors.password ? 'red' : ''}}
+                    />
                     <div
-                      className="absolute top-0 right-0 text-blueGray-400 bg-transparent rounded text-base font-normal block w-8 py-3 px-1 leading-normal cursor-pointer text-center mt-5 mr-2"
+                      className="absolute top-0 right-0 text-blueGray-400 bg-transparent rounded text-base font-normal block w-8 py-3 px-1 leading-normal cursor-pointer text-center mt-6 mr-2"
                       onClick={() => {  }}>
                         <i className="fas fa-eye"></i>
                     </div>
+                    { formik.errors.password && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.password}</p>
+                    )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <Input type="number" label="Phone" placeholder="Input Phone Number" />
+                    <Input 
+                      type="number" 
+                      label="Phone" 
+                      placeholder="Input Phone Number"
+                      name="phone"
+                      value={formik.values.phone}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{borderColor: formik.errors.phone ? 'red' : ''}} 
+                    />
+                    { formik.errors.phone && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.phone}</p>
+                    )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <Input type="text" label="Referal Code" placeholder="Input Referal Code" />
+                    <Input 
+                      type="text" 
+                      label="Referal Code" 
+                      placeholder="Input Referal Code"
+                      name="referal"
+                      value={formik.values.referal}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{borderColor: formik.errors.referal ? 'red' : ''}} 
+                    />
+                    { formik.errors.referal && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.referal}</p>
+                    )}
                   </div>
 
                   <div className="relative w-full mb-4">
-                      <Option label="Position" placeholder="Chose Position" data={["Kiri","Kanan"]} />
+                      <Option 
+                        label="Position" 
+                        placeholder="Chose Position" 
+                        data={["Kiri","Kanan"]}
+                        name="position"
+                        value={formik.values.position}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        style={{borderColor: formik.errors.position ? 'red' : ''}} 
+                      />
+                      { formik.errors.position && (
+                        <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.position}</p>
+                      )}
                   </div>
 
                   <div className="relative w-full mb-4">
-                    <Option label="Select Packet Deposit" placeholder="Chose Deposite" data={["Rp 1.500.000,-","Rp 2.700.000,-","Rp 3.500.000,-"]} />
+                    <Option 
+                      label="Select Packet Deposit" 
+                      placeholder="Chose Deposite" 
+                      data={["Rp 1.500.000,-","Rp 2.700.000,-","Rp 3.500.000,-"]} 
+                      name="paket"
+                      value={formik.values.paket}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{borderColor: formik.errors.paket ? 'red' : ''}} 
+                    />
+                    { formik.errors.paket && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.paket}</p>
+                    )}
                   </div>
 
                   <div>
@@ -108,10 +213,7 @@ export default function Register() {
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
                   </div>
                   <div className="text-center mt-2">
-                    <Button label="Login" onClick={e => {
-                      e.preventDefault()
-                      router.push('/auth/login')
-                    }} />
+                    <Button label="Login" type="submit"/>
                   </div>
                 </form>
               </div>
