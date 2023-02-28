@@ -72,7 +72,7 @@ const UserDropdown = () => {
           Something else here
         </a>
         <div className="h-0 my-2 border border-solid border-blueGray-100" />
-        <Link href="/auth/login">
+        {/* <Link href="/auth/login">
           <a
             href="#pablo"
             className={
@@ -81,7 +81,7 @@ const UserDropdown = () => {
           >
             Logout
           </a>
-        </Link>
+        </Link> */}
       </div>
     </>
   );

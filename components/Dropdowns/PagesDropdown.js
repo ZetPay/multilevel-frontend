@@ -44,7 +44,7 @@ const PagesDropdown = (props) => {
         >
           Admin Layout
         </span>
-        <Link href="/admin/dashboard">
+        {/* <Link href="/admin/dashboard">
           <a
             href="#pablo"
             className={
@@ -53,8 +53,8 @@ const PagesDropdown = (props) => {
           >
             Dashboard
           </a>
-        </Link>
-        <Link href="/admin/settings">
+        </Link> */}
+        {/* <Link href="/admin/settings">
           <a
             href="#pablo"
             className={
@@ -63,8 +63,8 @@ const PagesDropdown = (props) => {
           >
             Settings
           </a>
-        </Link>
-        <Link href="/admin/tables">
+        </Link> */}
+        {/* <Link href="/admin/tables">
           <a
             href="#pablo"
             className={
@@ -73,8 +73,8 @@ const PagesDropdown = (props) => {
           >
             Tables
           </a>
-        </Link>
-        <Link href="/admin/maps">
+        </Link> */}
+        {/* <Link href="/admin/maps">
           <a
             href="#pablo"
             className={
@@ -83,7 +83,7 @@ const PagesDropdown = (props) => {
           >
             Maps
           </a>
-        </Link>
+        </Link> */}
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
@@ -92,7 +92,7 @@ const PagesDropdown = (props) => {
         >
           Auth Layout
         </span>
-        <Link href="/auth/login">
+        {/* <Link href="/auth/login">
           <a
             href="#pablo"
             className={
@@ -101,8 +101,8 @@ const PagesDropdown = (props) => {
           >
             Login
           </a>
-        </Link>
-        <Link href="/auth/register">
+        </Link> */}
+        {/* <Link href="/auth/register">
           <a
             href="#pablo"
             className={
@@ -111,7 +111,7 @@ const PagesDropdown = (props) => {
           >
             Register
           </a>
-        </Link>
+        </Link> */}
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
@@ -120,7 +120,7 @@ const PagesDropdown = (props) => {
         >
           No Layout
         </span>
-        <Link href="/landing">
+        {/* <Link href="/landing">
           <a
             href="#pablo"
             className={
@@ -129,8 +129,8 @@ const PagesDropdown = (props) => {
           >
             Landing
           </a>
-        </Link>
-        <Link href="/profile">
+        </Link> */}
+        {/* <Link href="/profile">
           <a
             href="#pablo"
             className={
@@ -139,7 +139,7 @@ const PagesDropdown = (props) => {
           >
             Profile
           </a>
-        </Link>
+        </Link> */}
       </div>
     </>
   );

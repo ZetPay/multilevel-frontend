@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { useRouter } from 'next/router'
 
 // layout for page
@@ -106,7 +107,7 @@ export default function Login() {
                 </form>
               </div>
             </div>
-            {/* <div className="flex flex-wrap mt-6 relative">
+            <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
                 <a
                   href="#pablo"
@@ -117,13 +118,11 @@ export default function Login() {
                 </a>
               </div>
               <div className="w-1/2 text-right">
-                <Link href="/auth/register">
-                  <a href="#pablo" className="text-blueGray-200">
-                    <small>Create new account</small>
-                  </a>
+                <Link href="/auth/register" className="text-blueGray-200">
+                  Create new account
                 </Link>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
