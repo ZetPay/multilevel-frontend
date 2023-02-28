@@ -110,6 +110,16 @@ function* doUpdateProfiles(data) {
   }
 }
 
+function* doCheckRef(data) {
+  try {
+    const response = yield call(api.post, URL.VALIDATE_REFERAL, data?.payload);
+
+    yield put(AuthActions.doCheckRefSuccess(response.data));
+  } catch (error) {
+    yield put(AuthActions.doCheckRefFailure(error));
+  }
+}
+
 export default function* actionWatchAuth() {
   yield takeLatest(Types.POST_LOGIN_REQUEST, doLogin);
   yield takeLatest(Types.POST_REGISTER_REQUEST, doRegister);
@@ -120,4 +130,5 @@ export default function* actionWatchAuth() {
   yield takeLatest(Types.CODE_RESSET_PIN_REQUEST, doCodeResetPin);
   yield takeLatest(Types.RESSET_PIN_REQUEST, doResetPin);
   yield takeLatest(Types.UPDATE_PROFILE_REQUEST, doUpdateProfiles);
+  yield takeLatest(Types.CHECK_REF_REQUEST, doCheckRef);
 }

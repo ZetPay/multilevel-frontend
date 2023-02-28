@@ -52,7 +52,7 @@ export const AuthActions = {
     type: Types.CREATE_PIN_FAILURE,
     error,
   }),
-  // create pin
+  // confirm pin
   doConfirmPinRequest: data => ({
     type: Types.CONFIRMATION_PIN_REQUEST,
     payload: data,
@@ -63,6 +63,19 @@ export const AuthActions = {
   }),
   doConfirmPinFailure: error => ({
     type: Types.CONFIRMATION_PIN_FAILURE,
+    error,
+  }),
+  // check ref
+  doCheckRefRequest: data => ({
+    type: Types.CHECK_REF_REQUEST,
+    payload: data,
+  }),
+  doCheckRefSuccess: data => ({
+    type: Types.CHECK_REF_SUCCESS,
+    payload: data,
+  }),
+  doCheckRefFailure: error => ({
+    type: Types.CHECK_REF_FAILURE,
     error,
   }),
   // Forgot pin
@@ -142,6 +155,7 @@ const initialState = {
   verif: {data: [], fetching: false, error: null},
   pin: {data: [], fetching: false, error: null},
   pin_confirm: {data: [], fetching: false, error: null},
+  ref: {data: [], fetching: false, error: null},
   forgot_pin: {data: [], fetching: false, error: null},
   code_resset_pin: {data: [], fetching: false, error: null},
   reset_pin: {data: [], fetching: false, error: null},
@@ -234,6 +248,22 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         pin_confirm: {data: [], fetching: false, error: action.error},
+      };
+    // check ref
+    case Types.CHECK_REF_REQUEST:
+      return {
+        ...state,
+        ref: {data: [], fetching: true, error: null},
+      };
+    case Types.CHECK_REF_SUCCESS:
+      return {
+        ...state,
+        ref: {data: action.payload, fetching: false, error: null},
+      };
+    case Types.CHECK_REF_FAILURE:
+      return {
+        ...state,
+        ref: {data: [], fetching: false, error: action.error},
       };
     // forgot pin
     case Types.FORGOT_PIN_REQUEST:

@@ -4,10 +4,12 @@ export const PaymentActions = {
     doGetDepositListRequest: () => ({
       type: Types.GET_DEPOSIT_LIST_REQUEST
     }),
-    doGetDepositListSuccess: data => ({
-      type: Types.GET_DEPOSIT_LIST_SUCCESS,
-      payload: data,
-    }),
+    doGetDepositListSuccess: data => {
+      return ({
+        type: Types.GET_DEPOSIT_LIST_SUCCESS,
+        payload: data,
+      })
+    },
     doGetDepositListFailure: error => ({
       type: Types.GET_DEPOSIT_LIST_FAILURE,
       error,
@@ -36,7 +38,7 @@ const paymentReducer = (state = initialState, action) => {
           deposit_list: {data: [], fetching: false, error: action.error},
         };
       default:
-          return state;
+        return state;
     }
 }
 

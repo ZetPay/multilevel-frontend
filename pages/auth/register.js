@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from "react-redux";
 import { PaymentActions } from "../../store/redux/paymentReducer";
+import { useDebouncedCallback } from 'use-debounce';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -10,16 +11,27 @@ import Auth from "layouts/Auth.js";
 import Button from "components/Atoms/Button/Button";
 import Input from "components/Atoms/Input/Input";
 import Option from "components/Atoms/Option/Option";
+import { formatMoney } from "helper/numberFormat";
+import { AuthActions } from "store/redux/authReducer";
 
 export default function Register() {
   const router = useRouter();
   const dispatch = useDispatch();
-  // const useSelector = useSelector(state => state.authReducer.register);
+  const [refCode, setRefCode] = useState('')
+  const selector = useSelector(state => state.paymentReducer.deposit_list);
+  const auth = useSelector(state => state.authReducer);
 
-  // console.log("==== state ====",useSelector);
   useEffect(()=>{
     dispatch(PaymentActions.doGetDepositListRequest());
   },[])
+
+  const debounced = useDebouncedCallback((value) => {
+    setRefCode(value)
+    dispatch(AuthActions.doCheckRefRequest({
+      reff_code: value
+    }))
+  },1000);
+
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +44,16 @@ export default function Register() {
       paket: ''
     },
     onSubmit: value => {
-      console.log("==== VALUE ====",value)
+      const { email, username, password, phone, position, paket } = value
+      dispatch(AuthActions.doRegisterRequest({
+        name: username,
+        email: email,
+        password: password,
+        reff_code: auth?.ref?.data?.status === "success" ? refCode : "",
+        position: position,
+        deposit_id: paket,
+        phone: phone
+      }))
     },
     validationSchema: yup.object({
       username: yup.string().required('Username is required'),
@@ -142,9 +163,8 @@ export default function Register() {
                       label="Referal Code" 
                       placeholder="Input Referal Code"
                       name="referal"
-                      value={formik.values.referal}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      onChange={(e) => debounced(e.target.value)}
+                      // onBlur={formik.handleBlur}
                       style={{borderColor: formik.errors.referal ? 'red' : ''}} 
                     />
                     { formik.errors.referal && (
@@ -153,32 +173,47 @@ export default function Register() {
                   </div>
 
                   <div className="relative w-full mb-4">
-                      <Option 
-                        label="Position" 
-                        placeholder="Chose Position" 
-                        data={["Kiri","Kanan"]}
-                        name="position"
-                        value={formik.values.position}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        style={{borderColor: formik.errors.position ? 'red' : ''}} 
-                      />
-                      { formik.errors.position && (
-                        <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.position}</p>
-                      )}
+                    {
+                      auth?.ref?.data?.status === "success" && (
+                        <Option 
+                          label="Position" 
+                          placeholder="Chose Position" 
+                          data={["Kiri","Kanan"]}
+                          name="position"
+                          value={formik.values.position}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          style={{borderColor: formik.errors.position ? 'red' : ''}}>
+                          <option label="Chose Deposite" value="default" ></option>
+                          {["Kiri","Kanan"]?.map((item, index) => (
+                            <option key={index} value={item}>{item}</option>
+                          ))}
+                        </Option>
+                      )
+                    }
+                    { formik.errors.position && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.position}</p>
+                    )}
                   </div>
 
                   <div className="relative w-full mb-4">
                     <Option 
                       label="Select Packet Deposit" 
                       placeholder="Chose Deposite" 
-                      data={["Rp 1.500.000,-","Rp 2.700.000,-","Rp 3.500.000,-"]} 
                       name="paket"
                       value={formik.values.paket}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{borderColor: formik.errors.paket ? 'red' : ''}} 
-                    />
+                      style={{borderColor: formik.errors.paket ? 'red' : ''}} >
+                      <option label="Chose Deposite" value="default" ></option>
+                      {
+                        selector?.fetching ? (
+                          <option></option>
+                        ) : selector?.data?.map((item, index) => (
+                          <option key={index} value={item?.id}>Rp {formatMoney(item?.nominal)}</option>
+                        ))
+                      }
+                    </Option>
                     { formik.errors.paket && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.paket}</p>
                     )}
@@ -205,7 +240,7 @@ export default function Register() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <Button label="Register" />
+                    <Button label="Register" isFetching={auth?.register?.fetching} type="submit"  />
                   </div>
                   <div className="flex flex-row align-center">
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
@@ -213,7 +248,7 @@ export default function Register() {
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
                   </div>
                   <div className="text-center mt-2">
-                    <Button label="Login" type="submit"/>
+                    <Button label="Login" type="URL" href="/auth/login"/>
                   </div>
                 </form>
               </div>

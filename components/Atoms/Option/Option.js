@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 
 const Option = (props) => {
-  const { label, placeholder, data, ...restProps } = props;
+  const { label, placeholder, children, ...restProps } = props;
   return (
     <>
         <label
@@ -12,10 +12,7 @@ const Option = (props) => {
         <select 
           {...restProps} 
           className="border-1 border-gray-300 appearance-none w-full px-3 py-3 bg-white rounded">
-          <option label={placeholder} value="default" ></option>
-          {data.map((item, index) => (
-            <option key={index} value={item}>{item}</option>
-          ))}
+          {children}
         </select>
     </>
   )

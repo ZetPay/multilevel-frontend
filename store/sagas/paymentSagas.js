@@ -6,16 +6,14 @@ import { PaymentActions } from 'store/redux/paymentReducer';
 
 function* doGetDepositList() {
     try {
-      const response = yield call(api.get, URL.DEPOSIT_LIST );
-  
-      yield put(PaymentActions.doGetDepositListSuccess(response.data));
-      api.defaults.headers.common.Authorization = `${response?.data?.token?.type} ${response?.data?.token?.token}`;
-      
+      const { data } = yield call(api.get, URL.DEPOSIT_LIST );
+    
+      yield put(PaymentActions.doGetDepositListSuccess(data?.data));
     } catch (error) {
       yield put(PaymentActions.doGetDepositListSuccess(error));
     }
 }
 
 export default function* actionWatchPayment() {
-    yield takeLatest(Types.GET_DEPOSIT_LIST_REQUEST, doGetDepositList);
+  yield takeLatest(Types.GET_DEPOSIT_LIST_REQUEST, doGetDepositList);
 }
