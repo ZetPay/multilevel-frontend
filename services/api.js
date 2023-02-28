@@ -8,7 +8,7 @@ const api = axios.create({
 });
 
 const URL = {
-    LOGIN: 'sign-in',
+    LOGIN: 'auth/login',
     REGISTER: 'auth/register',
     PROFILE: 'profile',
     // payment

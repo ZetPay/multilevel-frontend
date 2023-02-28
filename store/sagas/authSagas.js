@@ -6,13 +6,14 @@ import { AuthActions } from 'store/redux/authReducer';
 function* doLogin(data) {
   try {
     const {payload} = data;
-    const response = yield call(api.post, URL.LOGIN, payload);
+    const response = yield call(api.post, URL.LOGIN, payload?.data);
 
+    console.log("=== RESPONSE ====",response)
     yield put(AuthActions.doLoginSuccess(response.data));
-    api.defaults.headers.common.Authorization = `${response?.data?.token?.type} ${response?.data?.token?.token}`;
-    
+    api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token?.token}`;
+    payload?.navigate();
   } catch (error) {
-    yield put(AuthActions.doLoginSuccess([]));
+    yield put(AuthActions.doLoginSuccess(error));
   }
 }
 

@@ -1,15 +1,48 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 // layout for page
 
 import Auth from "layouts/Auth.js";
 import Button from "components/Atoms/Button/Button";
 import Navbar from "components/Navbars/AuthNavbar";
+import Input from "components/Atoms/Input/Input";
+import { AuthActions } from "store/redux/authReducer";
 
 export default function Login() {
   const router = useRouter()
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.authReducer);
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    onSubmit: value => {
+      const { email, password } = value
+      dispatch(AuthActions.doLoginRequest({
+        data: {
+          email: email,
+          password: password
+        },
+        navigate: () => {
+          router.push("/admin/dashboard")
+        }
+      }))
+    },
+    validationSchema: yup.object({
+      email: yup
+        .string()
+        .email('Must be a valid email')
+        .required('Email is required'),
+      password: yup.string().required('Password is required')
+    }),
+  });
 
   return (
     <>
@@ -46,33 +79,42 @@ export default function Login() {
                 <div className="text-blueGray-400 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div>
-                <form>
+                <form onSubmit={formik.handleSubmit}>
                   <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
+                    <Input 
+                      type="email" 
+                      label="Email" 
+                      placeholder="Input Email" 
+                      name="email"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{borderColor: formik.errors.email ? 'red' : ''}}
                     />
+                    { formik.errors.email && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"
+                    <Input 
+                      type="password" 
+                      label="Password" 
+                      placeholder="Input Password"
+                      name="password"
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{borderColor: formik.errors.password ? 'red' : ''}}
                     />
+                    <div
+                      className="absolute top-0 right-0 text-blueGray-400 bg-transparent rounded text-base font-normal block w-8 py-3 px-1 leading-normal cursor-pointer text-center mt-6 mr-2"
+                      onClick={() => {  }}>
+                        <i className="fas fa-eye"></i>
+                    </div>
+                    { formik.errors.password && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.password}</p>
+                    )}
                   </div>
                   <div>
                     <label className="inline-flex items-center cursor-pointer">
@@ -88,10 +130,7 @@ export default function Login() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <Button label="Login" onClick={e => {
-                      e.preventDefault()
-                      router.push('/admin/dashboard')
-                    }} />
+                    <Button label="Login" type="submit" isFetching={auth?.login?.fetching} />
                   </div>
                   <div className="flex flex-row align-center">
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
