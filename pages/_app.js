@@ -10,6 +10,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "styles/tailwind.css";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import AlertProvider from "./alertProvider";
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
@@ -64,9 +65,11 @@ const MyApp = (props) => {
           <title>Notus NextJS by Creative Tim</title>
           <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
         </Head>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <AlertProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AlertProvider>
       </React.Fragment>
     )
   }

@@ -25,10 +25,12 @@ const Button = (props) => {
             {...restprops}>
             {
               isFetching ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="animate-spin h-10 w-10" viewBox="0 0 25 25" fill="none"
-                    stroke="currentColor">
-                    <path d="M4.5 12.5C4.5 16.9183 8.08172 20.5 12.5 20.5C16.9183 20.5 20.5 16.9183 20.5 12.5C20.5 8.08172 16.9183 4.5 12.5 4.5" stroke="#ffff" stroke-width="1.2"/>
-                </svg>
+               <div className="py-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="animate-spin h-10 w-10" viewBox="0 0 25 25" fill="none"
+                      stroke="currentColor">
+                      <path d="M4.5 12.5C4.5 16.9183 8.08172 20.5 12.5 20.5C16.9183 20.5 20.5 16.9183 20.5 12.5C20.5 8.08172 16.9183 4.5 12.5 4.5" stroke="#ffff" strokeWidth="1.2"/>
+                  </svg>
+               </div>
               ) : label
             }
           </button>

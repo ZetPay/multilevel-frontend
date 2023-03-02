@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from "react-redux";
 import { PaymentActions } from "../../store/redux/paymentReducer";
 import { useDebouncedCallback } from 'use-debounce';
+import { useAlert } from "react-alert";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -16,10 +17,13 @@ import { AuthActions } from "store/redux/authReducer";
 
 export default function Register() {
   const router = useRouter();
+  const alert = useAlert();
   const dispatch = useDispatch();
+  const [termConst, setTermConst] = useState(false)
   const [refCode, setRefCode] = useState('')
-  const selector = useSelector(state => state.paymentReducer.deposit_list);
-  const auth = useSelector(state => state.authReducer);
+  const [passwordType, setPasswordType] = useState(false)
+  const { deposit_list : { data, fetching } } = useSelector(state => state.paymentReducer);
+  const authData = useSelector(state => state.authReducer);
 
   useEffect(()=>{
     dispatch(PaymentActions.doGetDepositListRequest());
@@ -31,6 +35,16 @@ export default function Register() {
       reff_code: value
     }))
   },1000);
+
+  const onChcekLocation = (val) => {
+    dispatch(AuthActions.doCheckPositionRequest({
+      data : {
+        reff_code: refCode,
+        position: val
+      },
+      message: (type,msg) => type === "error" ? alert.error(msg) : alert.success(msg)
+    }))
+  }
 
 
   const formik = useFormik({
@@ -45,15 +59,32 @@ export default function Register() {
     },
     onSubmit: value => {
       const { email, username, password, phone, position, paket } = value
-      dispatch(AuthActions.doRegisterRequest({
-        name: username,
-        email: email,
-        password: password,
-        reff_code: auth?.ref?.data?.status === "success" ? refCode : "",
-        position: position,
-        deposit_id: paket,
-        phone: phone
-      }))
+      if(authData?.position?.data?.status === "success" || refCode.length === 0){
+        if(termConst){
+          dispatch(AuthActions.doRegisterRequest({
+            data: {
+              name: username,
+              email: email,
+              password: password,
+              reff_code: authData?.ref?.data?.status === "success" ? refCode : null,
+              position: position?.length > 0 && refCode.length > 0 ? position : null,
+              deposit_id: paket,
+              phone: phone
+            },
+            message: (msg) => alert.success(msg),
+            error: (msg) => alert.error(msg),
+            navigate: () => {
+              setTimeout(() => {
+                router.push('/auth/login')
+              },5000)
+            }
+          }))
+        }else{
+          alert.info("Please agree with the Privacy Policy!")
+        }
+      }else{
+        alert.info("Please select an available position!")
+      }
     },
     validationSchema: yup.object({
       username: yup.string().required('Username is required'),
@@ -65,7 +96,7 @@ export default function Register() {
       phone: yup.number().required('Phone is required'),
       referal: yup.string(),
       position: yup.string(),
-      paket: yup.string(),
+      paket: yup.string().required(),
     }),
   });
 
@@ -122,7 +153,7 @@ export default function Register() {
 
                   <div className="relative w-full mb-3">
                     <Input 
-                      type="password" 
+                      type={passwordType ? "text" : "password"} 
                       label="Password" 
                       placeholder="Input Password"
                       name="password"
@@ -133,8 +164,10 @@ export default function Register() {
                     />
                     <div
                       className="absolute top-0 right-0 text-blueGray-400 bg-transparent rounded text-base font-normal block w-8 py-3 px-1 leading-normal cursor-pointer text-center mt-6 mr-2"
-                      onClick={() => {  }}>
-                        <i className="fas fa-eye"></i>
+                      onClick={() => { setPasswordType(!passwordType) }}>
+                        {
+                          passwordType ? <i className="fas fa-eye-slash"></i> :  <i className="fas fa-eye"></i>
+                        }
                     </div>
                     { formik.errors.password && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.password}</p>
@@ -174,18 +207,21 @@ export default function Register() {
 
                   <div className="relative w-full mb-4">
                     {
-                      auth?.ref?.data?.status === "success" && (
+                      refCode?.length > 0 && (
                         <Option 
                           label="Position" 
                           placeholder="Chose Position" 
-                          data={["Kiri","Kanan"]}
+                          data={["left","right"]}
                           name="position"
                           value={formik.values.position}
-                          onChange={formik.handleChange}
+                          onChange={(val) => {
+                            formik.handleChange(val)
+                            onChcekLocation(val.target.value)
+                          }}
                           onBlur={formik.handleBlur}
                           style={{borderColor: formik.errors.position ? 'red' : ''}}>
                           <option label="Chose Deposite" value="default" ></option>
-                          {["Kiri","Kanan"]?.map((item, index) => (
+                          {["left","right"]?.map((item, index) => (
                             <option key={index} value={item}>{item}</option>
                           ))}
                         </Option>
@@ -207,9 +243,9 @@ export default function Register() {
                       style={{borderColor: formik.errors.paket ? 'red' : ''}} >
                       <option label="Chose Deposite" value="default" ></option>
                       {
-                        selector?.fetching ? (
+                        fetching ? (
                           <option></option>
-                        ) : selector?.data?.map((item, index) => (
+                        ) : (data?.length > 0 ? data : []).map((item, index) => (
                           <option key={index} value={item?.id}>Rp {formatMoney(item?.nominal)}</option>
                         ))
                       }
@@ -224,6 +260,10 @@ export default function Register() {
                       <input
                         id="customCheckLogin"
                         type="checkbox"
+                        value={termConst}
+                        onChange={() => {
+                          setTermConst(!termConst)
+                        }}
                         className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                       />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
@@ -240,7 +280,7 @@ export default function Register() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <Button label="Register" isFetching={auth?.register?.fetching} type="submit"  />
+                    <Button label="Register" isFetching={authData?.register?.fetching} disabled={authData?.register?.fetching} type="submit"  />
                   </div>
                   <div className="flex flex-row align-center">
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />

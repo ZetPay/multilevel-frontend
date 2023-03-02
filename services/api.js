@@ -11,6 +11,7 @@ const URL = {
     LOGIN: 'auth/login',
     REGISTER: 'auth/register',
     PROFILE: 'profile',
+    CHECK_POSITION: 'check-position',
     // payment
     DEPOSIT_LIST: 'list-deposit',
     VALIDATE_REFERAL: 'check-code'
