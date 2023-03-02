@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Link from "next/link";
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ import { AuthActions } from "store/redux/authReducer";
 export default function Login() {
   const router = useRouter()
   const dispatch = useDispatch();
+  const [passwordType, setPasswordType] = useState(false)
   const auth = useSelector(state => state.authReducer);
 
   const formik = useFormik({
@@ -98,7 +99,7 @@ export default function Login() {
 
                   <div className="relative w-full mb-3">
                     <Input 
-                      type="password" 
+                      type={passwordType ? "text" : "password"} 
                       label="Password" 
                       placeholder="Input Password"
                       name="password"
@@ -109,8 +110,10 @@ export default function Login() {
                     />
                     <div
                       className="absolute top-0 right-0 text-blueGray-400 bg-transparent rounded text-base font-normal block w-8 py-3 px-1 leading-normal cursor-pointer text-center mt-6 mr-2"
-                      onClick={() => {  }}>
-                        <i className="fas fa-eye"></i>
+                      onClick={() => { setPasswordType(!passwordType) }}>
+                        {
+                          passwordType ? <i className="fas fa-eye-slash"></i> :  <i className="fas fa-eye"></i>
+                        }
                     </div>
                     { formik.errors.password && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.password}</p>
