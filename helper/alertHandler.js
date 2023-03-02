@@ -1,7 +1,6 @@
 import { useAlert } from "react-alert";
 
 export const alertMessage = (msg,type) => {
-    console.log("ISI",msg,type)
     const alert = useAlert();
     switch (type) {
         case 'success':

@@ -13,7 +13,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import AlertProvider from "./alertProvider";
 
 Router.events.on("routeChangeStart", (url) => {
-  console.log(`Loading: ${url}`);
   document.body.classList.add("body-page-transition");
   ReactDOM.render(
     <PageChange path={url} />,
