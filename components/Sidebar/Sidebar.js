@@ -26,14 +26,9 @@ export default function Sidebar() {
             <i className="fas fa-bars"></i>
           </button>
           {/* Brand */}
-          {/* <Link href="/">
-            <a
-              href="#pablo"
-              className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            >
-              Notus NextJS
-            </a>
-          </Link> */}
+          <Link href="/" className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">
+            Notus NextJS
+          </Link>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
             <li className="inline-block relative">
@@ -54,14 +49,9 @@ export default function Sidebar() {
             <div className="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
               <div className="flex flex-wrap">
                 <div className="w-6/12">
-                  {/* <Link href="/">
-                    <a
-                      href="#pablo"
-                      className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                    >
-                      Notus NextJS
-                    </a>
-                  </Link> */}
+                  <Link href="/" className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">
+                    Notus NextJS
+                  </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
                   <button
@@ -95,41 +85,33 @@ export default function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
-                {/* <Link href="/admin/dashboard">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
+                <Link href="/admin/dashboard"
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (router.pathname.indexOf("/admin/dashboard") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }>
+                  <i className={
+                      "fas fa-tv mr-2 text-sm " +
                       (router.pathname.indexOf("/admin/dashboard") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
+                        ? "opacity-75"
+                        : "text-blueGray-300")
                     }
-                  >
-                    <i
-                      className={
-                        "fas fa-tv mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/dashboard") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>{" "}
+                  ></i>{" "}
                     Dashboard
-                  </a>
-                </Link> */}
+                </Link>
               </li>
 
-              {/* <li className="items-center">
-                <Link href="/admin/tables">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/tables") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
+              <li className="items-center">
+                <Link href="/admin/tables"
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (router.pathname.indexOf("/admin/tables") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }>
+                  <i
                       className={
                         "fas fa-table mr-2 text-sm " +
                         (router.pathname.indexOf("/admin/tables") !== -1
@@ -137,10 +119,9 @@ export default function Sidebar() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Tables
-                  </a>
+                  Tables
                 </Link>
-              </li> */}
+              </li>
 
               <li className="items-center">
                 <div className="w-full flex flex-row items-center">
@@ -176,20 +157,28 @@ export default function Sidebar() {
                       "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
                   }>
 					        	<li>
-                      {/* <Link href="/admin/tree">
-					        	  	<a href="#"
-					        	  		className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/tree") !== -1
-                          ? "text-gray-900"
-                          : "text-red-100")+" transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"}>Tree</a>
-                      </Link> */}
+                      <Link href="/admin/tree"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/tree") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Tree
+					        	  </Link>
 					        	</li>
 					        	<li>
-					        		<a href="#"
-					        			className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Total Team</a>
+                      <Link href="/admin/tree"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/tree") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Total Team
+					        	  </Link>
 					        	</li>
 					        	<li>
-					        		<a href="#"
-					        			className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Block User</a>
+                      <Link href="/admin/tree"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/tree") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Block User
+					        	  </Link>
 					        	</li>
 					        </ul>
                 </div>  
@@ -229,18 +218,28 @@ export default function Sidebar() {
                     "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
                   }>
 					      	  <li>
-                      {/* <Link href="/admin/bonus">
-					      	    	<a href="#"
-					      	    		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Payout</a>
-                      </Link> */}
+                      <Link href="/admin/bonus"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/bonus") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Payout
+					        	  </Link>
 					      	  </li>
 					      	  <li>
-					      	  	<a href="#"
-					      	  		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Transfered fund</a>
-					      	  </li>
+                      <Link href="/admin/bonus"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/bonus") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Transfered fund
+					        	  </Link>
+                    </li>
 					      	  <li>
-					      	  	<a href="#"
-					      	  		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Wallet History</a>
+                      <Link href="/admin/bonus"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/bonus") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Wallet History
+					        	  </Link>
 					      	  </li>
 					        </ul>
                 </div>  
@@ -280,34 +279,41 @@ export default function Sidebar() {
                     "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
                   }>
 					      	  <li>
-                      {/* <Link href="/admin/repport">
-					      	    	<a href="#"
-					      	    		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Income</a>
-                      </Link> */}
+                      <Link href="/admin/repport"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/repport") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                       Income
+					        	  </Link>
 					      	  </li>
 					      	  <li>
-					      	  	<a href="#"
-					      	  		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">E-pin</a>
+                      <Link href="/admin/repport"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/repport") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                       E-pin
+					        	  </Link>
 					      	  </li>
 					      	  <li>
-					      	  	<a href="#"
-					      	  		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Joining</a>
+                      <Link href="/admin/repport"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/repport") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Joining
+					        	  </Link>
 					      	  </li>
 					        </ul>
                 </div>  
               </li>
 
               <li className="items-center">
-                {/* <Link href="/admin/settings">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/settings") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
+                <Link href="/admin/settings"
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (router.pathname.indexOf("/admin/settings") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }>
                     <i
                       className={
                         "fas fa-headset mr-2 text-sm " +
@@ -317,11 +323,20 @@ export default function Sidebar() {
                       }
                     ></i>{" "}
                     Support
-                  </a>
-                </Link> */}
+                </Link>
               </li>
+              </ul>
 
-              <li className="items-center">
+            {/* Divider */}
+            <hr className="my-4 md:min-w-full" />
+            {/* Heading */}
+            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+              Auth Layout Pages
+            </h6>
+            {/* Navigation */}
+
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            <li className="items-center">
                 <div className="w-full flex flex-row items-center">
                 <a
                   href="#pablo"
@@ -340,12 +355,12 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-tools mr-2 text-sm" +
-                      (router.pathname.indexOf("/admin/settings") !== -1
+                      (router.pathname.indexOf("/users/profiles") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Tools
+                  Setting
                 </a>
                 <i className={"fas "+ (settingDropdown ? "fa-chevron-up" : "fa-chevron-down") + " mr-2 text-sm opacity-75 text-blueGray-300"}></i>
                 </div>
@@ -355,183 +370,23 @@ export default function Sidebar() {
                     "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
                   }>
 					      	  <li>
-                      {/* <Link href="/admin/settings">
-					      	    	<a href="#"
-					      	    		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Profile</a>
-                      </Link> */}
+                      <Link href="/users/profiles"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/users/profiles") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Profile
+					        	  </Link>
 					      	  </li>
 					      	  <li>
-					      	  	<a href="#"
-					      	  		className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Refferal</a>
+                      <Link href="/admin/settings"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/settings") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Refferal
+					        	  </Link>
 					      	  </li>
 					        </ul>
                 </div>  
-              </li>
-
-              </ul>
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Auth Layout Pages
-            </h6>
-            {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
-                {/* <Link href="/auth/login">
-                  <a
-                    href="#pablo"
-                    className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  >
-                    <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{" "}
-                    Login
-                  </a>
-                </Link> */}
-              </li>
-
-              <li className="items-center">
-                {/* <Link href="/auth/register">
-                  <a
-                    href="#pablo"
-                    className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  >
-                    <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{" "}
-                    Register
-                  </a>
-                </Link> */}
-              </li>
-            </ul>
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              No Layout Pages
-            </h6>
-            {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="items-center">
-                {/* <Link href="/landing">
-                  <a
-                    href="#pablo"
-                    className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  >
-                    <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
-                    Landing Page
-                  </a>
-                </Link> */}
-              </li>
-
-              <li className="items-center">
-                {/* <Link href="/profile">
-                  <a
-                    href="#pablo"
-                    className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  >
-                    <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                    Profile Page
-                  </a>
-                </Link> */}
-              </li>
-            </ul>
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Documentation
-            </h6>
-            {/* Navigation */}
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/colors/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fas fa-paint-brush mr-2 text-blueGray-300 text-base"></i>
-                  Styles
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/alerts/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-css3-alt mr-2 text-blueGray-300 text-base"></i>
-                  CSS Components
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-angular mr-2 text-blueGray-300 text-base"></i>
-                  Angular
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-js-square mr-2 text-blueGray-300 text-base"></i>
-                  Javascript
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-react mr-2 text-blueGray-300 text-base"></i>
-                  NextJS
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-react mr-2 text-blueGray-300 text-base"></i>
-                  React
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/svelte/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fas fa-link mr-2 text-blueGray-300 text-base"></i>
-                  Svelte
-                </a>
-              </li>
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
-                >
-                  <i className="fab fa-vuejs mr-2 text-blueGray-300 text-base"></i>
-                  VueJS
-                </a>
               </li>
             </ul>
           </div>

@@ -10,7 +10,7 @@ function* doGetDepositList() {
     
       yield put(PaymentActions.doGetDepositListSuccess(data?.data));
     } catch (error) {
-      yield put(PaymentActions.doGetDepositListSuccess(error));
+      yield put(PaymentActions.doGetDepositListFailure(error));
     }
 }
 

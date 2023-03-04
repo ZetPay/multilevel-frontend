@@ -13,6 +13,7 @@ export const AuthActions = {
     type: Types.POST_LOGIN_FAILURE,
     error,
   }),
+
   // register
   doRegisterRequest: data => ({
     type: Types.POST_REGISTER_REQUEST,
@@ -26,6 +27,7 @@ export const AuthActions = {
     type: Types.POST_REGISTER_FAILURE,
     error,
   }),
+
   // verification
   doVerificationRequest: data => ({
     type: Types.POST_VERIFICATION_REQUEST,
@@ -39,6 +41,7 @@ export const AuthActions = {
     type: Types.POST_VERIFICATION_FAILURE,
     error,
   }),
+
   // check ref
   doCheckRefRequest: data => ({
     type: Types.CHECK_REF_REQUEST,
@@ -52,6 +55,7 @@ export const AuthActions = {
     type: Types.CHECK_REF_FAILURE,
     error,
   }),
+
   //upload avatar
   doUploadAvatarRequest: data => ({
     type: Types.UPLOAD_AVATAR_REQUEST,
@@ -115,6 +119,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         login: {data: [], fetching: false, error: action.error},
       };
+      
     // Register
     case Types.POST_REGISTER_REQUEST:
       return {
@@ -131,6 +136,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         register: {data: [], fetching: false, error: action.error},
       };
+
     // verivication otp
     case Types.POST_VERIFICATION_REQUEST:
       return {
@@ -147,6 +153,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         verif: {data: [], fetching: false, error: action.error},
       };
+
     // check ref
     case Types.CHECK_REF_REQUEST:
       return {
@@ -163,6 +170,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         ref: {data: [], fetching: false, error: action.error},
       };
+
     // upload avatar
     case Types.UPLOAD_AVATAR_REQUEST:
       return {
@@ -179,6 +187,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         avatar: {data: [], fetching: false, error: action.error},
       }; 
+
     // upload avatar
     case Types.CHECK_POSITION_REQUEST:
       return {
@@ -195,6 +204,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         position: {data: [], fetching: false, error: action.error},
       }; 
+
     // destroy users data
     case Types.DESTROY_USER_DATA:
       return {

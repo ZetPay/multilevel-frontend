@@ -44,46 +44,29 @@ const PagesDropdown = (props) => {
         >
           Admin Layout
         </span>
-        {/* <Link href="/admin/dashboard">
-          <a
-            href="#pablo"
-            className={
+        <Link 
+          className={
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
+            } href="/admin/dashboard">
             Dashboard
-          </a>
-        </Link> */}
-        {/* <Link href="/admin/settings">
-          <a
-            href="#pablo"
-            className={
+        </Link>
+        <Link 
+          className={
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Settings
-          </a>
-        </Link> */}
-        {/* <Link href="/admin/tables">
-          <a
-            href="#pablo"
-            className={
+            } href="/admin/settings">
+          Settings
+        </Link>
+        <Link 
+           className={
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Tables
-          </a>
-        </Link> */}
-        {/* <Link href="/admin/maps">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Maps
-          </a>
-        </Link> */}
+            } href="/admin/tables">
+          Tables
+        </Link>
+        <Link href="/admin/maps" className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }>
+          Maps
+        </Link>
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
@@ -92,26 +75,20 @@ const PagesDropdown = (props) => {
         >
           Auth Layout
         </span>
-        {/* <Link href="/auth/login">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Login
-          </a>
-        </Link> */}
-        {/* <Link href="/auth/register">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Register
-          </a>
-        </Link> */}
+        <Link 
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          } 
+          href="/auth/login">
+          Login
+        </Link>
+        <Link 
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          href="/auth/register">
+          Register
+        </Link>
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
@@ -120,26 +97,20 @@ const PagesDropdown = (props) => {
         >
           No Layout
         </span>
-        {/* <Link href="/landing">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Landing
-          </a>
-        </Link> */}
-        {/* <Link href="/profile">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Profile
-          </a>
-        </Link> */}
+        <Link
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          } 
+          href="/landing">
+          Landing
+        </Link>
+        <Link 
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          href="/profile">
+          Profile
+        </Link>
       </div>
     </>
   );

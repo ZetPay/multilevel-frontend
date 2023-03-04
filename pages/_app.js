@@ -75,7 +75,7 @@ const MyApp = (props) => {
 
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate persistor={persistor} loading={null}>
         <MainApp />
       </PersistGate>
     </Provider>

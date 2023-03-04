@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Link from "next/link";
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from "react-redux";
+import { useAlert } from "react-alert";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -14,6 +15,7 @@ import Input from "components/Atoms/Input/Input";
 import { AuthActions } from "store/redux/authReducer";
 
 export default function Login() {
+  const alert = useAlert()
   const router = useRouter()
   const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState(false)
@@ -31,6 +33,8 @@ export default function Login() {
           email: email,
           password: password
         },
+        message: (msg) => alert.success(msg),
+        error: (msg) => alert.error(msg),
         navigate: () => {
           router.push("/admin/dashboard")
         }
@@ -133,7 +137,7 @@ export default function Login() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <Button label="Login" type="submit" isFetching={auth?.login?.fetching} />
+                    <Button label="Login" type="submit" disabled={auth?.login?.fetching} isFetching={auth?.login?.fetching} />
                   </div>
                   <div className="flex flex-row align-center">
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
@@ -152,7 +156,7 @@ export default function Login() {
             <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
                 <a
-                  href="#pablo"
+                  href="#log"
                   onClick={(e) => e.preventDefault()}
                   className="text-blueGray-200"
                 >

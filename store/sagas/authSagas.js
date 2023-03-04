@@ -1,4 +1,4 @@
-import { alertMessage } from 'helper/alertHandler';
+import Cookies from 'js-cookie';
 import {call, put, takeLatest } from 'redux-saga/effects';
 import { api, URL } from 'services/api';
 import { Types } from 'store/actionTypes';
@@ -10,10 +10,17 @@ function* doLogin(data) {
     const response = yield call(api.post, URL.LOGIN, payload?.data);
 
     yield put(AuthActions.doLoginSuccess(response.data));
-    api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token?.token}`;
-    payload?.navigate();
+    api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
+    
+    Cookies.set("logedin",response?.data?.data?.token)
+    payload?.message("Login SuccessFuly!")
+    
+    setTimeout(() => {
+      payload?.navigate();
+    }, 1000);
   } catch (error) {
-    yield put(AuthActions.doLoginSuccess(error));
+    data?.payload?.error("Username or password invalid!")
+    yield put(AuthActions.doLoginFailure(error));
   }
 }
 
@@ -39,7 +46,7 @@ function* doVerification(data) {
 
     yield put(AuthActions.doVerificationSuccess(response.data));
   } catch (error) {
-    yield put(AuthActions.doVerificationSuccess([]));
+    yield put(AuthActions.doVerificationFailure(error));
   }
 }
 

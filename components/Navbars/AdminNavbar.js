@@ -1,8 +1,10 @@
 import React from "react";
 
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import { useRouter } from "next/router";
 
-export default function Navbar() {
+export default function Navbar(props) {
+  const { title } = props
   return (
     <>
       {/* Navbar */}
@@ -14,7 +16,7 @@ export default function Navbar() {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            Dashboard
+          {title}
           </a>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">

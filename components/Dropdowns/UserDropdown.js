@@ -1,15 +1,16 @@
 import React from "react";
-import Link from "next/link";
 import { createPopper } from "@popperjs/core";
+import { useRouter } from "next/router";
 
 const UserDropdown = () => {
+  const router = useRouter();
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: "bottom-start",
+      placement: 'auto'
     });
     setDropdownPopoverShow(true);
   };
@@ -17,7 +18,7 @@ const UserDropdown = () => {
     setDropdownPopoverShow(false);
   };
   return (
-    <>
+    <div>
       <a
         className="text-blueGray-500 block"
         href="#pablo"
@@ -72,18 +73,19 @@ const UserDropdown = () => {
           Something else here
         </a>
         <div className="h-0 my-2 border border-solid border-blueGray-100" />
-        {/* <Link href="/auth/login">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Logout
-          </a>
-        </Link> */}
+        <a
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          } 
+          href="#profile"
+          onClick={e => {
+            e.preventDefault();
+            router.replace('/')
+          }}>
+          Logout
+        </a>
       </div>
-    </>
+    </div>
   );
 };
 
