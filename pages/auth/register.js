@@ -22,27 +22,27 @@ export default function Register() {
   const [termConst, setTermConst] = useState(false)
   const [refCode, setRefCode] = useState('')
   const [passwordType, setPasswordType] = useState(false)
-  const { deposit_list : { data, fetching } } = useSelector(state => state.paymentReducer);
+  const { deposit_list: { data, fetching } } = useSelector(state => state.paymentReducer);
   const authData = useSelector(state => state.authReducer);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(PaymentActions.doGetDepositListRequest());
-  },[])
+  }, [])
 
   const debounced = useDebouncedCallback((value) => {
     setRefCode(value)
     dispatch(AuthActions.doCheckRefRequest({
-      reff_code: value
+      referral_code: value
     }))
-  },1000);
+  }, 1000);
 
   const onChcekLocation = (val) => {
     dispatch(AuthActions.doCheckPositionRequest({
-      data : {
-        reff_code: refCode,
+      data: {
+        referral_code: refCode,
         position: val
       },
-      message: (type,msg) => type === "error" ? alert.error(msg) : alert.success(msg)
+      message: (type, msg) => type === "error" ? alert.error(msg) : alert.success(msg)
     }))
   }
 
@@ -59,14 +59,14 @@ export default function Register() {
     },
     onSubmit: value => {
       const { email, username, password, phone, position, paket } = value
-      if(authData?.position?.data?.status === "success" || refCode.length === 0){
-        if(termConst){
+      if (authData?.position?.data?.status === "success" || refCode.length === 0) {
+        if (termConst) {
           dispatch(AuthActions.doRegisterRequest({
             data: {
               name: username,
               email: email,
               password: password,
-              reff_code: authData?.ref?.data?.status === "success" ? refCode : null,
+              referral_code: authData?.ref?.data?.status === "success" ? refCode : null,
               position: position?.length > 0 && refCode.length > 0 ? position : null,
               deposit_id: paket,
               phone: phone
@@ -76,13 +76,13 @@ export default function Register() {
             navigate: () => {
               setTimeout(() => {
                 router.push('/auth/login')
-              },5000)
+              }, 5000)
             }
           }))
-        }else{
+        } else {
           alert.info("Please agree with the Privacy Policy!")
         }
-      }else{
+      } else {
         alert.info("Please select an available position!")
       }
     },
@@ -120,87 +120,87 @@ export default function Register() {
                 </div>
                 <form onSubmit={formik.handleSubmit}>
                   <div className="relative w-full mb-3">
-                    <Input 
-                      type="text" 
-                      label="Username" 
-                      placeholder="Input username" 
+                    <Input
+                      type="text"
+                      label="Username"
+                      placeholder="Input username"
                       name="username"
                       value={formik.values.name}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{borderColor: formik.errors.username ? 'red' : ''}}
+                      style={{ borderColor: formik.errors.username ? 'red' : '' }}
                     />
-                    { formik.errors.username && (
+                    {formik.errors.username && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.username}</p>
                     )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <Input 
-                      type="email" 
-                      label="Email" 
-                      placeholder="Input Email" 
+                    <Input
+                      type="email"
+                      label="Email"
+                      placeholder="Input Email"
                       name="email"
                       value={formik.values.email}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{borderColor: formik.errors.email ? 'red' : ''}}
+                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
                     />
-                    { formik.errors.email && (
+                    {formik.errors.email && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
                     )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <Input 
-                      type={passwordType ? "text" : "password"} 
-                      label="Password" 
+                    <Input
+                      type={passwordType ? "text" : "password"}
+                      label="Password"
                       placeholder="Input Password"
                       name="password"
                       value={formik.values.password}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{borderColor: formik.errors.password ? 'red' : ''}}
+                      style={{ borderColor: formik.errors.password ? 'red' : '' }}
                     />
                     <div
                       className="absolute top-0 right-0 text-blueGray-400 bg-transparent rounded text-base font-normal block w-8 py-3 px-1 leading-normal cursor-pointer text-center mt-6 mr-2"
                       onClick={() => { setPasswordType(!passwordType) }}>
-                        {
-                          passwordType ? <i className="fas fa-eye-slash"></i> :  <i className="fas fa-eye"></i>
-                        }
+                      {
+                        passwordType ? <i className="fas fa-eye-slash"></i> : <i className="fas fa-eye"></i>
+                      }
                     </div>
-                    { formik.errors.password && (
+                    {formik.errors.password && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.password}</p>
                     )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <Input 
-                      type="number" 
-                      label="Phone" 
+                    <Input
+                      type="number"
+                      label="Phone"
                       placeholder="Input Phone Number"
                       name="phone"
                       value={formik.values.phone}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{borderColor: formik.errors.phone ? 'red' : ''}} 
+                      style={{ borderColor: formik.errors.phone ? 'red' : '' }}
                     />
-                    { formik.errors.phone && (
+                    {formik.errors.phone && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.phone}</p>
                     )}
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <Input 
-                      type="text" 
-                      label="Referal Code" 
+                    <Input
+                      type="text"
+                      label="Referal Code"
                       placeholder="Input Referal Code"
                       name="referal"
                       onChange={(e) => debounced(e.target.value)}
                       // onBlur={formik.handleBlur}
-                      style={{borderColor: formik.errors.referal ? 'red' : ''}} 
+                      style={{ borderColor: formik.errors.referal ? 'red' : '' }}
                     />
-                    { formik.errors.referal && (
+                    {formik.errors.referal && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.referal}</p>
                     )}
                   </div>
@@ -208,10 +208,10 @@ export default function Register() {
                   <div className="relative w-full mb-4">
                     {
                       refCode?.length > 0 && (
-                        <Option 
-                          label="Position" 
-                          placeholder="Chose Position" 
-                          data={["left","right"]}
+                        <Option
+                          label="Position"
+                          placeholder="Chose Position"
+                          data={["left", "right"]}
                           name="position"
                           value={formik.values.position}
                           onChange={(val) => {
@@ -219,28 +219,28 @@ export default function Register() {
                             onChcekLocation(val.target.value)
                           }}
                           onBlur={formik.handleBlur}
-                          style={{borderColor: formik.errors.position ? 'red' : ''}}>
+                          style={{ borderColor: formik.errors.position ? 'red' : '' }}>
                           <option label="Chose Deposite" value="default" ></option>
-                          {["left","right"]?.map((item, index) => (
+                          {["left", "right"]?.map((item, index) => (
                             <option key={index} value={item}>{item}</option>
                           ))}
                         </Option>
                       )
                     }
-                    { formik.errors.position && (
+                    {formik.errors.position && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.position}</p>
                     )}
                   </div>
 
                   <div className="relative w-full mb-4">
-                    <Option 
-                      label="Select Packet Deposit" 
-                      placeholder="Chose Deposite" 
+                    <Option
+                      label="Select Packet Deposit"
+                      placeholder="Chose Deposite"
                       name="paket"
                       value={formik.values.paket}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{borderColor: formik.errors.paket ? 'red' : ''}} >
+                      style={{ borderColor: formik.errors.paket ? 'red' : '' }} >
                       <option label="Chose Deposite" value="default" ></option>
                       {
                         fetching ? (
@@ -250,7 +250,7 @@ export default function Register() {
                         ))
                       }
                     </Option>
-                    { formik.errors.paket && (
+                    {formik.errors.paket && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.paket}</p>
                     )}
                   </div>
@@ -280,7 +280,7 @@ export default function Register() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <Button label="Register" isFetching={authData?.register?.fetching} disabled={authData?.register?.fetching} type="submit"  />
+                    <Button label="Register" isFetching={authData?.register?.fetching} disabled={authData?.register?.fetching} type="submit" />
                   </div>
                   <div className="flex flex-row align-center">
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
@@ -288,7 +288,7 @@ export default function Register() {
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
                   </div>
                   <div className="text-center mt-2">
-                    <Button label="Login" type="URL" href="/auth/login"/>
+                    <Button label="Login" type="URL" href="/auth/login" />
                   </div>
                 </form>
               </div>
