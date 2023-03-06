@@ -32,14 +32,14 @@ export default function Register() {
   const debounced = useDebouncedCallback((value) => {
     setRefCode(value)
     dispatch(AuthActions.doCheckRefRequest({
-      referral_code: value
+      referrer_code: value
     }))
   }, 1000);
 
   const onChcekLocation = (val) => {
     dispatch(AuthActions.doCheckPositionRequest({
       data: {
-        referral_code: refCode,
+        referrer_code: refCode,
         position: val
       },
       message: (type, msg) => type === "error" ? alert.error(msg) : alert.success(msg)
@@ -66,7 +66,7 @@ export default function Register() {
               name: username,
               email: email,
               password: password,
-              referral_code: authData?.ref?.data?.status === "success" ? refCode : null,
+              referrer_code: authData?.ref?.data?.status === "success" ? refCode : null,
               position: position?.length > 0 && refCode.length > 0 ? position : null,
               deposit_id: paket,
               phone: phone
