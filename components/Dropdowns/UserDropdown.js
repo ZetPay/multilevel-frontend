@@ -1,6 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const UserDropdown = () => {
   const router = useRouter();
@@ -80,6 +81,7 @@ const UserDropdown = () => {
           href="#profile"
           onClick={e => {
             e.preventDefault();
+            Cookies.remove('logedin')
             router.replace('/')
           }}>
           Logout
