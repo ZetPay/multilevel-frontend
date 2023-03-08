@@ -382,7 +382,7 @@ export default function Sidebar() {
                         className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/settings") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Refferal
+                        Referral
 					        	  </Link>
 					      	  </li>
 					        </ul>
