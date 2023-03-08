@@ -246,7 +246,7 @@ export default function Register() {
                         fetching ? (
                           <option></option>
                         ) : (data?.length > 0 ? data : []).map((item, index) => (
-                          <option key={index} value={item?.id}>Rp {formatMoney(item?.nominal)}</option>
+                          <option key={index} value={item?.id}>{item?.name} Rp {formatMoney(item?.nominal)}</option>
                         ))
                       }
                     </Option>

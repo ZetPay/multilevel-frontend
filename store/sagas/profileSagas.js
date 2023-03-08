@@ -14,6 +14,19 @@ function* doGetProfile() {
     }
 }
 
+function* doUpdateProfile(param) {
+  try {
+    const { payload } = param;
+    const { data } = yield call(api.put, URL.UPDATE_PROFILE, payload);
+  
+    yield put(ProfileActions.doUpdateProfileSuccess(data?.data));
+  } catch (error) {
+    console.log(error)
+    yield put(ProfileActions.doUpdateProfileFailure(error));
+  }
+}
+
 export default function* actionWatchProfile() {
   yield takeLatest(Types.GET_PROFILE_REQUEST, doGetProfile);
+  yield takeLatest(Types.UPDATE_PROFILE_REQUEST, doUpdateProfile);
 }

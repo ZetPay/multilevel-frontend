@@ -2,7 +2,7 @@ import {all, fork} from 'redux-saga/effects';
 
 import actionWatchAuth from './authSagas';
 import actionWatchPayment from './paymentSagas';
-import actionWatchProfile from './profileReducer';
+import actionWatchProfile from './profileSagas';
 
 export default function* rootSagas() {
   yield all([

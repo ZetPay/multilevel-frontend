@@ -28,11 +28,12 @@ export default function Login() {
     },
     onSubmit: value => {
       const { email, password } = value
+      let data = new FormData();
+      data.append("email",email)
+      data.append("password",password)
+
       dispatch(AuthActions.doLoginRequest({
-        data: {
-          email: email,
-          password: password
-        },
+        data: data,
         message: (msg) => alert.success(msg),
         error: (msg) => alert.error(msg),
         navigate: () => {

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 const api = axios.create({
-  baseURL: `http://164.92.251.112/api/`,
-  timeout: 1000,
+  baseURL: `https://cerberus.cikupalearningcenter.com/api/`,
   headers: {
-    'accept': 'application/json',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
     'Authorization': `Bearer ${Cookies.get('logedin')}`
   },
 });
@@ -14,6 +14,7 @@ const URL = {
     REGISTER: 'auth/register',
     PROFILE: 'profile',
     CHECK_POSITION: 'check-position',
+    UPDATE_PROFILE: 'profile/update',
     // payment
     DEPOSIT_LIST: 'list-deposit',
     VALIDATE_REFERAL: 'check-code'
