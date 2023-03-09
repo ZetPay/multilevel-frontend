@@ -59,7 +59,10 @@ export default function Profiles(){
       paket: '',
     },
     onSubmit: val => {
-
+      let data = new FormData();
+      data.append("deposit_id", val.paket)
+      data.append("payment_method",paymentMethode)
+      dispatch(PaymentActions.doUpgradePaketRequest(data))
     },
     validationSchema: yup.object({
       paket: yup.string().required()

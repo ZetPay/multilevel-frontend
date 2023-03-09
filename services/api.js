@@ -15,6 +15,7 @@ const URL = {
     PROFILE: 'profile',
     CHECK_POSITION: 'check-position',
     UPDATE_PROFILE: 'profile/update',
+    UPDATE_PAKET: 'profile/upgrade',
     // payment
     DEPOSIT_LIST: 'list-deposit',
     VALIDATE_REFERAL: 'check-code'

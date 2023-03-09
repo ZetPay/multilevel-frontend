@@ -14,6 +14,17 @@ function* doGetDepositList() {
     }
 }
 
+function* doUpgradePaketDeposit(data) {
+  try {
+    const { data } = yield call(api.post, URL.UPDATE_PAKET, data);
+  
+    yield put(PaymentActions.doUpgradePaketSuccess(data?.data));
+  } catch (error) {
+    yield put(PaymentActions.doUpgradePaketFailure(error));
+  }
+}
+
 export default function* actionWatchPayment() {
   yield takeLatest(Types.GET_DEPOSIT_LIST_REQUEST, doGetDepositList);
+  yield takeLatest(Types.UPGRADE_PAKET_REQUEST, doUpgradePaketDeposit);
 }
