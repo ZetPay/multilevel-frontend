@@ -16,9 +16,10 @@ function* doGetDepositList() {
 
 function* doUpgradePaketDeposit(data) {
   try {
-    const { data } = yield call(api.post, URL.UPDATE_PAKET, data);
+    const {payload} = data;
+    const response = yield call(api.post, URL.UPDATE_PAKET, payload);
   
-    yield put(PaymentActions.doUpgradePaketSuccess(data?.data));
+    yield put(PaymentActions.doUpgradePaketSuccess(response?.data));
   } catch (error) {
     yield put(PaymentActions.doUpgradePaketFailure(error));
   }

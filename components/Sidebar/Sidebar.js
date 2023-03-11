@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import { AiOutlinePoweroff } from "react-icons/ai";
+import { FaHeadset, FaChartLine, FaWallet } from "react-icons/fa";
 import { useRouter } from "next/router";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
@@ -27,7 +29,7 @@ export default function Sidebar() {
           </button>
           {/* Brand */}
           <Link href="/" className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">
-            Notus NextJS
+            Multilevel
           </Link>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
@@ -50,7 +52,7 @@ export default function Sidebar() {
               <div className="flex flex-wrap">
                 <div className="w-6/12">
                   <Link href="/" className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">
-                    Notus NextJS
+                    Multilevel
                   </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
@@ -79,7 +81,7 @@ export default function Sidebar() {
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Admin Layout Pages
+              Main Menu
             </h6>
             {/* Navigation */}
 
@@ -104,6 +106,46 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
+                <Link href="/member/investasi/invest"
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (router.pathname.indexOf("/member/investasi/invest") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }>
+                    <div className="flex items-center">
+                      <FaChartLine
+                        color={ router.pathname.indexOf("/member/investasi/invest") !== -1 ?  "#4AA3E3" : "black"}
+                        className={router.pathname.indexOf("/member/investasi/invest") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300"} />
+                      <div className="px-1" />
+                      Investasi
+                    </div>
+                </Link>
+              </li>
+
+              <li className="items-center">
+                <Link href="/member/wallet/wallet"
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (router.pathname.indexOf("/member/wallet/wallet") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }>
+                    <div className="flex items-center">
+                      <FaWallet
+                        color={ router.pathname.indexOf("/member/wallet/wallet") !== -1 ?  "#4AA3E3" : "black"}
+                        className={router.pathname.indexOf("/member/wallet/wallet") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300"} />
+                      <div className="px-1" />
+                      Wallet
+                    </div>
+                </Link>
+              </li>
+
+              <li className="items-center">
                 <Link href="/admin/tables"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -123,6 +165,8 @@ export default function Sidebar() {
                 </Link>
               </li>
 
+              
+
               <li className="items-center">
                 <div className="w-full flex flex-row items-center">
                   <a
@@ -134,7 +178,7 @@ export default function Sidebar() {
                     }}
                     className={
                       "text-xs w-full uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/maps") !== -1
+                      (router.pathname.indexOf("/member/genealogy") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
@@ -142,7 +186,7 @@ export default function Sidebar() {
                     <i
                       className={
                         "fas fa-users mr-2 text-sm" +
-                        (router.pathname.indexOf("/admin/maps") !== -1
+                        (router.pathname.indexOf("/member/genealogy") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
@@ -157,24 +201,24 @@ export default function Sidebar() {
                       "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
                   }>
 					        	<li>
-                      <Link href="/admin/tree"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/tree") !== -1
+                      <Link href="/member/genealogy/trees"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/trees") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
                         Tree
 					        	  </Link>
 					        	</li>
 					        	<li>
-                      <Link href="/admin/tree"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/tree") !== -1
+                      <Link href="/member/genealogy/totalteam"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/totalteam") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
                         Total Team
 					        	  </Link>
 					        	</li>
 					        	<li>
-                      <Link href="/admin/tree"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/tree") !== -1
+                      <Link href="/member/genealogy/blockuser"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/blockuser") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
                         Block User
@@ -195,7 +239,7 @@ export default function Sidebar() {
                   }}
                   className={
                     "text-xs w-full uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/admin/bonus") !== -1
+                    (router.pathname.indexOf("/member/bonus") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -203,7 +247,7 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-money-bill-wave mr-2 text-sm" +
-                      (router.pathname.indexOf("/admin/bonus") !== -1
+                      (router.pathname.indexOf("/member/bonus") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -218,27 +262,27 @@ export default function Sidebar() {
                     "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
                   }>
 					      	  <li>
-                      <Link href="/admin/bonus"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/bonus") !== -1
+                      <Link href="/member/bonus/level"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/bonus/level") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Payout
+                        Bonus Level
 					        	  </Link>
 					      	  </li>
 					      	  <li>
-                      <Link href="/admin/bonus"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/bonus") !== -1
+                      <Link href="/member/bonus/sponsor"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/bonus/sponsor") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Transfered fund
+                        Bonus Sponsor
 					        	  </Link>
                     </li>
 					      	  <li>
-                      <Link href="/admin/bonus"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/bonus") !== -1
+                      <Link href="/member/bonus/pairing"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/bonus/pairing") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Wallet History
+                        Bonus Pairing
 					        	  </Link>
 					      	  </li>
 					        </ul>
@@ -314,29 +358,21 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }>
-                    <i
-                      className={
-                        "fas fa-headset mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/settings") !== -1
+                    <div className="flex items-center">
+                      <FaHeadset
+                        color="black"
+                        className={router.pathname.indexOf("/admin/settings") !== -1
                           ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>{" "}
-                    Support
+                          : "text-blueGray-300"} />
+                      <div className="px-1" />
+                      Support
+                    </div>
                 </Link>
               </li>
-              </ul>
+            </ul>
 
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Auth Layout Pages
-            </h6>
-            {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-            <li className="items-center">
+              <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+                <li className="items-center">
                 <div className="w-full flex flex-row items-center">
                 <a
                   href="#pablo"
@@ -370,7 +406,7 @@ export default function Sidebar() {
                     "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
                   }>
 					      	  <li>
-                      <Link href="/users/profiles"
+                      <Link href="/member/profile/profiles"
                         className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/users/profiles") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
@@ -378,15 +414,42 @@ export default function Sidebar() {
 					        	  </Link>
 					      	  </li>
 					      	  <li>
-                      <Link href="/admin/settings"
+                      <Link href="/member/profile/rekeningbank"
                         className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/settings") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Referral
+                        Rekening Bank
+					        	  </Link>
+					      	  </li>
+                    <li>
+                      <Link href="/member/profile/keamanan"
+                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/settings") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
+                        Keamanan
 					        	  </Link>
 					      	  </li>
 					        </ul>
                 </div>  
+              </li>
+
+              <li className="items-center">
+                <Link href="/admin/tables"
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (router.pathname.indexOf("/admin/tables") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }>
+                    <div className="flex align-center">
+                      <AiOutlinePoweroff size={17} color="black" className={
+                          router.pathname.indexOf("/admin/tables") !== -1
+                              ? "opacity-75"
+                              : "text-blueGray-300"}/>
+                      <div className="px-1" />
+                      Logout
+                    </div>
+                </Link>
               </li>
             </ul>
           </div>

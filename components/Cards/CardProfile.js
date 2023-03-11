@@ -3,7 +3,7 @@ import React from "react";
 // components
 
 export default function CardProfile(props) {
-  const { name, downline } = props
+  const { name, downline, paket } = props
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -23,28 +23,21 @@ export default function CardProfile(props) {
                 {name}
               </h3>
               <div className="flex justify-center py-2 lg:pt-4">
-                <div className="mr-4 p-3 text-center">
-                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                    {downline?.[0]?.user?.name}
-                  </span>
-                  <span className="text-sm text-blueGray-400">KIRI</span>
-                </div>
-                <div className="mr-4 p-3 text-center">
-                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                    VIP
-                  </span>
-                  <span className="text-sm text-blueGray-400">PAKET</span>
-                </div>
-                <div className="lg:mr-4 p-3 text-center">
-                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                  {downline?.[1]?.user?.name ? downline?.[1]?.user?.name : "-"}
-                  </span>
-                  <span className="text-sm text-blueGray-400">KANAN</span>
-                </div>
+                <table class="shadow-lg bg-white border-collapse w-full mb-4">
+                  <tr>
+                    <th class="bg-blue-100 border text-center px-2 py-4">Kiri</th>
+                    <th class="bg-blue-100 border text-center px-2 py-4">Paket</th>
+                    <th class="bg-blue-100 border text-center px-2 py-4">Kanan</th>
+                  </tr>
+                  <tr>
+                    <td class="border px-2 py-4">{`${downline?.[0]?.user?.name.substring(0, 5)}...`}</td>
+                    <td class="border px-2 py-4">{paket}</td>
+                    <td class="border px-2 py-4">{`${downline?.[1]?.user?.name.substring(0, 5)}...`}</td>
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </>
