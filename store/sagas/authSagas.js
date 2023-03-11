@@ -3,6 +3,7 @@ import {call, put, takeLatest } from 'redux-saga/effects';
 import { api, URL } from 'services/api';
 import { Types } from 'store/actionTypes';
 import { AuthActions } from 'store/redux/authReducer';
+import { ProfileActions } from 'store/redux/profileReducer';
 
 function* doLogin(data) {
   try {
@@ -11,6 +12,8 @@ function* doLogin(data) {
 
     yield put(AuthActions.doLoginSuccess(response.data));
     api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
+
+    yield put(ProfileActions.doGetProfileRequest())
     
     Cookies.set("logedin",response?.data?.data?.token)
     payload?.message("Login SuccessFuly!")

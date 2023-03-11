@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAlert } from "react-alert";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { AiOutlineCopy } from "react-icons/ai";
 
 // components
 
 export default function CardProfile(props) {
-  const { name, downline, paket } = props
+  const alert = useAlert()
+  const { name, downline, paket, referals } = props
+  const [referal, setReferal] = useState(referals)
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -22,12 +27,22 @@ export default function CardProfile(props) {
               <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2 mt-6">
                 {name}
               </h3>
+              <p class="bg-blue-100 border px-2 py-4 flex row items-center">
+                Referal: <b className="w-full">{referals}</b>
+                <CopyToClipboard text={referal}
+                  onCopy={() =>{
+                    alert.success("Referal coppied!")
+                    setReferal(referals)
+                  }}>
+                  <AiOutlineCopy />
+                </CopyToClipboard>
+              </p>
               <div className="flex justify-center py-2 lg:pt-4">
                 <table class="shadow-lg bg-white border-collapse w-full mb-4">
                   <tr>
-                    <th class="bg-blue-100 border text-center px-2 py-4">Kiri</th>
+                    <th class="bg-blue-100 border text-center px-2 py-4">{downline?.[0]?.position}</th>
                     <th class="bg-blue-100 border text-center px-2 py-4">Paket</th>
-                    <th class="bg-blue-100 border text-center px-2 py-4">Kanan</th>
+                    <th class="bg-blue-100 border text-center px-2 py-4">{downline?.[1]?.position}</th>
                   </tr>
                   <tr>
                     <td class="border px-2 py-4">{`${downline?.[0]?.user?.name.substring(0, 5)}...`}</td>

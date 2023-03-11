@@ -24,6 +24,34 @@ export default function Register() {
   const [passwordType, setPasswordType] = useState(false)
   const { deposit_list: { data, fetching } } = useSelector(state => state.paymentReducer);
   const authData = useSelector(state => state.authReducer);
+  const [paymentMethode, setPaymentMethode] = useState('')
+  const [payment] = useState([
+    {
+      id: 1,
+      name: "bca",
+      image: "/img/payment/ic_bca.png"
+    },
+    {
+      id: 2,
+      name: "bni",
+      image: "/img/payment/ic_bni.png"
+    },
+    {
+      id: 3,
+      name: "bri",
+      image: "/img/payment/ic_bri.png"
+    },
+    {
+      id: 5,
+      name: "ovo",
+      image: "/img/payment/ic_ovo.png"
+    },
+    {
+      id: 6,
+      name: "qris",
+      image: "/img/payment/ic_qris.png"
+    }
+  ])
 
   useEffect(() => {
     dispatch(PaymentActions.doGetDepositListRequest());
@@ -60,27 +88,32 @@ export default function Register() {
     onSubmit: value => {
       const { email, username, password, phone, position, paket } = value
       if (authData?.position?.data?.status === "success" || refCode.length === 0) {
-        if (termConst) {
-          dispatch(AuthActions.doRegisterRequest({
-            data: {
-              name: username,
-              email: email,
-              password: password,
-              referrer_code: authData?.ref?.data?.status === "success" ? refCode : null,
-              position: position?.length > 0 && refCode.length > 0 ? position : null,
-              deposit_id: paket,
-              phone: phone
-            },
-            message: (msg) => alert.success(msg),
-            error: (msg) => alert.error(msg),
-            navigate: () => {
-              setTimeout(() => {
-                router.push('/auth/login')
-              }, 5000)
-            }
-          }))
-        } else {
-          alert.info("Please agree with the Privacy Policy!")
+        if(paymentMethode?.length > 0){
+          if (termConst) {
+            dispatch(AuthActions.doRegisterRequest({
+              data: {
+                name: username,
+                email: email,
+                password: password,
+                referrer_code: authData?.ref?.data?.status === "success" ? refCode : null,
+                position: position?.length > 0 && refCode.length > 0 ? position : null,
+                deposit_id: paket,
+                phone: phone,
+                payment_method: paymentMethode
+              },
+              message: (msg) => alert.success(msg),
+              error: (msg) => alert.error(msg),
+              navigate: () => {
+                setTimeout(() => {
+                  router.push('/auth/login')
+                }, 5000)
+              }
+            }))
+          } else {
+            alert.info("Please agree with the Privacy Policy!")
+          }
+        }else{
+          alert.info("Payment methode is required!")
         }
       } else {
         alert.info("Please select an available position!")
@@ -253,6 +286,26 @@ export default function Register() {
                     {formik.errors.paket && (
                       <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.paket}</p>
                     )}
+                  </div>
+
+                  <div className="relative w-full mb-4">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password">
+                        Payment Methode
+                    </label>
+                    <div className="flex flex-wrap mb-6">
+                      {
+                        payment?.map((item,i) => (
+                          <div key={i} className="max-w-sm w-full lg:w-3/12 md:w-4/12 sm:w-2/12 px-2 mt-3">
+                            <button type="button" onClick={() => setPaymentMethode(item.name)} className={item?.name === paymentMethode ? "border border-red-500 rounded rounded-sm w-full flex " : "border border-blueGray-500 "+"rounded rounded-sm w-full flex "}>
+                              <img src={item.image} alt={item.name} className="py-3 px-3 h-12"/>
+                              {/* <p className="text-xs text-center font-regular text-gray-300 self-center">Fee Rp 2.500,-</p> */}
+                            </button>
+                          </div>
+                        ))
+                      }
+                    </div>
                   </div>
 
                   <div>

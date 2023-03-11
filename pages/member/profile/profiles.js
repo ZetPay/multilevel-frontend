@@ -23,7 +23,8 @@ export default function Profiles(){
           <CardProfile 
             name={profile?.data?.user?.name} 
             paket={profile?.data?.user?.deposit?.name} 
-            downline={profile?.data?.user?.downlines} />
+            downline={profile?.data?.user?.downlines}
+            referals={profile?.data?.user?.referral_code} />
         </div>
         <div className="w-full lg:w-6/12 px-4">
           <CardSettings />
