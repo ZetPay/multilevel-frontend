@@ -6,17 +6,20 @@ on:
       - master
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel
+      - name: Install dependencies
+        run: rm -rf yarn.lock && npm install --legacy-peer-deps && npm run build:tailwind
+
+      - name: Build application
+        run: npm run build
 
       - name: Deploy to Vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel --confirm --prod
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
