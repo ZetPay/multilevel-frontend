@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+
 const api = axios.create({
   baseURL: `https://cerberus.cikupalearningcenter.com/api/`,
   headers: {
@@ -16,6 +17,8 @@ const URL = {
     CHECK_POSITION: 'check-position',
     UPDATE_PROFILE: 'profile/update',
     UPDATE_PAKET: 'profile/upgrade',
+    BONUS_LEVEL: 'bonus/level',
+    BONUS_SPONSOR: 'bonus/sponsor',
     // payment
     DEPOSIT_LIST: 'list-deposit',
     VALIDATE_REFERAL: 'check-code'
