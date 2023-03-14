@@ -21,6 +21,7 @@ export default function Wallet() {
       name: "Date"
     }
   ])
+  
     return (
         <div className="flex flex-wrap bg-white">
             <div className="w-full lg:w-12/12 px-4">

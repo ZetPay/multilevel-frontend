@@ -12,6 +12,7 @@ export default function Invest(){
     const { deposit_list : { data, fetching } } = useSelector(state => state.paymentReducer);
     const [paymentMethode, setPaymentMethode] = useState('')
     const [paket, setPaket] = useState('')
+    const [fee, setFee] = useState('')
     const [payment] = useState([
       {
         id: 1,
@@ -44,6 +45,8 @@ export default function Invest(){
         image: "/img/payment/ic_qris.png"
       }
     ])
+
+    console.log("DUNIA",paket.id)
   
     useEffect(()=>{
       dispatch(PaymentActions.doGetDepositListRequest());
@@ -52,11 +55,11 @@ export default function Invest(){
     
     const onUpgradePaket = () => {
       console.log({
-        deposit_id: paket,
+        deposit_id: paket?.id,
         payment_method: paymentMethode
       })
       dispatch(PaymentActions.doUpgradePaketRequest({
-        deposit_id: paket,
+        deposit_id: paket?.id,
         payment_method: paymentMethode
       }))
     }
@@ -92,8 +95,8 @@ export default function Invest(){
                         <div key={index} className="max-w-sm w-full lg:w-3/12 md:w-4/12 sm:w-2/12 px-2 mt-3">
                           <button 
                             type="button" 
-                            onClick={() => setPaket(item?.id)} 
-                            className={paket === item?.id ? "w-full border border-red-500 rounded rounded-lg" : "w-full border border-blueGray-600"+" rounded rounded-lg"}>
+                            onClick={() => setPaket(item)} 
+                            className={paket?.id === item?.id ? "w-full border border-red-500 rounded rounded-lg" : "w-full border border-blueGray-600"+" rounded rounded-lg"}>
                             <div className="px-6 p-4">
                               <div className="mb-2">
                                 <p className="font-bold text-xl text-center">{item?.name}</p>
@@ -117,7 +120,10 @@ export default function Invest(){
                     {
                       payment?.map((item,i) => (
                         <div key={i} className="max-w-sm w-full lg:w-3/12 md:w-4/12 sm:w-2/12 px-2 mt-3">
-                          <button type="button" onClick={() => setPaymentMethode(item.name)} className={item?.name === paymentMethode ? "border border-red-500 rounded rounded-sm w-full flex " : "border border-blueGray-500 "+"rounded rounded-sm w-full flex "}>
+                          <button type="button" onClick={() => { 
+                            setFee(2500)
+                            setPaymentMethode(item.name)
+                          }} className={item?.name === paymentMethode ? "border border-red-500 rounded rounded-sm w-full flex " : "border border-blueGray-500 "+"rounded rounded-sm w-full flex "}>
                             <img src={item.image} alt={item.name} className="py-3 px-3 h-12"/>
                             <p className="text-xs text-center font-regular text-gray-300 self-center">Fee Rp 2.500,-</p>
                           </button>
@@ -132,11 +138,20 @@ export default function Invest(){
                       htmlFor="grid-password">
                       Summary
                     </label>
-                    <p className="block text-blueGray-600 text-xs font-medium mb-2">Paket Yang Dipilih : GOLD</p>
-                    <p className="block text-blueGray-600 text-xs font-medium mb-2">Harga Paket : Rp 3.500.000,-</p>
+                    <p className="block text-blueGray-600 text-xs font-medium mb-2">Paket Yang Dipilih : {paket?.name}</p>
+                    <p className="block text-blueGray-600 text-xs font-medium mb-2">Harga Paket : Rp {formatMoney(paket.nominal > 0 ? paket?.nominal : 0)},-</p>
                     <hr className="my-4 border-b-1 border-blueGray-300" />
-                    <p className="block text-blueGray-600 text-xs font-medium mb-2">Active Paket : SILVER</p>
-                    <p className="block text-blueGray-600 text-xs font-medium mb-2">Harga Paket : Rp 1.500.000,-</p>
+                    <p className="block text-blueGray-600 text-xs font-medium mb-2">Active Paket : {profile?.data?.user?.deposit?.name}</p>
+                    <p className="block text-blueGray-600 text-xs font-medium mb-2">Harga Paket : Rp {formatMoney(profile?.data?.user?.deposit?.nominal)},-</p>
+                    <hr className="my-4 border-b-1 border-blueGray-300" />
+                    {
+                      paymentMethode?.length > 0 && (
+                        <>
+                        <p className="block text-blueGray-600 text-xs font-medium mb-2">Admin Fee : Rp {formatMoney(fee)},-</p>
+                        <hr className="my-4 border-b-1 border-blueGray-300" />
+                        </>
+                      )
+                    }
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2 mt-3"
                       htmlFor="grid-password">
@@ -144,7 +159,9 @@ export default function Invest(){
                     </label>
                     <div className="flex w-full">
                     <p className="block text-blueGray-600 text-sm font-medium">Total</p>
-                    <p className="block text-blueGray-600 text-sm font-bold mb-3 text-align-right px-3"> Rp 1.500.000,-</p>
+                    <p className="block text-blueGray-600 text-sm font-bold mb-3 text-align-right px-3"> Rp {
+                      paket?.nominal > profile?.data?.user?.deposit?.nominal ? formatMoney(paket?.nominal -  profile?.data?.user?.deposit?.nominal + fee) : " - "
+                    }</p>
                     </div>
                   </div>
                   <div className="my-4">
