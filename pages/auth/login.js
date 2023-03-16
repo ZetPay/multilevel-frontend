@@ -13,6 +13,7 @@ import Button from "components/Atoms/Button/Button";
 import Navbar from "components/Navbars/AuthNavbar";
 import Input from "components/Atoms/Input/Input";
 import { AuthActions } from "store/redux/authReducer";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const alert = useAlert()
@@ -60,7 +61,7 @@ export default function Login() {
               <div className="rounded-t mb-0 px-6 py-6">
                 <div className="text-center mb-3">
                   <h6 className="text-blueGray-500 text-sm font-bold">
-                    Sign
+                    Sign {Cookies.get('logedin')}
                   </h6>
                 </div>
                 {/* <div className="btn-wrapper text-center">
