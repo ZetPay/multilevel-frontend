@@ -30,7 +30,7 @@ export default function Login() {
     onSubmit: value => {
       const { email, password } = value
       let data = new FormData();
-      data.append("email",email)
+      data.append("member_id",email)
       data.append("password",password)
 
       dispatch(AuthActions.doLoginRequest({

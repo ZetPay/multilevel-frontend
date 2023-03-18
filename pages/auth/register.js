@@ -210,6 +210,38 @@ export default function Register() {
                   <div className="relative w-full mb-3">
                     <Input
                       type="number"
+                      label="NIK"
+                      placeholder="Input NIK"
+                      name="nik"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                    />
+                    {formik.errors.email && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    )}
+                  </div>
+
+                  <div className="relative w-full mb-3">
+                    <Input
+                      type="text"
+                      label="Tempat Tanggal Lahir"
+                      placeholder="Input TTL"
+                      name="ttl"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                    />
+                    {formik.errors.email && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    )}
+                  </div>
+
+                  <div className="relative w-full mb-3">
+                    <Input
+                      type="number"
                       label="Phone"
                       placeholder="Input Phone Number"
                       name="phone"
