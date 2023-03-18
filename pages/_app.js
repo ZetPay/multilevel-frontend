@@ -11,6 +11,7 @@ import "styles/tailwind.css";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import AlertProvider from "./alertProvider";
+import { api } from "../services/api";
 
 Router.events.on("routeChangeStart", (url) => {
   document.body.classList.add("body-page-transition");
@@ -41,6 +42,7 @@ const MyApp = (props) => {
       =========================================================
     `);
     document.insertBefore(comment, document.documentElement);
+    api.defaults.baseURL = `http://bcastarx.com/${process.env.prefixs}/api/`
   },[])
 
   const getInitialProps = async ({ Component, router, ctx }) => {
