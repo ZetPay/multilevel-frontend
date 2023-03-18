@@ -19,6 +19,7 @@ jobs:
           script: |
             cd ~/multilevel/multilevel-frontend-dev
             git pull
-            yarn build:only
+            git merge dev
+            rm -rf node_modules/ && rm -rf yarn.lock && yarn instal
             yarn build
             pm2 reload mlm_dev
