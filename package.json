@@ -46,7 +46,7 @@
     "dev": "next dev",
     "build:only": "rm -rf node_modules/ && rm -rf yarn.lock && yarn install",
     "install:clean": "rm -rf node_modules/ && rm -rf yarn.lock && npm install --legacy-peer-deps && npm run build:tailwind && npm run dev",
-    "build:tailwind": "tailwind build styles/index.css -o styles/tailwind.css --minify"
+    "build:tailwind": "tailwind styles/index.css -o styles/tailwind.css --minify"
   },
   "eslintConfig": {
     "extends": "react-app"

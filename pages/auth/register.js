@@ -241,6 +241,95 @@ export default function Register() {
 
                   <div className="relative w-full mb-3">
                     <Input
+                      type="text"
+                      label="Agama"
+                      placeholder="Input Agama"
+                      name="agama"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                    />
+                    {formik.errors.email && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    )}
+                  </div>
+
+                  <div className="relative w-full mb-4">
+                    <Option
+                      label="Jenis Kelamin"
+                      placeholder="Chose Jenis Kelamin"
+                      data={["left", "right"]}
+                      name="jenis_kelamin"
+                      value={formik.values.position}
+                      onChange={(val) => {
+                        formik.handleChange(val)
+                        onChcekLocation(val.target.value)
+                      }}
+                      onBlur={formik.handleBlur}
+                      style={{ borderColor: formik.errors.position ? 'red' : '' }}>
+                      <option label="Chose Jenis Kelamin" value="default" ></option>
+                      {["laki-laki", "perempuan"]?.map((item, index) => (
+                        <option key={index} value={item}>{item}</option>
+                      ))}
+                    </Option>
+                    {formik.errors.position && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.position}</p>
+                    )}
+                  </div>
+
+                  <div className="relative w-full mb-3">
+                    <Input
+                      type="text-area"
+                      label="Alamat"
+                      placeholder="Input Alamat"
+                      name="alamat"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                    />
+                    {formik.errors.email && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    )}
+                  </div>
+
+                  <div className="relative w-full mb-3">
+                    <Input
+                      type="text"
+                      label="Nama Bank"
+                      placeholder="Input Nama Bank"
+                      name="bank"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                    />
+                    {formik.errors.email && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    )}
+                  </div>
+
+
+                  <div className="relative w-full mb-3">
+                    <Input
+                      type="number"
+                      label="Nomor Rekening"
+                      placeholder="Input Nomor Rekening"
+                      name="norek"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                    />
+                    {formik.errors.email && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    )}
+                  </div>
+
+
+                  <div className="relative w-full mb-3">
+                    <Input
                       type="number"
                       label="Phone"
                       placeholder="Input Phone Number"
@@ -258,7 +347,7 @@ export default function Register() {
                   <div className="relative w-full mb-3">
                     <Input
                       type="text"
-                      label="Referal Code"
+                      label="Id Upline/Referal Code"
                       placeholder="Input Referal Code"
                       name="referal"
                       onChange={(e) => debounced(e.target.value)}

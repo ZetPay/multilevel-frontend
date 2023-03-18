@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install
+      - name: Build Next.js
+        run: yarn build
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
@@ -20,6 +24,6 @@ jobs:
             cd ~/multilevel/multilevel-frontend-dev
             git pull
             git merge dev
-            rm -rf node_modules/ && rm -rf yarn.lock && yarn instal
+            yarn yarn install
             yarn build
             pm2 reload mlm_dev
