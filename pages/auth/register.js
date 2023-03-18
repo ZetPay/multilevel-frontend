@@ -226,8 +226,8 @@ export default function Register() {
                   <div className="relative w-full mb-3">
                     <Input
                       type="text"
-                      label="Tempat Tanggal Lahir"
-                      placeholder="Input TTL"
+                      label="TTL"
+                      placeholder="Input Tempat Tanggal Lahir"
                       name="ttl"
                       value={formik.values.email}
                       onChange={formik.handleChange}

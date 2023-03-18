@@ -19,6 +19,6 @@ jobs:
           script: |
             cd ~/multilevel/multilevel-frontend-staging
             git pull
-            npm run build:only
-            npm run build
+            yarn build:only
+            yarn build
             pm2 reload mlm_staging
