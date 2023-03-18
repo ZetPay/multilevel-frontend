@@ -19,6 +19,6 @@ jobs:
           script: |
             cd ~/multilevel/multilevel-frontend
             git pull
-            npm install --production
+            npm run build:only
             npm run build
             pm2 reload mlm_prod
