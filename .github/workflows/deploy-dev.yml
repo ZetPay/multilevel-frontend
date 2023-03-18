@@ -24,6 +24,6 @@ jobs:
             cd ~/multilevel/multilevel-frontend-dev
             git pull
             git merge dev
-            yarn yarn install
+            yarn install
             yarn build
             pm2 reload mlm_dev
