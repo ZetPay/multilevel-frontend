@@ -44,9 +44,7 @@ export default function Login() {
     },
     validationSchema: yup.object({
       email: yup
-        .string()
-        .email('Must be a valid email')
-        .required('Email is required'),
+        .string().required('Member ID is required'),
       password: yup.string().required('Password is required')
     }),
   });
@@ -89,9 +87,9 @@ export default function Login() {
                 <form onSubmit={formik.handleSubmit}>
                   <div className="relative w-full mb-3">
                     <Input 
-                      type="email" 
-                      label="Email" 
-                      placeholder="Input Email" 
+                      type="text" 
+                      label="Id Member" 
+                      placeholder="Input Id Member" 
                       name="email"
                       value={formik.values.email}
                       onChange={formik.handleChange}

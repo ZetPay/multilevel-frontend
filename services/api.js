@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const api = axios.create({
-  baseURL: `https://cerberus.cikupalearningcenter.com/api/`,
+  baseURL: `http://bcastarx.com/dev/api/`,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
