@@ -25,7 +25,29 @@ function* doUpgradePaketDeposit(data) {
   }
 }
 
+function* doGetOrderList() {
+  try {
+    const response = yield call(api.get, URL.ORDER_LIST);
+  
+    yield put(PaymentActions.doGetOrderListSuccess(response?.data));
+  } catch (error) {
+    yield put(PaymentActions.doGetOrderListFailure(error));
+  }
+}
+
+function* doGetTransactionList() {
+  try {
+    const response = yield call(api.get, URL.TRANSACTION_LIST);
+  
+    yield put(PaymentActions.doGetTransactionListSuccess(response?.data));
+  } catch (error) {
+    yield put(PaymentActions.doGetTransactionListFailure(error));
+  }
+}
+
 export default function* actionWatchPayment() {
   yield takeLatest(Types.GET_DEPOSIT_LIST_REQUEST, doGetDepositList);
   yield takeLatest(Types.UPGRADE_PAKET_REQUEST, doUpgradePaketDeposit);
+  yield takeLatest(Types.GET_ADMIN_ORDER_LIST_REQUEST, doGetOrderList);
+  yield takeLatest(Types.GET_ADMIN_TRANSACTION_LIST_REQUEST, doGetTransactionList);
 }

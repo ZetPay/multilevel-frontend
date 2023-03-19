@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Admin from "layouts/Admin";
 import Table from "components/Organizms/Table/Table";
 import { BonusActions } from "store/redux/bonusReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { formatMoney } from "helper/numberFormat";
 import moment from "moment";
+import Member from "layouts/Member";
 
 export default function Sponsor() {
     const dispatch = useDispatch();
@@ -92,4 +92,4 @@ export default function Sponsor() {
     )
 }
 
-Sponsor.layout = Admin;
+Sponsor.layout = Member;

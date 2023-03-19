@@ -1,17 +1,15 @@
 import React from "react";
-
 // components
-
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
 import HeaderStats from "components/Headers/HeaderStats.js";
 import { useRouter } from "next/router";
+import MemberSidebar from "components/Sidebar/MemberSidebar";
 
-export default function Admin({ children }) {
+export default function Member({ children }) {
   const router = useRouter()
   return (
     <>
-      <Sidebar />
+      <MemberSidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar title={router.pathname.split('/')['2']} />
         {/* Header */}

@@ -29,7 +29,7 @@ export default function Sidebar() {
           </button>
           {/* Brand */}
           <Link href="/" className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">
-            Multilevel
+            Multilevel Admin
           </Link>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
@@ -87,7 +87,7 @@ export default function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
-                <Link href="/admin/dashboard"
+                <Link href="/member/dashboard"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (router.pathname.indexOf("/admin/dashboard") !== -1
@@ -106,165 +106,23 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                <Link href="/member/investasi/invest"
+                <Link href="/admin/admintransaction"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/member/investasi/invest") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }>
-                    <div className="flex items-center">
-                      <FaChartLine
-                        color={ router.pathname.indexOf("/member/investasi/invest") !== -1 ?  "#4AA3E3" : "black"}
-                        className={router.pathname.indexOf("/member/investasi/invest") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300"} />
-                      <div className="px-1" />
-                      Investasi
-                    </div>
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link href="/member/wallet/wallet"
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/member/wallet/wallet") !== -1
+                    (router.pathname.indexOf("/admin/admintransaction") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }>
                     <div className="flex items-center">
                       <FaWallet
-                        color={ router.pathname.indexOf("/member/wallet/wallet") !== -1 ?  "#4AA3E3" : "black"}
-                        className={router.pathname.indexOf("/member/wallet/wallet") !== -1
+                        color={ router.pathname.indexOf("/admin/admintransaction") !== -1 ?  "#4AA3E3" : "black"}
+                        className={router.pathname.indexOf("/admin/admintransaction") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300"} />
                       <div className="px-1" />
-                      Wallet
+                      Transaction
                     </div>
                 </Link>
-              </li>
-              
-              <li className="items-center">
-                <div className="w-full flex flex-row items-center">
-                  <a
-                    href="#pablo"
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setgenealogyDropdown(!genealogyDropdown);
-                    }}
-                    className={
-                      "text-xs w-full uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/member/genealogy") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
-                      className={
-                        "fas fa-users mr-2 text-sm" +
-                        (router.pathname.indexOf("/member/genealogy") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>{" "}
-                    Genealogy
-                  </a>
-                  <i className={"fas "+ (genealogyDropdown ? "fa-chevron-up" : "fa-chevron-down") + " mr-2 text-sm opacity-75 text-blueGray-300"}></i>
-                </div>
-                <div className="w-full bg-red-200">
-                  <ul id="dropdown-example" className={
-                      (genealogyDropdown ? "block " : "hidden ") +
-                      "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
-                  }>
-					        	<li>
-                      <Link href="/member/genealogy/trees"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/trees") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Tree
-					        	  </Link>
-					        	</li>
-					        	<li>
-                      <Link href="/member/genealogy/totalteam"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/totalteam") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Total Team
-					        	  </Link>
-					        	</li>
-					        	<li>
-                      <Link href="/member/genealogy/blockuser"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/blockuser") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Block User
-					        	  </Link>
-					        	</li>
-					        </ul>
-                </div>  
-              </li>
-
-              <li className="items-center">
-                <div className="w-full flex flex-row items-center">
-                <a
-                  href="#pablo"
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setbonusDropdown(!bonusDropdown);
-                  }}
-                  className={
-                    "text-xs w-full uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/member/bonus") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                >
-                  <i
-                    className={
-                      "fas fa-money-bill-wave mr-2 text-sm" +
-                      (router.pathname.indexOf("/member/bonus") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Bonus
-                </a>
-                <i className={"fas "+ (bonusDropdown ? "fa-chevron-up" : "fa-chevron-down") + " mr-2 text-sm opacity-75 text-blueGray-300"}></i>
-                </div>
-                <div className="w-full bg-red-200">
-                  <ul id="dropdown-example" className={
-                    (bonusDropdown ? "block " : "hidden ") +
-                    "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
-                  }>
-					      	  <li>
-                      <Link href="/member/bonus/level"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/bonus/level") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Bonus Level
-					        	  </Link>
-					      	  </li>
-					      	  <li>
-                      <Link href="/member/bonus/sponsor"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/bonus/sponsor") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Bonus Sponsor
-					        	  </Link>
-                    </li>
-					      	  <li>
-                      <Link href="/member/bonus/pairing"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/bonus/pairing") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Bonus Pairing
-					        	  </Link>
-					      	  </li>
-					        </ul>
-                </div>  
               </li>
 
               <li className="items-center">
@@ -350,67 +208,6 @@ export default function Sidebar() {
             </ul>
 
               <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-                <li className="items-center">
-                <div className="w-full flex flex-row items-center">
-                <a
-                  href="#pablo"
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSettingDropdown(!settingDropdown);
-                  }}
-                  className={
-                    "text-xs w-full uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/admin/settings") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm" +
-                      (router.pathname.indexOf("/users/profiles") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Setting
-                </a>
-                <i className={"fas "+ (settingDropdown ? "fa-chevron-up" : "fa-chevron-down") + " mr-2 text-sm opacity-75 text-blueGray-300"}></i>
-                </div>
-                <div className="w-full bg-red-200">
-                  <ul id="dropdown-example" className={
-                    (settingDropdown ? "block " : "hidden ") +
-                    "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
-                  }>
-					      	  <li>
-                      <Link href="/member/profile/profiles"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/users/profiles") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Profile
-					        	  </Link>
-					      	  </li>
-					      	  <li>
-                      <Link href="/member/profile/rekeningbank"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/settings") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Rekening Bank
-					        	  </Link>
-					      	  </li>
-                    <li>
-                      <Link href="/member/profile/keamanan"
-                        className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/settings") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Keamanan
-					        	  </Link>
-					      	  </li>
-					        </ul>
-                </div>  
-              </li>
-
               <li className="items-center">
                 <Link href="/admin/tables"
                   className={

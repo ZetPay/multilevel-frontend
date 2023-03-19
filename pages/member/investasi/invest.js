@@ -4,7 +4,7 @@ import { ProfileActions } from 'store/redux/profileReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from 'components/Atoms/Button/Button';
 import { formatMoney } from 'helper/numberFormat';
-import Admin from 'layouts/Admin';
+import Member from 'layouts/Member';
 
 export default function Invest(){
     const dispatch = useDispatch();
@@ -175,4 +175,4 @@ export default function Invest(){
     );
 }
  
-Invest.layout = Admin;
+Invest.layout = Member;

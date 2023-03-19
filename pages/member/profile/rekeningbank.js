@@ -1,4 +1,4 @@
-import Admin from 'layouts/Admin';
+import Member from 'layouts/Member';
 import React from 'react'
 
 export default function RekeningBank() {
@@ -67,4 +67,4 @@ export default function RekeningBank() {
     );
 }
 
-RekeningBank.layout = Admin;
+RekeningBank.layout = Member;

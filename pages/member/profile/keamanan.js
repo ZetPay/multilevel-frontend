@@ -1,4 +1,4 @@
-import Admin from 'layouts/Admin';
+import Member from 'layouts/Member';
 import React from 'react'
 
 export default function Kemanan() {
@@ -9,4 +9,4 @@ export default function Kemanan() {
     );
 }
 
-Kemanan.layout = Admin;
+Kemanan.layout = Member;

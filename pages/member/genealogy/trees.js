@@ -1,5 +1,5 @@
 import CustomNode from 'components/Molecules/CustomNode';
-import Admin from 'layouts/Admin'
+import Member from 'layouts/Member';
 import React, { useCallback } from 'react'
 import Tree from 'react-d3-tree';
 
@@ -129,4 +129,4 @@ export default function Trees() {
     )
 }
 
-Trees.layout = Admin;
+Trees.layout = Member;

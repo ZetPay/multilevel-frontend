@@ -37,7 +37,7 @@ export default function Login() {
         message: (msg) => alert.success(msg),
         error: (msg) => alert.error(msg),
         navigate: () => {
-          router.push("/admin/dashboard")
+          router.push("/member/dashboard")
         }
       }))
     },

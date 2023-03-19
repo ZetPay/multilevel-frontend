@@ -1,6 +1,6 @@
 import React from "react";
-import Admin from "layouts/Admin";
 import Table from "components/Organizms/Table/Table";
+import Member from "layouts/Member";
 
 export default function Pairing() {
     return (
@@ -27,4 +27,4 @@ export default function Pairing() {
     )
 }
 
-Pairing.layout = Admin;
+Pairing.layout = Member;

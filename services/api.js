@@ -21,7 +21,9 @@ const URL = {
     BONUS_SPONSOR: 'bonus/sponsor',
     // payment
     DEPOSIT_LIST: 'list-deposit',
-    VALIDATE_REFERAL: 'check-code'
+    VALIDATE_REFERAL: 'check-code',
+    ORDER_LIST: 'admin/orders',
+    TRANSACTION_LIST: 'admin/transactions'
 };
 
 export {URL, api};

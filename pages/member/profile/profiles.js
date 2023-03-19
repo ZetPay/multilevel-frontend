@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Admin from "layouts/Admin.js";
+import Member from 'layouts/Member';
 import CardSettings from 'components/Cards/CardSettings';
 import CardProfile from 'components/Cards/CardProfile';
 import { useDispatch, useSelector } from 'react-redux';
@@ -109,4 +109,4 @@ export default function Profiles(){
   )
 }
 
-Profiles.layout = Admin;
+Profiles.layout = Member;

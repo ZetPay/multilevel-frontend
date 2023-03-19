@@ -27,12 +27,42 @@ export const PaymentActions = {
     doUpgradePaketFailure: error => ({
       type: Types.UPGRADE_PAKET_FAILURE,
       error,
-    })
+    }),
+    // order list
+    doGetOrderListRequest: () => ({
+      type: Types.GET_ADMIN_ORDER_LIST_REQUEST
+    }),
+    doGetOrderListSuccess: data => {
+      return ({
+        type: Types.GET_ADMIN_ORDER_LIST_SUCCESS,
+        payload: data,
+      })
+    },
+    doGetOrderListFailure: error => ({
+      type: Types.GET_ADMIN_ORDER_LIST_FAILURE,
+      error,
+    }),
+    // transaction list
+    doGetTransactionListRequest: () => ({
+      type: Types.GET_ADMIN_TRANSACTION_LIST_REQUEST
+    }),
+    doGetTransactionListSuccess: data => {
+      return ({
+        type: Types.GET_ADMIN_TRANSACTION_LIST_SUCCESS,
+        payload: data,
+      })
+    },
+    doGetTransactionListFailure: error => ({
+      type: Types.GET_ADMIN_TRANSACTION_LIST_FAILURE,
+      error,
+    }),
 }
 
 const initialState = {
     deposit_list: {data: [], fetching: false, error: null},
     paket: {data: [], fetching: false, error: null},
+    order_list: {data: [], fetching: false, error: null},
+    transaction_list: {data: [], fetching: false, error: null},
 };
 
 const paymentReducer = (state = initialState, action) => {
@@ -66,6 +96,38 @@ const paymentReducer = (state = initialState, action) => {
         return {
           ...state,
           paket: {data: [], fetching: false, error: action.error},
+        };
+      // order list
+      case Types.GET_ADMIN_ORDER_LIST_REQUEST:
+        return {
+          ...state,
+          order_list: {data: [], fetching: true, error: null},
+        };
+      case Types.GET_ADMIN_ORDER_LIST_SUCCESS:
+        return {
+          ...state,
+          order_list: {data: action.payload, fetching: false, error: null},
+        };
+      case Types.GET_ADMIN_ORDER_LIST_FAILURE:
+        return {
+          ...state,
+          order_list: {data: [], fetching: false, error: action.error},
+        };
+      // transaction list
+      case Types.GET_ADMIN_TRANSACTION_LIST_REQUEST:
+        return {
+          ...state,
+          transaction_list: {data: [], fetching: true, error: null},
+        };
+      case Types.GET_ADMIN_TRANSACTION_LIST_SUCCESS:
+        return {
+          ...state,
+          transaction_list: {data: action.payload, fetching: false, error: null},
+        };
+      case Types.GET_ADMIN_TRANSACTION_LIST_FAILURE:
+        return {
+          ...state,
+          transaction_list: {data: [], fetching: false, error: action.error},
         };
       default:
         return state;

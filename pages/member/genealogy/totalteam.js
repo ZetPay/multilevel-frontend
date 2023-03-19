@@ -1,5 +1,5 @@
 import React from "react";
-import Admin from "layouts/Admin";
+import Member from "layouts/Member";
 
 export default function Totalteam() {
     return (
@@ -26,4 +26,4 @@ export default function Totalteam() {
     )
 }
 
-Totalteam.layout = Admin;
+Totalteam.layout = Member;

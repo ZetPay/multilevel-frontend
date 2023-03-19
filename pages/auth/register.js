@@ -14,6 +14,7 @@ import Input from "components/Atoms/Input/Input";
 import Option from "components/Atoms/Option/Option";
 import { formatMoney } from "helper/numberFormat";
 import { AuthActions } from "store/redux/authReducer";
+import Navbar from "components/Navbars/AuthNavbar";
 
 export default function Register() {
   const router = useRouter();
@@ -155,6 +156,7 @@ export default function Register() {
 
   return (
     <>
+      <Navbar transparent />
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-6/12 px-4">
