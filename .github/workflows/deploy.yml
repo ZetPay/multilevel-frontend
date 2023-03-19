@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install
+      - name: Build Next.js
+        run: yarn build
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         if: ${{ github.ref == 'refs/heads/master' }}
@@ -20,6 +24,7 @@ jobs:
           script: |
             cd ~/multilevel/multilevel-frontend
             git pull
-            yarn build:only
+            git merge master
+            yarn install
             yarn build
             pm2 reload mlm_prod
