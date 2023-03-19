@@ -45,9 +45,13 @@ export default function CardProfile(props) {
                     <th class="bg-blue-100 border text-center px-2 py-4">{downline?.[1]?.position}</th>
                   </tr>
                   <tr>
-                    <td class="border px-2 py-4">{`${downline?.[0]?.user?.name.substring(0, 5)}...`}</td>
+                    <td class="border px-2 py-4">{
+                    `${downline?.[0]?.user?.name?.length > 0 ? downline?.[0]?.user?.name?.substring(0, 5) : ''}...`
+                    }</td>
                     <td class="border px-2 py-4">{paket}</td>
-                    <td class="border px-2 py-4">{`${downline?.[1]?.user?.name.substring(0, 5)}...`}</td>
+                    <td class="border px-2 py-4">{
+                    `${downline?.[1]?.user?.name?.length > 0 ? downline?.[1]?.user?.name?.substring(0, 5) : ''}...`
+                    }</td>
                   </tr>
                 </table>
               </div>
