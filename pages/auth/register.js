@@ -80,13 +80,20 @@ export default function Register() {
       email: '',
       username: '',
       password: '',
+      nik: '',
+      ttl: '',
+      agama: '',
+      jenis_kelamin: '',
+      alamat: '',
+      bank: '',
+      norek: '',
       phone: '',
       referal: '',
       position: '',
       paket: ''
     },
     onSubmit: value => {
-      const { email, username, password, phone, position, paket } = value
+      const { email, username, password, phone, position, paket, alamat, bank, norek, nik, ttl, agama } = value
       if (authData?.position?.data?.status === "success" || refCode.length === 0) {
         if(paymentMethode?.length > 0){
           if (termConst) {
@@ -98,8 +105,14 @@ export default function Register() {
                 referrer_code: authData?.ref?.data?.status === "success" ? refCode : null,
                 position: position?.length > 0 && refCode.length > 0 ? position : null,
                 deposit_id: paket,
-                phone: phone,
-                payment_method: paymentMethode
+                phone: String(phone),
+                payment_method: paymentMethode,
+                address: alamat, 
+                bank_name: bank, 
+                bank_account_number: String(norek), 
+                nik: String(nik), 
+                ttl: ttl, 
+                religion: agama
               },
               message: (msg) => alert.success(msg),
               error: (msg) => alert.error(msg),
@@ -126,7 +139,14 @@ export default function Register() {
         .email('Must be a valid email')
         .required('Email is required'),
       password: yup.string().required('Password is required'),
+      nik: yup.number().min(16).required('Nik is required'),
+      ttl: yup.string().required('Tempat Tanggal Lahir is required'),
+      agama: yup.string().required('Agama is required'),
       phone: yup.number().required('Phone is required'),
+      jenis_kelamin: yup.string().required('Jenis Kelamin is required'),
+      alamat: yup.string().required('Alamat is required'),
+      bank: yup.string().required('Nama Bank is required'),
+      norek: yup.number().required('No Rekening is required'),
       referal: yup.string(),
       position: yup.string(),
       paket: yup.string().required(),
@@ -213,13 +233,13 @@ export default function Register() {
                       label="NIK"
                       placeholder="Input NIK"
                       name="nik"
-                      value={formik.values.email}
+                      value={formik.values.nik}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                      style={{ borderColor: formik.errors.nik ? 'red' : '' }}
                     />
-                    {formik.errors.email && (
-                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    {formik.errors.nik && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.nik}</p>
                     )}
                   </div>
 
@@ -229,13 +249,13 @@ export default function Register() {
                       label="TTL"
                       placeholder="Input Tempat Tanggal Lahir"
                       name="ttl"
-                      value={formik.values.email}
+                      value={formik.values.ttl}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                      style={{ borderColor: formik.errors.ttl ? 'red' : '' }}
                     />
-                    {formik.errors.email && (
-                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    {formik.errors.ttl && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.ttl}</p>
                     )}
                   </div>
 
@@ -245,13 +265,13 @@ export default function Register() {
                       label="Agama"
                       placeholder="Input Agama"
                       name="agama"
-                      value={formik.values.email}
+                      value={formik.values.agama}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                      style={{ borderColor: formik.errors.agama ? 'red' : '' }}
                     />
-                    {formik.errors.email && (
-                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    {formik.errors.agama && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.agama}</p>
                     )}
                   </div>
 
@@ -261,20 +281,19 @@ export default function Register() {
                       placeholder="Chose Jenis Kelamin"
                       data={["left", "right"]}
                       name="jenis_kelamin"
-                      value={formik.values.position}
+                      value={formik.values.jenis_kelamin}
                       onChange={(val) => {
                         formik.handleChange(val)
-                        onChcekLocation(val.target.value)
                       }}
                       onBlur={formik.handleBlur}
-                      style={{ borderColor: formik.errors.position ? 'red' : '' }}>
+                      style={{ borderColor: formik.errors.jenis_kelamin ? 'red' : '' }}>
                       <option label="Chose Jenis Kelamin" value="default" ></option>
                       {["laki-laki", "perempuan"]?.map((item, index) => (
                         <option key={index} value={item}>{item}</option>
                       ))}
                     </Option>
-                    {formik.errors.position && (
-                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.position}</p>
+                    {formik.errors.jenis_kelamin && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.jenis_kelamin}</p>
                     )}
                   </div>
 
@@ -284,13 +303,13 @@ export default function Register() {
                       label="Alamat"
                       placeholder="Input Alamat"
                       name="alamat"
-                      value={formik.values.email}
+                      value={formik.values.alamat}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                      style={{ borderColor: formik.errors.alamat ? 'red' : '', height: 50}}
                     />
-                    {formik.errors.email && (
-                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    {formik.errors.alamat && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.alamat}</p>
                     )}
                   </div>
 
@@ -300,13 +319,13 @@ export default function Register() {
                       label="Nama Bank"
                       placeholder="Input Nama Bank"
                       name="bank"
-                      value={formik.values.email}
+                      value={formik.values.bank}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                      style={{ borderColor: formik.errors.bank ? 'red' : '' }}
                     />
-                    {formik.errors.email && (
-                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    {formik.errors.bank && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.bank}</p>
                     )}
                   </div>
 
@@ -317,13 +336,13 @@ export default function Register() {
                       label="Nomor Rekening"
                       placeholder="Input Nomor Rekening"
                       name="norek"
-                      value={formik.values.email}
+                      value={formik.values.norek}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      style={{ borderColor: formik.errors.email ? 'red' : '' }}
+                      style={{ borderColor: formik.errors.norek ? 'red' : '' }}
                     />
-                    {formik.errors.email && (
-                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.email}</p>
+                    {formik.errors.norek && (
+                      <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.norek}</p>
                     )}
                   </div>
 

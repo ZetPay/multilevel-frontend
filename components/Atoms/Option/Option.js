@@ -11,7 +11,7 @@ const Option = (props) => {
         </label>
         <select 
           {...restProps} 
-          className="border-1 border-gray-300 appearance-none w-full px-3 py-3 bg-white rounded">
+          className="border-1 border-gray-500 appearance-none w-full px-3 py-3 bg-white rounded">
           {children}
         </select>
     </>
