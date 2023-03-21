@@ -1,12 +1,20 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import {get} from "local-storage";
 
-const api = axios.create({
-  baseURL: `http://bcastarx.com/cerberus/api/`, 
+const authorization = axios.create({
+  baseURL: `http://bcastarx.com/dev/api/`, 
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${Cookies.get('logedin')}`
+  },
+});
+
+const api = axios.create({
+  baseURL: `http://bcastarx.com/dev/api/`, 
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${get('logedin')}`
   },
 });
 
@@ -17,6 +25,7 @@ const URL = {
     CHECK_POSITION: 'check-position',
     UPDATE_PROFILE: 'profile/update',
     UPDATE_PAKET: 'profile/upgrade',
+    HISTORY_ORDER: 'profile/history/orders',
     BONUS_LEVEL: 'bonus/level',
     BONUS_SPONSOR: 'bonus/sponsor',
     // payment
@@ -26,4 +35,4 @@ const URL = {
     TRANSACTION_LIST: 'admin/transactions'
 };
 
-export {URL, api};
+export {URL, api, authorization};

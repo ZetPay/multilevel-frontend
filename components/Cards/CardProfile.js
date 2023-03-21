@@ -7,8 +7,9 @@ import { AiOutlineCopy } from "react-icons/ai";
 
 export default function CardProfile(props) {
   const alert = useAlert()
-  const { name, downline, paket, referals } = props
+  const { name, downline, paket, referals, idmember } = props
   const [referal, setReferal] = useState(referals)
+  const [idMmeber, setIdMember] = useState(idmember)
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -28,11 +29,21 @@ export default function CardProfile(props) {
                 {name}
               </h3>
               <p class="bg-blue-100 border px-2 py-4 flex row items-center">
-                Referal: <b className="w-full">{referals}</b>
+                Referal <b className="w-full">{referals}</b>
                 <CopyToClipboard text={referal}
                   onCopy={() =>{
                     alert.success("Referal coppied!")
                     setReferal(referals)
+                  }}>
+                  <AiOutlineCopy />
+                </CopyToClipboard>
+              </p>
+              <p class="bg-blue-100 border px-2 py-4 flex row items-center">
+                Member ID <b className="w-full">{idmember}</b>
+                <CopyToClipboard text={idmember}
+                  onCopy={() =>{
+                    alert.success("Referal coppied!")
+                    setIdMember(idMmeber)
                   }}>
                   <AiOutlineCopy />
                 </CopyToClipboard>

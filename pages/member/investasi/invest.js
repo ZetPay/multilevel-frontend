@@ -45,8 +45,6 @@ export default function Invest(){
         image: "/img/payment/ic_qris.png"
       }
     ])
-
-    console.log("DUNIA",paket.id)
   
     useEffect(()=>{
       dispatch(PaymentActions.doGetDepositListRequest());
@@ -54,10 +52,6 @@ export default function Invest(){
     },[])
     
     const onUpgradePaket = () => {
-      console.log({
-        deposit_id: paket?.id,
-        payment_method: paymentMethode
-      })
       dispatch(PaymentActions.doUpgradePaketRequest({
         deposit_id: paket?.id,
         payment_method: paymentMethode

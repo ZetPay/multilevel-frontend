@@ -14,6 +14,16 @@ function* doGetProfile() {
     }
 }
 
+function* doGetHistoryOrder() {
+  try {
+    const { data } = yield call(api.get, URL.HISTORY_ORDER );
+  
+    yield put(ProfileActions.doGetHistoryOrderSuccess(data?.data));
+  } catch (error) {
+    yield put(ProfileActions.doGetHistoryOrderFailure(error));
+  }
+}
+
 function* doUpdateProfile(param) {
   try {
     const { payload } = param;
@@ -21,7 +31,6 @@ function* doUpdateProfile(param) {
   
     yield put(ProfileActions.doUpdateProfileSuccess(data?.data));
   } catch (error) {
-    console.log(error)
     yield put(ProfileActions.doUpdateProfileFailure(error));
   }
 }
@@ -29,4 +38,5 @@ function* doUpdateProfile(param) {
 export default function* actionWatchProfile() {
   yield takeLatest(Types.GET_PROFILE_REQUEST, doGetProfile);
   yield takeLatest(Types.UPDATE_PROFILE_REQUEST, doUpdateProfile);
+  yield takeLatest(Types.GET_HISTORY_ORDER_REQUEST, doGetHistoryOrder);
 }

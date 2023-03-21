@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
-import {call, put, takeLatest } from 'redux-saga/effects';
-import { api, URL } from 'services/api';
+import {set} from "local-storage";
+import {call, put, takeLatest, all } from 'redux-saga/effects';
+import { api, authorization, URL } from 'services/api';
 import { Types } from 'store/actionTypes';
 import { AuthActions } from 'store/redux/authReducer';
 import { ProfileActions } from 'store/redux/profileReducer';
@@ -8,21 +9,28 @@ import { ProfileActions } from 'store/redux/profileReducer';
 function* doLogin(data) {
   try {
     const {payload} = data;
-    const response = yield call(api.post, URL.LOGIN, payload?.data);
+    const response = yield call(authorization.post, URL.LOGIN, payload?.data);
 
-    yield put(AuthActions.doLoginSuccess(response.data));
-    api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
-
-    yield put(ProfileActions.doGetProfileRequest())
-    
-    Cookies.set("logedin",response?.data?.data?.token)
+    yield all([
+      put(AuthActions.doLoginSuccess(response.data)),
+      put(ProfileActions.doGetProfileRequest())
+    ])
+    if(response?.data?.data?.token !== undefined){
+      api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
+      set('logedin',response?.data?.data?.token)
+      Cookies.set("logedin",response?.data?.data?.token)
+    }
     payload?.message("Login SuccessFuly!")
     
     setTimeout(() => {
       payload?.navigate();
     }, 1000);
   } catch (error) {
-    data?.payload?.error("Username or password invalid!")
+    if(error?.response?.data?.message){
+      data?.payload?.error(error?.response?.data?.message)
+    }else{
+      data?.payload?.error("Username or password invalid!")
+    }
     yield put(AuthActions.doLoginFailure(error));
   }
 }
@@ -30,9 +38,15 @@ function* doLogin(data) {
 function* doRegister(data) {
     try {
       const {payload} = data;
-      const response = yield call(api.post, URL.REGISTER, payload?.data);
+      const response = yield call(authorization.post, URL.REGISTER, payload?.data);
   
-      yield put(AuthActions.doRegisterSuccess(response.data));
+      api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
+      set('logedin',response?.data?.data?.token)
+      yield all([
+        put(AuthActions.doRegisterSuccess(response.data)),
+        put(ProfileActions.doGetProfileRequest())
+      ])
+
       payload?.message("Register success Please Login!")
       payload.navigate();
     } catch (error) {

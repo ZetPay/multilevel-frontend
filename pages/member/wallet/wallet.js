@@ -5,19 +5,14 @@ import Member from "layouts/Member";
 import { useDispatch, useSelector } from "react-redux";
 import { ProfileActions } from "store/redux/profileReducer";
 import { formatMoney } from "helper/numberFormat";
+import moment from "moment";
 
 export default function Wallet() {
   const dispatch = useDispatch()
-  const profile = useSelector(state => state.profileReducer.profile)
+  const {profile, history_order } = useSelector(state => state.profileReducer)
   const [thead] = useState([
     {
       name: "No"
-    },
-    {
-      name: "Name"
-    },
-    {
-      name: "Nominal"
     },
     {
       name: "Status"
@@ -29,9 +24,8 @@ export default function Wallet() {
 
   useEffect(()=>{
     dispatch(ProfileActions.doGetProfileRequest())
+    dispatch(ProfileActions.doGetHistoryOrderRequest())
   },[])
-
-  console.log("HELLO",profile?.data?.user?.balance)
   
     return (
         <div className="flex flex-wrap bg-white">
@@ -94,27 +88,21 @@ export default function Wallet() {
                         </tr>  
                       </thead>
                       <tbody>
-                        {/* {
-                          sponsor?.data?.sponsor?.data?.map((y,l) => (
+                        {
+                          history_order?.data[0]?.transactions?.map((y,l) => (
                             <tr id={l} className="border border-solid">
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {l+1}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {y?.user?.name}
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  Rp {formatMoney(y?.nominal)},-
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {y?.status}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {moment(y?.updated_at).format("DD-MMM-YYYY h:mm:ss")}
+                                  {moment(y?.created_at).format("DD-MMM-YYYY h:mm:ss")}
                                 </td>
                             </tr>
                           ))
-                        } */}
+                        }
                       </tbody>
                     </table>
                   </Table>

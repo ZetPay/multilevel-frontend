@@ -13,6 +13,19 @@ export const ProfileActions = {
       error,
     }),
 
+    // history order
+    doGetHistoryOrderRequest: () => ({
+      type: Types.GET_HISTORY_ORDER_REQUEST
+    }),
+    doGetHistoryOrderSuccess: data => ({
+      type: Types.GET_HISTORY_ORDER_SUCCESS,
+      payload: data,
+    }),
+    doGetHistoryOrderFailure: error => ({
+      type: Types.GET_HISTORY_ORDER_FAILURE,
+      error,
+    }),
+
     // update profile
     doUpdateProfileRequest: data => ({
       type: Types.UPDATE_PROFILE_REQUEST,
@@ -30,7 +43,8 @@ export const ProfileActions = {
 
 const initialState = {
   profile: {data: [], fetching: false, error: null},
-  profile_update: {data: [], fetching: false, error: null}
+  profile_update: {data: [], fetching: false, error: null},
+  history_order: {data: [], fetching: false, error: null}
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -65,6 +79,22 @@ const profileReducer = (state = initialState, action) => {
         return {
           ...state,
           profile_update: {data: [], fetching: false, error: action.error},
+        };
+      // history order
+      case Types.GET_HISTORY_ORDER_REQUEST:
+        return {
+          ...state,
+          history_order: {data: [], fetching: true, error: null},
+        };
+      case Types.GET_HISTORY_ORDER_SUCCESS:
+        return {
+          ...state,
+          history_order: {data: action.payload, fetching: false, error: null},
+        };
+      case Types.GET_HISTORY_ORDER_FAILURE:
+        return {
+          ...state,
+          history_order: {data: [], fetching: false, error: action.error},
         };
         default:
             return state;

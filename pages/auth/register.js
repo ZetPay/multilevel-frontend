@@ -94,7 +94,7 @@ export default function Register() {
       paket: ''
     },
     onSubmit: value => {
-      const { email, username, password, phone, position, paket, alamat, bank, norek, nik, ttl, agama } = value
+      const { email, username, password, phone, position, paket, alamat, bank, norek, nik, ttl, agama, jenis_kelamin } = value
       if (authData?.position?.data?.status === "success" || refCode.length === 0) {
         if(paymentMethode?.length > 0){
           if (termConst) {
@@ -113,13 +113,14 @@ export default function Register() {
                 bank_account_number: String(norek), 
                 nik: String(nik), 
                 ttl: ttl, 
-                religion: agama
+                religion: agama,
+                gender: jenis_kelamin
               },
               message: (msg) => alert.success(msg),
               error: (msg) => alert.error(msg),
               navigate: () => {
                 setTimeout(() => {
-                  router.push('/auth/login')
+                  router.push('/member/dashboard')
                 }, 5000)
               }
             }))
@@ -281,7 +282,7 @@ export default function Register() {
                     <Option
                       label="Jenis Kelamin"
                       placeholder="Chose Jenis Kelamin"
-                      data={["left", "right"]}
+                      data={["Laki-Laki", "Perempuan"]}
                       name="jenis_kelamin"
                       value={formik.values.jenis_kelamin}
                       onChange={(val) => {
@@ -290,7 +291,7 @@ export default function Register() {
                       onBlur={formik.handleBlur}
                       style={{ borderColor: formik.errors.jenis_kelamin ? 'red' : '' }}>
                       <option label="Chose Jenis Kelamin" value="default" ></option>
-                      {["laki-laki", "perempuan"]?.map((item, index) => (
+                      {["Laki-Laki", "Perempuan"]?.map((item, index) => (
                         <option key={index} value={item}>{item}</option>
                       ))}
                     </Option>
