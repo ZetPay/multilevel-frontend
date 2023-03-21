@@ -11,15 +11,14 @@ function* doLogin(data) {
     const {payload} = data;
     const response = yield call(authorization.post, URL.LOGIN, payload?.data);
 
+    api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
     yield all([
       put(AuthActions.doLoginSuccess(response.data)),
       put(ProfileActions.doGetProfileRequest())
     ])
-    if(response?.data?.data?.token !== undefined){
-      api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
-      set('logedin',response?.data?.data?.token)
-      Cookies.set("logedin",response?.data?.data?.token)
-    }
+    
+    set('logedin',response?.data?.data?.token)
+    Cookies.set("logedin",response?.data?.data?.token)
     payload?.message("Login SuccessFuly!")
     
     setTimeout(() => {
