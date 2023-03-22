@@ -120,8 +120,11 @@ export default function Register() {
               error: (msg) => alert.error(msg),
               navigate: () => {
                 setTimeout(() => {
-                  router.push('/member/dashboard')
-                }, 5000)
+                  router.replace('/member/dashboard')
+                }, 500)
+                setTimeout(()=>{
+                  router.reload(window.location.pathname)
+                },1000)
               }
             }))
           } else {

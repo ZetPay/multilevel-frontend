@@ -37,7 +37,10 @@ export default function Login() {
         message: (msg) => alert.success(msg),
         error: (msg) => alert.error(msg),
         navigate: () => {
-          router.push("/member/dashboard")
+          router.replace("/member/dashboard")
+          setTimeout(()=>{
+            router.reload(window.location.pathname)
+          },1000)
         }
       }))
     },

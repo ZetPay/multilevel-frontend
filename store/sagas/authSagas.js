@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import {set} from "local-storage";
+import {set, remove} from "local-storage";
 import {call, put, takeLatest, all } from 'redux-saga/effects';
 import { api, authorization, URL } from 'services/api';
 import { Types } from 'store/actionTypes';
@@ -11,19 +11,20 @@ function* doLogin(data) {
     const {payload} = data;
     const response = yield call(authorization.post, URL.LOGIN, payload?.data);
 
+    remove('logedin')
     api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
     yield all([
       put(AuthActions.doLoginSuccess(response.data)),
       put(ProfileActions.doGetProfileRequest())
     ])
-    
+
     set('logedin',response?.data?.data?.token)
     Cookies.set("logedin",response?.data?.data?.token)
     payload?.message("Login SuccessFuly!")
     
     setTimeout(() => {
       payload?.navigate();
-    }, 1000);
+    },700);
   } catch (error) {
     if(error?.response?.data?.message){
       data?.payload?.error(error?.response?.data?.message)
@@ -39,12 +40,13 @@ function* doRegister(data) {
       const {payload} = data;
       const response = yield call(authorization.post, URL.REGISTER, payload?.data);
   
-      api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
-      set('logedin',response?.data?.data?.token)
+      remove('logedin')
       yield all([
         put(AuthActions.doRegisterSuccess(response.data)),
         put(ProfileActions.doGetProfileRequest())
       ])
+      api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
+      set('logedin',response?.data?.data?.token)
 
       payload?.message("Register success Please Login!")
       payload.navigate();
