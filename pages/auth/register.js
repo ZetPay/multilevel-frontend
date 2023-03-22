@@ -119,9 +119,7 @@ export default function Register() {
               message: (msg) => alert.success(msg),
               error: (msg) => alert.error(msg),
               navigate: () => {
-                setTimeout(() => {
-                  router.replace('/member/dashboard')
-                }, 500)
+                router.replace('/member/dashboard')
                 setTimeout(()=>{
                   router.reload(window.location.pathname)
                 },1000)

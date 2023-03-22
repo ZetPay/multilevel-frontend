@@ -49,9 +49,17 @@ function* doRegister(data) {
       set('logedin',response?.data?.data?.token)
 
       payload?.message("Register success Please Login!")
-      payload.navigate();
+     
+      setTimeout(() => {
+        payload?.navigate();
+      },700);
     } catch (error) {
-      data?.payload?.error("Register error")
+      if(error?.response?.data?.message){
+        data?.payload?.error(error?.response?.data?.message)
+      }else{
+        data?.payload?.error("Register error")
+      }
+    
       yield put(AuthActions.doRegisterFailure(error));
     }
 }

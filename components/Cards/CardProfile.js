@@ -42,7 +42,7 @@ export default function CardProfile(props) {
                 Member ID <b className="w-full">{idmember}</b>
                 <CopyToClipboard text={idmember}
                   onCopy={() =>{
-                    alert.success("Referal coppied!")
+                    alert.success("Member Id coppied!")
                     setIdMember(idMmeber)
                   }}>
                   <AiOutlineCopy />
