@@ -40,7 +40,7 @@ export default function Login() {
           router.replace("/member/dashboard")
           setTimeout(()=>{
             router.reload(window.location.pathname)
-          },1000)
+          },1500)
         }
       }))
     },

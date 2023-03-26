@@ -1,11 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { AiOutlinePoweroff } from "react-icons/ai";
-import { FaHeadset, FaChartLine, FaWallet } from "react-icons/fa";
+import { FaChartLine, FaWallet } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { remove } from "local-storage"
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import Cookies from "js-cookie";
 
 export default function MemberSidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -267,7 +269,7 @@ export default function MemberSidebar() {
                 </div>  
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <div className="w-full flex flex-row items-center">
                 <a
                   href="#pablo"
@@ -326,9 +328,9 @@ export default function MemberSidebar() {
 					      	  </li>
 					        </ul>
                 </div>  
-              </li>
+              </li> */}
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/admin/settings"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -346,7 +348,7 @@ export default function MemberSidebar() {
                       Support
                     </div>
                 </Link>
-              </li>
+              </li> */}
             </ul>
 
               <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
@@ -391,7 +393,7 @@ export default function MemberSidebar() {
                         Profile
 					        	  </Link>
 					      	  </li>
-					      	  <li>
+					      	  {/* <li>
                       <Link href="/member/profile/rekeningbank"
                         className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/admin/settings") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
@@ -406,13 +408,19 @@ export default function MemberSidebar() {
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
                         Keamanan
 					        	  </Link>
-					      	  </li>
+					      	  </li> */}
 					        </ul>
                 </div>  
               </li>
 
               <li className="items-center">
-                <Link href="/admin/tables"
+                <button 
+                  onClick={e => {
+                    e.preventDefault();
+                    Cookies.remove('logedin')
+                    remove('logedin')
+                    router.replace('/')
+                  }}
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (router.pathname.indexOf("/admin/tables") !== -1
@@ -427,7 +435,7 @@ export default function MemberSidebar() {
                       <div className="px-1" />
                       Logout
                     </div>
-                </Link>
+                </button>
               </li>
             </ul>
           </div>

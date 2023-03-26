@@ -7,7 +7,8 @@ export function middleware(request) {
     const { device } = userAgent(request)
     const viewport = device.type === 'mobile' ? 'mobile' : 'desktop';
     Cookies.set("viewport",viewport)
-    if (!verify && request.nextUrl.pathname.startsWith('/admin') && request.nextUrl.pathname.startsWith('/users')) {
+    // console.log("VERFY",verify)
+    if (verify === undefined && request.nextUrl.pathname.startsWith('/member')) {
         return NextResponse.redirect(new URL('/', request.url))
     }
 }

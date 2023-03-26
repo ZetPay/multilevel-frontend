@@ -28,6 +28,7 @@ const URL = {
     HISTORY_ORDER: 'profile/history/orders',
     BONUS_LEVEL: 'bonus/level',
     BONUS_SPONSOR: 'bonus/sponsor',
+    BONUS_PAIRING: 'bonus/pairing',
     TREE: 'profile/tree',
     // payment
     DEPOSIT_LIST: 'list-deposit',

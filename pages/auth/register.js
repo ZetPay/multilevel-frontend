@@ -51,6 +51,11 @@ export default function Register() {
       id: 6,
       name: "qris",
       image: "/img/payment/ic_qris.png"
+    },
+    {
+      id: 7,
+      name: "cash",
+      image: ""
     }
   ])
 
@@ -119,10 +124,10 @@ export default function Register() {
               message: (msg) => alert.success(msg),
               error: (msg) => alert.error(msg),
               navigate: () => {
-                router.replace('/member/dashboard')
+                router.replace("/member/dashboard")
                 setTimeout(()=>{
                   router.reload(window.location.pathname)
-                },1000)
+                },1500)
               }
             }))
           } else {
@@ -442,9 +447,16 @@ export default function Register() {
                       {
                         payment?.map((item,i) => (
                           <div key={i} className="max-w-sm w-full lg:w-3/12 md:w-4/12 sm:w-2/12 px-2 mt-3">
-                            <button type="button" onClick={() => setPaymentMethode(item.name)} className={item?.name === paymentMethode ? "border border-red-500 rounded rounded-sm w-full flex " : "border border-blueGray-500 "+"rounded rounded-sm w-full flex "}>
-                              <img src={item.image} alt={item.name} className="py-3 px-3 h-12"/>
-                              {/* <p className="text-xs text-center font-regular text-gray-300 self-center">Fee Rp 2.500,-</p> */}
+                            <button type="button" onClick={() => setPaymentMethode(item.name)} className={item?.name === paymentMethode ? "border border-red-500 rounded rounded-sm w-full flex " : "border border-blueGray-500 "+"rounded rounded-sm w-full flex"}>
+                              {
+                                item.image ? (
+                                  <img src={item.image} alt={item.name} className="py-3 px-3 h-12"/>
+                                ) : (
+                                  <div className="flex py-3 px-3 mx-auto">
+                                    <p className="text-md text-center font-bold text-gray-300">{item.name.toUpperCase()}</p>
+                                  </div>
+                                )
+                              }
                             </button>
                           </div>
                         ))

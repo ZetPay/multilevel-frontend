@@ -41,8 +41,9 @@ export const ProfileActions = {
     }),
 
      // update profile
-    doGetTreeRequest: () => ({
-      type: Types.GET_TREE_LIST_REQUEST
+    doGetTreeRequest: data => ({
+      type: Types.GET_TREE_LIST_REQUEST,
+      payload: data
     }),
     doGetTreeSuccess: data => ({
       type: Types.GET_TREE_LIST_SUCCESS,

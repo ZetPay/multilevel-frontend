@@ -31,15 +31,19 @@ const OrgChart = () => {
   }
 
   useEffect(()=>{
-    dispatch(ProfileActions.doGetTreeRequest())
+    dispatch(ProfileActions.doGetTreeRequest(""))
   },[])
+
+  const handleGetDetailTree = id => {
+    dispatch(ProfileActions.doGetTreeRequest(id))
+  }
     
   const RenderNode = () => {
     return tree?.data?.downlines?.map((item,i) => (
       <>
         <TreeNode key={i} label={
-          <div className="flex items-center justify-center" onClick={() => alert("hii")}>
-            <div className="border rounded rounded-md p-5 justify-center" style={{backgroundColor: renderColor(item?.user?.deposit?.name)}}>
+          <div className="flex items-center justify-center" onClick={() => handleGetDetailTree(item?.user_id)}>
+            <div className="border rounded rounded-md p-5 justify-center w-24 h-30" style={{backgroundColor: renderColor(item?.user?.deposit?.name)}}>
               <img className="w-16 h-16 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
               <p className="font-medium text-md pt-2 text-white">{item?.user?.name?.length > 0 && item?.user?.name?.substring(0, 7)+' ...'}</p>
               <p className="font-italic text-sm text-white">{item?.user?.deposit?.name?.split(' ')[1]}</p>
@@ -49,8 +53,8 @@ const OrgChart = () => {
           {item?.user?.downlines?.map((x,y) => (
             <>
               <TreeNode key={y} label={
-                <div className="flex items-center justify-center" onClick={() => alert("hii")}>
-                 <div className="border rounded rounded-md p-5" style={{backgroundColor: renderColor(x?.user?.deposit?.name)}}>
+                <div className="flex items-center justify-center" onClick={() =>  handleGetDetailTree(x?.user_id)}>
+                 <div className="border rounded rounded-md p-5 w-24 h-30" style={{backgroundColor: renderColor(x?.user?.deposit?.name)}}>
                    <img className="w-16 h-16 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
                    <p className="font-medium text-md pt-2 text-white">{x?.user?.name?.length > 0 && x?.user?.name?.substring(0, 7)+' ...'}</p>
                    <p className="font-italic text-sm text-white">{x?.user?.deposit?.name?.split(' ')[1]}</p>
@@ -59,8 +63,8 @@ const OrgChart = () => {
               }>
                 {x?.user?.downlines?.map((u,v) => (
                   <>
-                    <TreeNode label={
-                      <div className="flex items-center justify-center" onClick={() => alert("hii")}>
+                    <TreeNode key={v} label={
+                      <div className="flex items-center justify-center" onClick={() =>  handleGetDetailTree(u?.user_id)}>
                         <div className="border rounded rounded-md p-5" style={{backgroundColor: renderColor(u?.user?.deposit?.name)}}>
                           <img className="w-16 h-16 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
                           <p className="font-medium text-md pt-2 text-white">{u?.user?.name?.length > 0 && u?.user?.name?.substring(0, 7)+' ...'}</p>
@@ -85,7 +89,7 @@ const OrgChart = () => {
           nodePadding={"5px"}
           lineBorderRadius={"10px"}
           label={
-            <div className="flex items-center justify-center" onClick={() => alert("hii")}>
+            <div className="flex items-center justify-center" onClick={() => {}}>
               <div className="border rounded rounded-md p-5 jusify-center" style={{backgroundColor: renderColor(tree?.data?.deposit?.name)}}>
                 <img className="w-16 h-16 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
                 <p className="font-medium text-md pt-2 text-white">{tree?.data?.name}</p>

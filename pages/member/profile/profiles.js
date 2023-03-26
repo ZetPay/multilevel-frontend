@@ -4,7 +4,6 @@ import CardSettings from 'components/Cards/CardSettings';
 import CardProfile from 'components/Cards/CardProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProfileActions } from '../../../store/redux/profileReducer';
-import { PaymentActions } from '../../../store/redux/paymentReducer';
 import Table from 'components/Organizms/Table/Table';
 
 export default function Profiles(){
@@ -30,7 +29,6 @@ export default function Profiles(){
   ])
 
   useEffect(()=>{
-    // dispatch(PaymentActions.doGetDepositListRequest());
     dispatch(ProfileActions.doGetProfileRequest())
   },[])
   
@@ -40,7 +38,7 @@ export default function Profiles(){
         <div className="w-full lg:w-6/12 px-4">
           <CardProfile 
             name={profile?.data?.user?.name} 
-            paket={profile?.data?.user?.deposit?.name} 
+            paket={profile?.data?.user?.package?.name} 
             downline={profile?.data?.user?.downlines}
             referals={profile?.data?.user?.referral_code}
             idmember={profile?.data?.user?.member_id} />

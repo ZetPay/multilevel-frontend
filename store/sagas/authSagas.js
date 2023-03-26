@@ -41,12 +41,13 @@ function* doRegister(data) {
       const response = yield call(authorization.post, URL.REGISTER, payload?.data);
   
       remove('logedin')
-      yield all([
-        put(AuthActions.doRegisterSuccess(response.data)),
-        put(ProfileActions.doGetProfileRequest())
-      ])
       api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
+      yield all([
+        put(ProfileActions.doGetProfileRequest()),
+        put(AuthActions.doRegisterSuccess(response.data))
+      ])
       set('logedin',response?.data?.data?.token)
+      Cookies.set("logedin",response?.data?.data?.token)
 
       payload?.message("Register success Please Login!")
      
