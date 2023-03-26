@@ -7,9 +7,10 @@ import { AiOutlineCopy } from "react-icons/ai";
 
 export default function CardProfile(props) {
   const alert = useAlert()
-  const { name, downline, paket, referals, idmember } = props
+  const { name, downline, paket, referals, idmember, avatar } = props
   const [referal, setReferal] = useState(referals)
   const [idMmeber, setIdMember] = useState(idmember)
+  
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -19,7 +20,7 @@ export default function CardProfile(props) {
               <div className="relative">
                 <img
                   alt="..."
-                  src="/img/team-1-800x800.jpg"
+                  src={`http://bcastarx.com/${process.env.prefixs}/default/${avatar?.split('/')[2]}`}
                   className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                 />
               </div>

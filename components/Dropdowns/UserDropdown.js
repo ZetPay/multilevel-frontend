@@ -3,9 +3,11 @@ import { createPopper } from "@popperjs/core";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { remove } from "local-storage"
+import { useSelector } from "react-redux";
 
 const UserDropdown = () => {
   const router = useRouter();
+  const avatar = useSelector(state => state.profileReducer.profile?.data?.user?.profile?.avatar)
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -19,6 +21,7 @@ const UserDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
   return (
     <div>
       <a
@@ -35,7 +38,7 @@ const UserDropdown = () => {
             <img
               alt="..."
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src="/img/team-1-800x800.jpg"
+              src={`http://bcastarx.com/${process.env.prefixs}/default/${avatar?.split('/')[2]}`}
             />
           </span>
         </div>
