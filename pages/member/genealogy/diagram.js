@@ -3,7 +3,6 @@ import Member from 'layouts/Member';
 import dynamic from "next/dynamic";
 const Organizational = dynamic(() => import("../../../components/Organizms/OrgChart/OrgChart"),{ssr: false})
 export default function Diagram() {
-
     return (
         <div className="flex flex-wrap">
             <div className="overflow-x-scroll w-full lg:w-12/12 px-4">
