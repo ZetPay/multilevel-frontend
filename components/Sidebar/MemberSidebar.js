@@ -179,7 +179,7 @@ export default function MemberSidebar() {
                       "bg-white text-base z-50 float-left py-2 list-none text-left rounded min-w-48"
                   }>
 					        	<li>
-                      <Link href="/member/genealogy/trees"
+                      <Link href="/member/genealogy/diagram"
                         className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/trees") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>

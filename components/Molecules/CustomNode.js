@@ -1,24 +1,47 @@
-import React, { memo } from 'react';
-function CustomNode(props) {
-  const {nodeData } = props;
+import { memo } from 'react';
+
+const sourceHandleStyleA = { left: 50 };
+const sourceHandleStyleB = {
+  right: 10,
+  left: 'auto',
+};
+
+const CustomNode = ({ data, xPos, yPos }) => {
   return (
-    <div
-        style={{
-          background: "#ffffff",
-          height: "70px",
-          borderTop: "2px solid #2F80ED",
-          textAlign: "center",
-          // position: "fixed",
-          zIndex: "1000",
-          // left: "-10px",
-          boxShadow: "0px 10px 10px rgba(0, 0, 0, 0.1)",
-          padding: "5px 0",
-          borderRadius: "5px"
-        }}
-      >
-        {nodeData.name}
-    </div>
+    <></>
+    // <div style={{
+    //   border: "1px solid #555",
+    //   padding: "10px",
+    //   width: "200px",
+    //   borderRadius: "5px"
+    // }}>
+    //   <Handle type="target" position={Position.Top} />
+    //   <div>
+    //     <div>
+    //       Label: <strong>{data.label}</strong>
+    //     </div>
+    //     <div>
+    //       Position:{' '}
+    //       <strong>
+    //         {xPos.toFixed(2)},{yPos.toFixed(2)}
+    //       </strong>
+    //     </div>
+    //   </div>
+
+    //   <Handle
+    //     type="source"
+    //     position={Position.Bottom}
+    //     id="a"
+    //     style={sourceHandleStyleA}
+    //   />
+    //   <Handle
+    //     type="source"
+    //     position={Position.Bottom}
+    //     id="b"
+    //     style={sourceHandleStyleB}
+    //   />
+    // </div>
   );
-}
+};
 
 export default memo(CustomNode);

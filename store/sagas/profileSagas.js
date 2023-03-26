@@ -35,8 +35,19 @@ function* doUpdateProfile(param) {
   }
 }
 
+function* doGetTreeList() {
+  try {
+    const { data } = yield call(api.get, URL.TREE );
+  
+    yield put(ProfileActions.doGetTreeSuccess(data?.data));
+  } catch (error) {
+    yield put(ProfileActions.doGetTreeFailure(error));
+  }
+}
+
 export default function* actionWatchProfile() {
   yield takeLatest(Types.GET_PROFILE_REQUEST, doGetProfile);
   yield takeLatest(Types.UPDATE_PROFILE_REQUEST, doUpdateProfile);
   yield takeLatest(Types.GET_HISTORY_ORDER_REQUEST, doGetHistoryOrder);
+  yield takeLatest(Types.GET_TREE_LIST_REQUEST, doGetTreeList);
 }

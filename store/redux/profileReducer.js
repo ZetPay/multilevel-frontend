@@ -38,13 +38,27 @@ export const ProfileActions = {
     doUpdateProfileFailure: error => ({
       type: Types.UPDATE_PROFILE_FAILURE,
       error,
+    }),
+
+     // update profile
+    doGetTreeRequest: () => ({
+      type: Types.GET_TREE_LIST_REQUEST
+    }),
+    doGetTreeSuccess: data => ({
+      type: Types.GET_TREE_LIST_SUCCESS,
+      payload: data,
+    }),
+    doGetTreeFailure: error => ({
+      type: Types.GET_TREE_LIST_FAILURE,
+      error,
     })
 }
 
 const initialState = {
   profile: {data: [], fetching: false, error: null},
   profile_update: {data: [], fetching: false, error: null},
-  history_order: {data: [], fetching: false, error: null}
+  history_order: {data: [], fetching: false, error: null},
+  tree: {data: [], fetching: false, error: null}
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -95,6 +109,22 @@ const profileReducer = (state = initialState, action) => {
         return {
           ...state,
           history_order: {data: [], fetching: false, error: action.error},
+        };
+      // get tree
+      case Types.GET_TREE_LIST_REQUEST:
+        return {
+          ...state,
+          tree: {data: [], fetching: true, error: null},
+        };
+      case Types.GET_TREE_LIST_SUCCESS:
+        return {
+          ...state,
+          tree: {data: action.payload, fetching: false, error: null},
+        };
+      case Types.GET_TREE_LIST_FAILURE:
+        return {
+          ...state,
+          tree: {data: [], fetching: false, error: action.error},
         };
         default:
             return state;
