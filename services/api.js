@@ -31,7 +31,7 @@ const URL = {
     BONUS_PAIRING: 'bonus/pairing',
     TREE: 'profile/tree',
     // payment
-    DEPOSIT_LIST: 'list-deposit',
+    DEPOSIT_LIST: 'list-package',
     VALIDATE_REFERAL: 'check-code',
     ORDER_LIST: 'admin/orders',
     TRANSACTION_LIST: 'admin/transactions'

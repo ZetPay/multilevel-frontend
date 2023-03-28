@@ -65,9 +65,9 @@ export default function Register() {
 
   const debounced = useDebouncedCallback((value) => {
     setRefCode(value)
-    dispatch(AuthActions.doCheckRefRequest({
-      referrer_code: value
-    }))
+    // dispatch(AuthActions.doCheckRefRequest({
+    //   referrer_code: value
+    // }))
   }, 1000);
 
   const onChcekLocation = (val) => {
@@ -100,7 +100,7 @@ export default function Register() {
     },
     onSubmit: value => {
       const { email, username, password, phone, position, paket, alamat, bank, norek, nik, ttl, agama, jenis_kelamin } = value
-      if (authData?.position?.data?.status === "success" || refCode.length === 0) {
+      if (authData.position?.data?.status === "success" || refCode.length === 0) {
         if(paymentMethode?.length > 0){
           if (termConst) {
             dispatch(AuthActions.doRegisterRequest({
@@ -108,9 +108,9 @@ export default function Register() {
                 name: username,
                 email: email,
                 password: password,
-                referrer_code: authData?.ref?.data?.status === "success" ? refCode : null,
+                referrer_code: authData.position?.data?.status === "success" ? refCode : null,
                 position: position?.length > 0 && refCode.length > 0 ? position : null,
-                deposit_id: paket,
+                package_id: paket,
                 phone: String(phone),
                 payment_method: paymentMethode,
                 address: alamat, 

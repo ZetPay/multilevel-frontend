@@ -24,7 +24,18 @@ function* doGetBonusSponsor() {
   }
 }
 
+function* doGetBonusPairing() {
+  try {
+    const { data } = yield call(api.get, URL.BONUS_PAIRING);
+  
+    yield put(BonusActions.doGetBonusPairingSuccess(data?.data));
+  } catch (error) {
+    yield put(BonusActions.doGetBonusPairingFailure(error));
+  }
+}
+
 export default function* actionWatchBonus() {
   yield takeLatest(Types.GET_BONUS_SPONSOR_REQUEST, doGetBonusSponsor);
   yield takeLatest(Types.GET_BONUS_LEVEL_REQUEST, doGetBonusLevel);
+  yield takeLatest(Types.GET_BONUS_PAIRING_REQUEST, doGetBonusPairing);
 }

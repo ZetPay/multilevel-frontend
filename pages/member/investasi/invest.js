@@ -159,7 +159,7 @@ export default function Invest(){
                     </div>
                   </div>
                   <div className="my-4">
-                    <Button type="button" label="Upgrade Pake" isFetching={false} disabled={false} onClick={() => { onUpgradePaket()}}  />
+                    {/* <Button type="button" label="Upgrade Pake" isFetching={false} disabled={false} onClick={() => { onUpgradePaket()}}  /> */}
                   </div>
                 </div>
             </div>

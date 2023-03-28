@@ -49,7 +49,7 @@ function* doRegister(data) {
       set('logedin',response?.data?.data?.token)
       Cookies.set("logedin",response?.data?.data?.token)
 
-      payload?.message("Register success Please Login!")
+      payload?.message("Register success!")
      
       setTimeout(() => {
         payload?.navigate();

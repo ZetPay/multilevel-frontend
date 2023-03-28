@@ -14,6 +14,9 @@ export default function Level() {
       name: "No"
     },
     {
+      name: "Name"
+    },
+    {
       name: "Nominal"
     },
     {
@@ -62,10 +65,13 @@ export default function Level() {
                       </thead>
                       <tbody>
                         {
-                          state.level?.data?.level?.map((y,l) => (
+                          state.level?.data?.map((y,l) => (
                             <tr id={l} className="border border-solid">
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {l+1}
+                                </td>
+                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                  {y?.type}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   Rp {formatMoney(y?.nominal)},-

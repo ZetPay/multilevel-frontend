@@ -62,9 +62,9 @@ export default function Newmember() {
   
     const debounced = useDebouncedCallback((value) => {
       setRefCode(value)
-      dispatch(AuthActions.doCheckRefRequest({
-        referrer_code: value
-      }))
+      // dispatch(AuthActions.doCheckRefRequest({
+      //   referrer_code: value
+      // }))
     }, 1000);
   
     const onChcekLocation = (val) => {
@@ -105,9 +105,9 @@ export default function Newmember() {
                   name: username,
                   email: email,
                   password: password,
-                  referrer_code: authData?.ref?.data?.status === "success" ? refCode : null,
+                  referrer_code: authData?.position?.data?.status === "success" ? refCode : null,
                   position: position?.length > 0 && refCode.length > 0 ? position : null,
-                  deposit_id: paket,
+                  package_id: paket,
                   phone: String(phone),
                   payment_method: paymentMethode,
                   address: alamat, 
@@ -121,10 +121,7 @@ export default function Newmember() {
                 message: (msg) => alert.success(msg),
                 error: (msg) => alert.error(msg),
                 navigate: () => {
-                  router.replace("/member/dashboard")
-                  setTimeout(()=>{
-                    router.reload(window.location.pathname)
-                  },1500)
+                  router.replace("totalteam")
                 }
               }))
             } else {

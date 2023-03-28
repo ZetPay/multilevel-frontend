@@ -12,7 +12,16 @@ export default function Wallet() {
   const {profile, history_order } = useSelector(state => state.profileReducer)
   const [thead] = useState([
     {
-      name: "No"
+      name: "Order Number"
+    },
+    {
+      name: "Order Type"
+    },
+    {
+      name: "Nominal"
+    },
+    {
+      name: "Payment Method"
     },
     {
       name: "Status"
@@ -75,7 +84,7 @@ export default function Wallet() {
                       Payment History
                 </label>
                 <Table color="light">
-                    <table className="border-collapse items-center w-full bg-transparent">
+                    <table className="border-collapse items-center w-full bg-transparent overflow-x-scroll">
                       <thead>
                         <tr>
                         {
@@ -89,13 +98,22 @@ export default function Wallet() {
                       </thead>
                       <tbody>
                         {
-                          history_order?.data[0]?.transactions?.map((y,l) => (
+                          history_order?.data?.map((y,l) => (
                             <tr id={l} className="border border-solid">
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {l+1}
+                                  {y?.order_number}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {y?.status}
+                                  {y?.order_type}
+                                </td>
+                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                  Rp {formatMoney(y?.amount)}
+                                </td>
+                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                  {y?.payment_method}
+                                </td>
+                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                  {y?.payment_status}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {moment(y?.created_at).format("DD-MMM-YYYY h:mm:ss")}

@@ -232,7 +232,7 @@ export default function CardSettings() {
                 </div>
               </div>
               <div className="w-full lg:w-12/12 px-4 mt-6">
-                <Button label="Update Profile" type="submit" disabled={true} isFetching={false} />
+                {/* <Button label="Update Profile" type="submit" disabled={true} isFetching={false} /> */}
               </div>
             </div>
           </form>

@@ -88,7 +88,7 @@ export default function Profiles(){
                                   {y?.position}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {y?.user?.referral_code}
+                                  {y?.user?.referral_code}-{profile?.data?.user?.id}
                                 </td>
                             </tr>
                           ))

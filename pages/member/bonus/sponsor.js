@@ -62,13 +62,13 @@ export default function Sponsor() {
                       </thead>
                       <tbody>
                         {
-                          sponsor?.data?.sponsor?.data?.map((y,l) => (
+                          sponsor?.data?.map((y,l) => (
                             <tr id={l} className="border border-solid">
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {l+1}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {y?.user?.name}
+                                  {y?.type}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   Rp {formatMoney(y?.nominal)},-
