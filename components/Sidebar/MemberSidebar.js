@@ -31,7 +31,7 @@ export default function MemberSidebar() {
           </button>
           {/* Brand */}
           <Link href="/" className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">
-            Multilevel
+            BCASTAR-X
           </Link>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
@@ -54,7 +54,7 @@ export default function MemberSidebar() {
               <div className="flex flex-wrap">
                 <div className="w-6/12">
                   <Link href="/" className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">
-                    Multilevel
+                    BCASTAR-X
                   </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
@@ -171,7 +171,7 @@ export default function MemberSidebar() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Genealogy
+                    Jaringan
                   </a>
                   <i className={"fas "+ (genealogyDropdown ? "fa-chevron-up" : "fa-chevron-down") + " mr-2 text-sm opacity-75 text-blueGray-300"}></i>
                 </div>
@@ -193,7 +193,7 @@ export default function MemberSidebar() {
                         className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/totalteam") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Total Team
+                        Member
 					        	  </Link>
 					        	</li>
 					        	<li>
@@ -201,7 +201,7 @@ export default function MemberSidebar() {
                         className={"flex items-center w-full p-2 text-base font-normal "+ (router.pathname.indexOf("/member/genealogy/blockuser") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")+" transition duration-75 rounded-lg group hover:bg-gray-100 text-gray-300 dark:hover:bg-gray-700 pl-11"}>
-                        Block User
+                        Member Non Aktif
 					        	  </Link>
 					        	</li>
 					        </ul>
