@@ -23,6 +23,9 @@ export default function Totalteam() {
       name: "Status"
     },
     {
+      name: "Reff Code"
+    },
+    {
       name: "Date"
     }
   ])
@@ -78,6 +81,9 @@ export default function Totalteam() {
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {y?.user?.status}
+                                </td>
+                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                  {y?.user?.referral_code}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {moment(y?.user?.created_at).format("DD-MMM-YYYY h:mm:ss")}

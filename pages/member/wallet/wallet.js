@@ -9,7 +9,7 @@ import moment from "moment";
 
 export default function Wallet() {
   const dispatch = useDispatch()
-  const {profile, history_order } = useSelector(state => state.profileReducer)
+  const {profile, history_order, member_list } = useSelector(state => state.profileReducer)
   const [thead] = useState([
     {
       name: "Order Number"
@@ -34,6 +34,7 @@ export default function Wallet() {
   useEffect(()=>{
     dispatch(ProfileActions.doGetProfileRequest())
     dispatch(ProfileActions.doGetHistoryOrderRequest())
+    dispatch(ProfileActions.doGetMemberListRequest())
   },[])
   
     return (
@@ -67,7 +68,7 @@ export default function Wallet() {
                     <div className="w-full xl:w-6/12 px-2">
                       <CardStats
                         statSubtitle="TOTAL DOWNLINE"
-                        statTitle={profile?.data?.user?.downlines?.length}
+                        statTitle={member_list?.data?.length}
                         statArrow="down"
                         statPercent="3.48"
                         statPercentColor="text-red-500"
