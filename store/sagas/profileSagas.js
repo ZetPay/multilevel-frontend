@@ -46,9 +46,32 @@ function* doGetTreeList(param) {
   }
 }
 
+function* doGetMemberList() {
+  try {
+    const { data } = yield call(api.get, `${URL.MEMBER_LIST}` );
+  
+    yield put(ProfileActions.doGetMemberListSuccess(data?.data));
+  } catch (error) {
+    yield put(ProfileActions.doGetMemberListFailure(error));
+  }
+}
+
+function* doGetMemberBlockList() {
+  try {
+    const { data } = yield call(api.get, `${URL.MEMBER_BLOCK_LIST}` );
+  
+    yield put(ProfileActions.doGetMemberBlockListSuccess(data?.data));
+  } catch (error) {
+    yield put(ProfileActions.doGetMemberBlockListFailure(error));
+  }
+}
+
+
 export default function* actionWatchProfile() {
   yield takeLatest(Types.GET_PROFILE_REQUEST, doGetProfile);
   yield takeLatest(Types.UPDATE_PROFILE_REQUEST, doUpdateProfile);
   yield takeLatest(Types.GET_HISTORY_ORDER_REQUEST, doGetHistoryOrder);
   yield takeLatest(Types.GET_TREE_LIST_REQUEST, doGetTreeList);
+  yield takeLatest(Types.GET_MEMBER_REQUEST, doGetMemberList);
+  yield takeLatest(Types.GET_BLOCK_MEMBER_REQUEST, doGetMemberBlockList);
 }

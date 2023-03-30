@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Table from "components/Organizms/Table/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { BonusActions } from "store/redux/bonusReducer";
-import { formatMoney } from "helper/numberFormat";
 import moment from "moment";
 import Member from "layouts/Member";
 import Link from "next/link";
+import { ProfileActions } from "store/redux/profileReducer";
 
 export default function Totalteam() {
   const dispatch = useDispatch();
-  const state = useSelector(state => state.bonusReducer);
+  const { member_list } = useSelector(state => state.profileReducer);
   const [thead] = useState([
     {
       name: "No"
@@ -29,9 +28,9 @@ export default function Totalteam() {
   ])
 
   useEffect(() => {
-    dispatch(BonusActions.doGetBonusLevelRequest())
+    dispatch(ProfileActions.doGetMemberListRequest())
   },[])
-
+   
     return (
         <div className="flex flex-wrap">
             <div className="w-full lg:w-12/12 px-4">
@@ -65,27 +64,27 @@ export default function Totalteam() {
                         </tr>  
                       </thead>
                       <tbody>
-                        {/* {
-                          state.level?.data?.level?.map((y,l) => (
+                        {
+                          member_list?.data?.map((y,l) => (
                             <tr id={l} className="border border-solid">
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {l+1}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  Rp {formatMoney(y?.nominal)},-
+                                  {y?.user?.name}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {y?.referral_left?.name}
+                                  {y?.user?.package?.name}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {y?.referral_right?.name}
+                                  {y?.user?.status}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {moment(y?.created_at).format("DD-MMM-YYYY h:mm:ss")}
+                                  {moment(y?.user?.created_at).format("DD-MMM-YYYY h:mm:ss")}
                                 </td>
                             </tr>
                           ))
-                        } */}
+                        }
                       </tbody>
                     </table>
                  </Table>

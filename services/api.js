@@ -23,6 +23,8 @@ const URL = {
     REGISTER: 'auth/register',
     PROFILE: 'profile',
     CHECK_POSITION: 'check-position',
+    MEMBER_LIST: 'profile/members',
+    MEMBER_BLOCK_LIST: 'profile/members/inactive',
     UPDATE_PROFILE: 'profile/update',
     UPDATE_PAKET: 'profile/upgrade',
     HISTORY_ORDER: 'profile/history/orders',
