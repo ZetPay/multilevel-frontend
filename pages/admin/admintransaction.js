@@ -6,14 +6,13 @@ import { PaymentActions } from "store/redux/paymentReducer";
 import { formatMoney } from "helper/numberFormat";
 import moment from "moment";
 import { FiCheckCircle, FiX } from "react-icons/fi";
-import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
 
 export default function Admintransaction() {
   const dispatch = useDispatch()
   const alert = useAlert()
-  const router = useRouter()
   const { data } = useSelector(state => state.paymentReducer.order_list)
+  const [currentPage,setCurrentPage] = useState(1)
   const [thead] = useState([
     {
       name: "No"
@@ -48,31 +47,44 @@ export default function Admintransaction() {
     dispatch(PaymentActions.doGetOrderListRequest())
     dispatch(PaymentActions.doGetTransactionListRequest())
   },[])
-  
 
-  const AppRoveTransaction = id => {
+  const AppRoveTransaction = (id,type) => {
     dispatch(PaymentActions.doApproveTransactionRequest({
       data: {
         order_number: id,
-        status: "success"
+        status: type
       },
       message: (msg) => alert.success(msg),
-      navigate: () => {
-        router.replace("/admin/admintransaction")
-      }
     }))
+  }
+
+  const nextPage = () => {
+    const lastPage = data?.data?.last_page
+    if(currentPage < lastPage){
+      const next = currentPage + 1;
+      setCurrentPage(next)
+      dispatch(PaymentActions.doGetOrderListRequest(next))
+    }
+  }
+
+  const prevPage = () => {
+    if(currentPage !== 1){
+      const prev = currentPage - 1;
+      setCurrentPage(prev)
+      dispatch(PaymentActions.doGetOrderListRequest(prev))
+    }
   }
 
   const renderPaymentStatus = item => {
     switch (item) {
       case 'success':{
-        return <p style={{backgroundColor: 'green',padding: 5, borderRadius: 5, color: 'white'}}>SUCCESS</p>
+        return <p style={{backgroundColor: 'green',padding: 5, borderRadius: 5, color: 'white', textAlign: 'center'}}>SUCCESS</p>
       }
       case 'pending':{
-        return <p style={{backgroundColor: '#e88e2e',padding: 5, borderRadius: 5, color: 'white'}}>PENDING</p>
+        return <p style={{backgroundColor: '#e88e2e',padding: 5, borderRadius: 5, color: 'white', textAlign: 'center'}}>PENDING</p>
       }
       case 'failed':{
-        return <p style={{backgroundColor: 'red',padding: 5, borderRadius: 5, color: 'white'}}>FAILED</p>
+        return <p style={{backgroundColor: 'red',padding: 5, borderRadius: 5, color: 'white', textAlign: 'center'}}>FAILED</p>
       }
       default:
         break;
@@ -99,7 +111,13 @@ export default function Admintransaction() {
                     htmlFor="grid-password">
                       Payment History
                 </label>
-                <Table color="light">
+                <Table 
+                  color="light" 
+                  prev={prevPage}
+                  next={nextPage}
+                  total={data?.data?.total}
+                  currentPage={currentPage}
+                  lastPage={data?.data?.last_page}>
                     <table className="border-collapse items-center w-full bg-transparent">
                       <thead>
                         <tr>
@@ -143,11 +161,11 @@ export default function Admintransaction() {
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   <div>
                                     <div className="flex row">
-                                      <button onClick={() => AppRoveTransaction(y?.order_number)}  type="button" className="flex mx-auto" style={{width: 24, height: 24, backgroundColor: "green", alignItems: 'center', justifyContent: 'center', borderRadius: 5}}>
+                                      <button onClick={() => AppRoveTransaction(y?.order_number, "success")}  type="button" className="flex mx-auto" style={{width: 24, height: 24, backgroundColor: "green", alignItems: 'center', justifyContent: 'center', borderRadius: 5}}>
                                         <FiCheckCircle width={24} color="white" />
                                       </button>
                                       <div style={{width: 10}} />
-                                      <button className="flex mx-auto" style={{width: 24, height: 24, backgroundColor: "red", alignItems: 'center', justifyContent: 'center', borderRadius: 5}}>
+                                      <button onClick={() => AppRoveTransaction(y?.order_number, "failed")}  type="button" className="flex mx-auto" style={{width: 24, height: 24, backgroundColor: "red", alignItems: 'center', justifyContent: 'center', borderRadius: 5}}>
                                         <FiX width={24} color="white" />
                                       </button>
                                     </div>

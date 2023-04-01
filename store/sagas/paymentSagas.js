@@ -1,4 +1,4 @@
-import {call, put, takeLatest } from 'redux-saga/effects';
+import {all, call, put, takeLatest } from 'redux-saga/effects';
 import { api, URL } from "services/api";
 import { Types } from "store/actionTypes";
 import { PaymentActions } from 'store/redux/paymentReducer';
@@ -25,9 +25,10 @@ function* doUpgradePaketDeposit(data) {
   }
 }
 
-function* doGetOrderList() {
+function* doGetOrderList(data) {
   try {
-    const response = yield call(api.get, URL.ORDER_LIST);
+    const { payload } = data
+    const response = yield call(api.get, `${URL.ORDER_LIST}?page=${payload}`);
   
     yield put(PaymentActions.doGetOrderListSuccess(response?.data));
   } catch (error) {
@@ -50,12 +51,12 @@ function* doApproveTransaction(data) {
     const {payload} = data;
     const response = yield call(api.post, URL.APPROVE_TRANSACTION, payload?.data);
   
-    yield put(PaymentActions.doApproveTransactionSuccess(response?.data));
+    yield all([
+      put(PaymentActions.doApproveTransactionSuccess(response?.data)),
+      put(PaymentActions.doGetOrderListRequest())
+    ])
 
-    payload?.message("Approve Transaction success!")
-    setTimeout(() => {
-      payload?.navigate();
-    },700);
+    payload?.message("Change Status Transaction success!")
   } catch (error) {
     yield put(PaymentActions.doApproveTransactionFailure(error));
   }

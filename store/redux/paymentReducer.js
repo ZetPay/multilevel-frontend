@@ -29,8 +29,9 @@ export const PaymentActions = {
       error,
     }),
     // order list
-    doGetOrderListRequest: () => ({
-      type: Types.GET_ADMIN_ORDER_LIST_REQUEST
+    doGetOrderListRequest: data => ({
+      type: Types.GET_ADMIN_ORDER_LIST_REQUEST,
+      payload: data,
     }),
     doGetOrderListSuccess: data => {
       return ({
