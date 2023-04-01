@@ -87,7 +87,7 @@ export default function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
-                <Link href="/member/dashboard"
+                <Link href="/admin/dashboard"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (router.pathname.indexOf("/admin/dashboard") !== -1
@@ -125,7 +125,7 @@ export default function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <div className="w-full flex flex-row items-center">
                 <a
                   href="#pablo"
@@ -184,9 +184,9 @@ export default function Sidebar() {
 					      	  </li>
 					        </ul>
                 </div>  
-              </li>
+              </li> */}
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/admin/settings"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -204,7 +204,7 @@ export default function Sidebar() {
                       Support
                     </div>
                 </Link>
-              </li>
+              </li> */}
             </ul>
 
               <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">

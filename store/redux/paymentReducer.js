@@ -56,6 +56,21 @@ export const PaymentActions = {
       type: Types.GET_ADMIN_TRANSACTION_LIST_FAILURE,
       error,
     }),
+    // approve payment
+    doApproveTransactionRequest: data => ({
+      type: Types.POST_APPROVE_TRANSACTION_REQUEST,
+      payload: data,
+    }),
+    doApproveTransactionSuccess: data => {
+      return ({
+        type: Types.POST_APPROVE_TRANSACTION_SUCCESS,
+        payload: data,
+      })
+    },
+    doApproveTransactionFailure: error => ({
+      type: Types.POST_APPROVE_TRANSACTION_FAILURE,
+      error,
+    }),
 }
 
 const initialState = {
@@ -63,6 +78,7 @@ const initialState = {
     paket: {data: [], fetching: false, error: null},
     order_list: {data: [], fetching: false, error: null},
     transaction_list: {data: [], fetching: false, error: null},
+    transaction_status: {data: [], fetching: false, error: null},
 };
 
 const paymentReducer = (state = initialState, action) => {
@@ -128,6 +144,22 @@ const paymentReducer = (state = initialState, action) => {
         return {
           ...state,
           transaction_list: {data: [], fetching: false, error: action.error},
+        };
+       // transaction status
+       case Types.POST_APPROVE_TRANSACTION_REQUEST:
+        return {
+          ...state,
+          transaction_status: {data: [], fetching: true, error: null},
+        };
+      case Types.POST_APPROVE_TRANSACTION_SUCCESS:
+        return {
+          ...state,
+          transaction_status: {data: action.payload, fetching: false, error: null},
+        };
+      case Types.POST_APPROVE_TRANSACTION_FAILURE:
+        return {
+          ...state,
+          transaction_status: {data: [], fetching: false, error: action.error},
         };
       default:
         return state;

@@ -36,7 +36,8 @@ const URL = {
     DEPOSIT_LIST: 'list-package',
     VALIDATE_REFERAL: 'check-code',
     ORDER_LIST: 'admin/orders',
-    TRANSACTION_LIST: 'admin/transactions'
+    TRANSACTION_LIST: 'admin/transactions',
+    APPROVE_TRANSACTION: 'webhook'
 };
 
 export {URL, api, authorization};

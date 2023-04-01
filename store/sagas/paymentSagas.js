@@ -45,9 +45,26 @@ function* doGetTransactionList() {
   }
 }
 
+function* doApproveTransaction(data) {
+  try {
+    const {payload} = data;
+    const response = yield call(api.post, URL.APPROVE_TRANSACTION, payload?.data);
+  
+    yield put(PaymentActions.doApproveTransactionSuccess(response?.data));
+
+    payload?.message("Approve Transaction success!")
+    setTimeout(() => {
+      payload?.navigate();
+    },700);
+  } catch (error) {
+    yield put(PaymentActions.doApproveTransactionFailure(error));
+  }
+}
+
 export default function* actionWatchPayment() {
   yield takeLatest(Types.GET_DEPOSIT_LIST_REQUEST, doGetDepositList);
   yield takeLatest(Types.UPGRADE_PAKET_REQUEST, doUpgradePaketDeposit);
   yield takeLatest(Types.GET_ADMIN_ORDER_LIST_REQUEST, doGetOrderList);
   yield takeLatest(Types.GET_ADMIN_TRANSACTION_LIST_REQUEST, doGetTransactionList);
+  yield takeLatest(Types.POST_APPROVE_TRANSACTION_REQUEST, doApproveTransaction);
 }
