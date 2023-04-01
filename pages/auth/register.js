@@ -26,37 +26,49 @@ export default function Register() {
   const { deposit_list: { data, fetching } } = useSelector(state => state.paymentReducer);
   const authData = useSelector(state => state.authReducer);
   const [paymentMethode, setPaymentMethode] = useState('')
+  const [detailPay, setDetailPay] = useState('')
   const [payment] = useState([
-    {
-      id: 1,
-      name: "bca",
-      image: "/img/payment/ic_bca.png"
-    },
-    {
-      id: 2,
-      name: "bni",
-      image: "/img/payment/ic_bni.png"
-    },
-    {
-      id: 3,
-      name: "bri",
-      image: "/img/payment/ic_bri.png"
-    },
-    {
-      id: 5,
-      name: "ovo",
-      image: "/img/payment/ic_ovo.png"
-    },
-    {
-      id: 6,
-      name: "qris",
-      image: "/img/payment/ic_qris.png"
-    },
+    // {
+    //   id: 1,
+    //   name: "bca",
+    //   image: "/img/payment/ic_bca.png"
+    // },
+    // {
+    //   id: 2,
+    //   name: "bni",
+    //   image: "/img/payment/ic_bni.png"
+    // },
+    // {
+    //   id: 3,
+    //   name: "bri",
+    //   image: "/img/payment/ic_bri.png"
+    // },
+    // {
+    //   id: 5,
+    //   name: "ovo",
+    //   image: "/img/payment/ic_ovo.png"
+    // },
+    // {
+    //   id: 6,
+    //   name: "qris",
+    //   image: "/img/payment/ic_qris.png"
+    // },
     {
       id: 7,
       name: "cash",
+      norek: "-",
+      an: "-",
+      notes: "Lakukan Transaksi CASH dan Silahkan konfirmasi kepada admin bahwa anda sudah melakukan pembayaran menggunakan methode CASH agar transaksi anda segera di proses.",
       image: ""
-    }
+    },
+    {
+      id: 8,
+      name: "Mandiri",
+      norek: "155-00-1045086-7",
+      an: "PT CIPTA INDOTAMA PERKASA",
+      notes: "Silahkan transfer ke No Rek Diatas dan konfirmasi kepada admin bahwa anda sudah melakukan pembayaran menggunakan methode TRANSFER melalui bank MANDIRI agar transaksi anda segera di proses.",
+      image: "/img/payment/ic_mandiris.png"
+    },
   ])
 
   useEffect(() => {
@@ -447,7 +459,10 @@ export default function Register() {
                       {
                         payment?.map((item,i) => (
                           <div key={i} className="max-w-sm w-full lg:w-3/12 md:w-4/12 sm:w-2/12 px-2 mt-3">
-                            <button type="button" onClick={() => setPaymentMethode(item.name)} className={item?.name === paymentMethode ? "border border-red-500 rounded rounded-sm w-full flex " : "border border-blueGray-500 "+"rounded rounded-sm w-full flex"}>
+                            <button type="button" onClick={() => { 
+                              setPaymentMethode(item.name)
+                              setDetailPay(item)
+                            }} className={item?.name === paymentMethode ? "border border-red-500 rounded rounded-sm w-full flex " : "border border-blueGray-500 "+"rounded rounded-sm w-full flex"}>
                               {
                                 item.image ? (
                                   <img src={item.image} alt={item.name} className="py-3 px-3 h-12"/>
@@ -462,6 +477,15 @@ export default function Register() {
                         ))
                       }
                     </div>
+                    {
+                      detailPay?.name?.length > 0 && (
+                       <>
+                           <p className="text-sm font-regular text-gray-300">NO REKENING : {detailPay?.norek}</p>
+                           <p className="text-sm font-regular text-gray-300">REKENING NAME : {detailPay?.an}</p>
+                           <p className="text-sm font-regular text-gray-300">NOTE : {detailPay?.notes}</p>
+                       </>
+                      )
+                    }
                   </div>
 
                   <div>
