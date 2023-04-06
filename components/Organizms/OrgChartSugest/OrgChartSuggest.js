@@ -169,8 +169,6 @@ const OrgChartSugest = () => {
     }))
   },[])
 
-  // console.log("DATA",renderdata)
-
   const handleGetDetailTree = id => {
     dispatch(ProfileActions.doGetTreeRequest({id}))
   }
@@ -341,7 +339,6 @@ const OrgChartSugest = () => {
                   style={{backgroundColor: renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.package?.name !== undefined ? 
                   renderColor(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.package?.name) : 'white', width: 170, height: 220}}>
                   { RenderNodeTwo(v_two,y,i) }
-                  {console.log("=====",renderdata?.downlines?.[i]?.user?.downlines[y])}
                  </div>
                 </div>
               }>

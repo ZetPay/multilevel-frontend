@@ -4,8 +4,7 @@ import dynamic from "next/dynamic";
 import { AiOutlineSync } from "react-icons/ai";
 import { useDispatch } from 'react-redux';
 import { ProfileActions } from 'store/redux/profileReducer';
-import OrgChartSuggest from 'components/Organizms/OrgChartSugest/OrgChartSuggest';
-const Organizational = dynamic(() => import("../../../components/Organizms/OrgChart/OrgChart"),{ssr: false})
+const OrgChartSuggest = dynamic(() => import("../../../components/Organizms/OrgChartSugest/OrgChartSuggest"),{ssr: false})
 export default function Diagram() {
   const dispatch = useDispatch();
 
