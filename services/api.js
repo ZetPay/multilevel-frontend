@@ -3,6 +3,7 @@ import {get} from "local-storage";
 
 const authorization = axios.create({
   baseURL: `http://bcastarx.com/dev/api/`, 
+  timeout: 60000,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
@@ -11,6 +12,7 @@ const authorization = axios.create({
 
 const api = axios.create({
   baseURL: `http://bcastarx.com/dev/api/`, 
+  timeout: 60000,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',

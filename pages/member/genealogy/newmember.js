@@ -15,6 +15,7 @@ import Button from "components/Atoms/Button/Button";
 
 export default function Newmember() {
     const router = useRouter();
+    const { query } = router;
     const alert = useAlert();
     const dispatch = useDispatch();
     const [termConst, setTermConst] = useState(false)
@@ -70,19 +71,21 @@ export default function Newmember() {
   
     useEffect(() => {
       dispatch(PaymentActions.doGetDepositListRequest());
+      query?.ref !== undefined && debounced( query?.ref)
     }, [])
-  
+    
     const debounced = useDebouncedCallback((value) => {
       setRefCode(value)
+      query?.position !== undefined && onChcekLocation(query?.position, value)
       // dispatch(AuthActions.doCheckRefRequest({
       //   referrer_code: value
       // }))
     }, 1000);
   
-    const onChcekLocation = (val) => {
+    const onChcekLocation = (val, ref = '') => {
       dispatch(AuthActions.doCheckPositionRequest({
         data: {
-          referrer_code: refCode,
+          referrer_code: ref == '' ? refCode : ref,
           position: val
         },
         message: (type, msg) => type === "error" ? alert.error(msg) : alert.success(msg)
@@ -95,14 +98,14 @@ export default function Newmember() {
         email: '',
         username: '',
         password: '',
-        nik: '',
-        ttl: '',
-        agama: '',
+        nik: null,
+        ttl: null,
+        agama: null,
         jenis_kelamin: '',
-        alamat: '',
+        alamat: null,
         bank: '',
         norek: '',
-        phone: '',
+        phone: null,
         referal: '',
         position: '',
         paket: ''
@@ -112,20 +115,21 @@ export default function Newmember() {
         if (authData?.position?.data?.status === "success" || refCode.length === 0) {
           if(paymentMethode?.length > 0){
             if (termConst) {
+              const posisi = query?.position !== undefined ? query?.position : (position?.length > 0 && refCode.length > 0 ? position : null)
               dispatch(AuthActions.doRegisterRequest({
                 data: {
                   name: username,
                   email: email,
                   password: password,
                   referrer_code: authData?.position?.data?.status === "success" ? refCode : null,
-                  position: position?.length > 0 && refCode.length > 0 ? position : null,
+                  position: posisi,
                   package_id: paket,
-                  phone: String(phone),
+                  phone: phone == null ? phone : String(phone),
                   payment_method: paymentMethode,
                   address: alamat, 
                   bank_name: bank, 
                   bank_account_number: String(norek), 
-                  nik: String(nik), 
+                  nik: nik == null ? nik : String(nik), 
                   ttl: ttl, 
                   religion: agama,
                   gender: jenis_kelamin
@@ -153,16 +157,18 @@ export default function Newmember() {
           .email('Must be a valid email')
           .required('Email is required'),
         password: yup.string().required('Password is required'),
-        nik: yup.number().min(16).required('Nik is required'),
-        ttl: yup.string().required('Tempat Tanggal Lahir is required'),
-        agama: yup.string().required('Agama is required'),
-        phone: yup.number().required('Phone is required'),
+        nik: yup.number().min(0)
+        .max(20).nullable(true),
+        ttl: yup.string().nullable(true),
+        agama: yup.string().nullable(true),
+        phone: yup.number().min(0)
+        .max(15).nullable(true),
         jenis_kelamin: yup.string().required('Jenis Kelamin is required'),
-        alamat: yup.string().required('Alamat is required'),
+        alamat: yup.string().nullable(true),
         bank: yup.string().required('Nama Bank is required'),
         norek: yup.number().required('No Rekening is required'),
-        referal: yup.string(),
-        position: yup.string(),
+        referal: yup.string().nullable(true),
+        position: yup.string().nullable(true),
         paket: yup.string().required(),
       }),
     });
@@ -183,8 +189,8 @@ export default function Newmember() {
                         <div className="relative w-full mb-3">
                             <Input
                               type="text"
-                              label="Username"
-                              placeholder="Input username"
+                              label="Full Name"
+                              placeholder="Input fullname"
                               name="username"
                               value={formik.values.name}
                               onChange={formik.handleChange}
@@ -387,15 +393,30 @@ export default function Newmember() {
                       </div>
                       <div className="w-full lg:w-6/12 px-4">
                         <div className="relative w-full mb-3">
-                            <Input
-                              type="text"
-                              label="Id Upline/Referal Code"
-                              placeholder="Input Referal Code"
-                              name="referal"
-                              onChange={(e) => debounced(e.target.value)}
-                              // onBlur={formik.handleBlur}
-                              style={{ borderColor: formik.errors.referal ? 'red' : '' }}
-                            />
+                            {
+                               query?.ref !== undefined ? (
+                                  <Input
+                                    type="text"
+                                    label="Id Upline/Referal Code"
+                                    placeholder="Input Referal Code"
+                                    name="referal"
+                                    value={query?.ref}
+                                    onChange={(e) => debounced(e.target.value)}
+                                    disabled
+                                    style={{ borderColor: formik.errors.referal ? 'red' : '' }}
+                                  />
+                               ) : (
+                                  <Input
+                                    type="text"
+                                    label="Id Upline/Referal Code"
+                                    placeholder="Input Referal Code"
+                                    name="referal"
+                                    onChange={(e) => debounced(e.target.value)}
+                                    // onBlur={formik.handleBlur}
+                                    style={{ borderColor: formik.errors.referal ? 'red' : '' }}
+                                  />
+                               )
+                            }
                             {formik.errors.referal && (
                               <p className="mt-2 text-sm text-red-600 text-red-500">{formik.errors.referal}</p>
                             )}
@@ -405,7 +426,25 @@ export default function Newmember() {
 
                   <div className="relative w-full px-4 mb-4">
                     {
-                      refCode?.length > 0 && (
+                      query?.position !== undefined ? (
+                        <Option
+                          label="Position"
+                          placeholder="Chose Position"
+                          data={[query?.position]}
+                          name="position"
+                          value={formik.values.position}
+                          onChange={(val) => {
+                            formik.handleChange(val)
+                            onChcekLocation(val.target.value)
+                          }}
+                          disabled
+                          onBlur={formik.handleBlur}
+                          style={{ borderColor: formik.errors.position ? 'red' : '' }}>
+                          {[query?.position]?.map((item, index) => (
+                            <option key={index} value={item}>{item}</option>
+                          ))}
+                        </Option>
+                      ) : refCode?.length > 0 && (
                         <Option
                           label="Position"
                           placeholder="Chose Position"

@@ -38,9 +38,11 @@ function* doUpdateProfile(param) {
 function* doGetTreeList(param) {
   try {
     const { payload } = param
-    const { data } = yield call(api.get, `${URL.TREE}/${payload}` );
+    const id = payload?.id !== undefined ? payload?.id : ''
+    const { data } = yield call(api.get, `${URL.TREE}/${id}` );
   
     yield put(ProfileActions.doGetTreeSuccess(data?.data));
+    payload?.setData(data?.data)
   } catch (error) {
     yield put(ProfileActions.doGetTreeFailure(error));
   }

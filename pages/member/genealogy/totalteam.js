@@ -33,7 +33,7 @@ export default function Totalteam() {
   useEffect(() => {
     dispatch(ProfileActions.doGetMemberListRequest())
   },[])
-   
+    console.log("MEMBERLIST",member_list)
     return (
         <div className="flex flex-wrap">
             <div className="w-full lg:w-12/12 px-4">

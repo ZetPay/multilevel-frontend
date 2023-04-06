@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import Link from "next/link";
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
