@@ -14,7 +14,10 @@ export default function Sponsor() {
         name: "No"
       },
       {
-        name: "Name"
+        name: "Type"
+      },
+      {
+        name: "Sponsor From"
       },
       {
         name: "Nominal"
@@ -69,6 +72,9 @@ export default function Sponsor() {
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {y?.type}
+                                </td>
+                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                  {y?.user?.name}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   Rp {formatMoney(y?.nominal)},-

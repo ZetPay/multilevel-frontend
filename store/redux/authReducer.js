@@ -28,6 +28,20 @@ export const AuthActions = {
     error,
   }),
 
+  // register
+  doAddNewMemberRequest: data => ({
+    type: Types.POST_NEW_MEMBER_REQUEST,
+    payload: data,
+  }),
+  doAddNewMemberSuccess: data => ({
+    type: Types.POST_NEW_MEMBER_SUCCESS,
+    payload: data,
+  }),
+  doAddNewMemberFailure: error => ({
+    type: Types.POST_NEW_MEMBER_FAILURE,
+    error,
+  }),
+
   // verification
   doVerificationRequest: data => ({
     type: Types.POST_VERIFICATION_REQUEST,
@@ -91,6 +105,7 @@ export const AuthActions = {
 const initialState = {
   login: {data: [], fetching: false, error: null},
   register: {data: [], fetching: false, error: null},
+  members: {data: [], fetching: false, error: null},
   verif: {data: [], fetching: false, error: null},
   ref: {data: [], fetching: false, error: null},
   avatar: {data: [], fetching: false, error: null},
@@ -135,6 +150,23 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         register: {data: [], fetching: false, error: action.error},
+      };
+
+    // Register
+    case Types.POST_NEW_MEMBER_REQUEST:
+      return {
+        ...state,
+        members: {data: [], fetching: true, error: null},
+      };
+    case Types.POST_NEW_MEMBER_SUCCESS:
+      return {
+        ...state,
+        members: {data: action.payload, fetching: false, error: null},
+      };
+    case Types.POST_NEW_MEMBER_FAILURE:
+      return {
+        ...state,
+        members: {data: [], fetching: false, error: action.error},
       };
 
     // verivication otp

@@ -65,6 +65,32 @@ function* doRegister(data) {
     }
 }
 
+function* doAddNewMembber(data) {
+  try {
+    const {payload} = data;
+    const response = yield call(authorization.post, URL.REGISTER, payload?.data);
+
+    yield all([
+      put(ProfileActions.doGetProfileRequest()),
+      put(AuthActions.doRegisterSuccess(response.data))
+    ])
+
+    payload?.message("Register success!")
+   
+    setTimeout(() => {
+      payload?.navigate();
+    },700);
+  } catch (error) {
+    if(error?.response?.data?.message){
+      data?.payload?.error(error?.response?.data?.message)
+    }else{
+      data?.payload?.error("Register error")
+    }
+  
+    yield put(AuthActions.doRegisterFailure(error));
+  }
+}
+
 
 function* doVerification(data) {
   try {
@@ -102,6 +128,7 @@ function* doCheckPosition(data) {
 export default function* actionWatchAuth() {
   yield takeLatest(Types.POST_LOGIN_REQUEST, doLogin);
   yield takeLatest(Types.POST_REGISTER_REQUEST, doRegister);
+  yield takeLatest(Types.POST_NEW_MEMBER_REQUEST, doAddNewMembber);
   yield takeLatest(Types.POST_VERIFICATION_REQUEST, doVerification);
   yield takeLatest(Types.CHECK_REF_REQUEST, doCheckRef);
   yield takeLatest(Types.CHECK_POSITION_REQUEST, doCheckPosition);

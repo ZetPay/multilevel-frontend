@@ -116,7 +116,7 @@ export default function Newmember() {
           if(paymentMethode?.length > 0){
             if (termConst) {
               const posisi = query?.position !== undefined ? query?.position : (position?.length > 0 && refCode.length > 0 ? position : null)
-              dispatch(AuthActions.doRegisterRequest({
+              dispatch(AuthActions.doAddNewMemberRequest({
                 data: {
                   name: username,
                   email: email,

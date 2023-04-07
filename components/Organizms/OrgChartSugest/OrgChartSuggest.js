@@ -45,7 +45,7 @@ const OrgChartSugest = () => {
     downlines: [
       {
         id: 1,
-        position: "right",
+        position: "left",
         user: {
           downlines: [
             {
@@ -56,7 +56,7 @@ const OrgChartSugest = () => {
                 downlines: [
                   {
                     id: 0,
-                    position: "right",
+                    position: "left",
                     user: {
                       id: 180,
                       downlines: []
@@ -64,7 +64,7 @@ const OrgChartSugest = () => {
                   },
                   {
                     id: 0,
-                    position: "left",
+                    position: "right",
                     user: {
                       id: 179,
                       downlines: []
@@ -103,13 +103,13 @@ const OrgChartSugest = () => {
       },
       {
         id: 2,
-        position: "left",
+        position: "right",
         user: {
           id: 173,
           downlines: [
             {
               id: 1,
-              position: "right",
+              position: "left",
               user: {
                 id: 178,
                 downlines: [
@@ -134,7 +134,7 @@ const OrgChartSugest = () => {
             },
             {
               id: 1,
-              position: "left",
+              position: "right",
               user: {
                 id: 177,
                 downlines: [
@@ -171,9 +171,6 @@ const OrgChartSugest = () => {
     dispatch(ProfileActions.doGetProfileRequest())
   },[])
 
-  // console.log("PROFILE",profile?.data?.user?.id)
-  // console.log("DATA",data.id)
-
   const handleGetDetailTree = id => {
     dispatch(ProfileActions.doGetTreeRequest({
       id,
@@ -182,47 +179,52 @@ const OrgChartSugest = () => {
   }
 
   const RenderNodeOne = (v_one,i) => {
-    if(renderdata?.downlines?.[i]?.position === "left"){
+    let localdata = renderdata.downlines
+    if(localdata?.length === 1){
+      if(localdata?.[0].position === "right"){
+        localdata.push({})
+        localdata.reverse();
+      }
+    }else{
+      if(localdata?.[0]?.position === "right"){
+        localdata.reverse();
+      }
+    }
+
+    if(localdata?.[i]?.position === "left" && v_one?.position === "left"){
       return (
         <>
-          <p className="font-italic text-sm text-white pb-2">
-          {
-            profile?.data?.user?.id === renderdata?.downlines?.[i]?.referrer_id && 'Ref from : '+renderdata?.referral_code
-          }
-          </p>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[i]?.referrer?.name}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
-          <p className="font-medium text-md pt-2 text-white">{renderdata?.downlines?.[i]?.user?.name?.length > 0 && renderdata?.downlines?.[i]?.user?.name?.substring(0, 7)+' ...'}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.member_id}</p>
-          <p className="font-italic text-sm text-white">{`${renderdata?.downlines?.[i]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.package?.name?.split(' ')[1]}</p>
+          <p className="font-medium text-md pt-2 text-white">{localdata?.[i]?.user?.name?.length > 0 && localdata?.[i]?.user?.name?.substring(0, 7)+' ...'}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[i]?.user?.member_id}</p>
+          <p className="font-italic text-sm text-white">{`${localdata?.[i]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[i]?.user?.package?.name?.split(' ')[1]}</p>
         </>
       )
     }
 
-    if(renderdata?.downlines?.[i]?.position === "right"){
+    if(localdata?.[i]?.position === "right" && v_one?.position === "right"){
       return (
         <>
-          <p className="font-italic text-sm text-white pb-2">
-          {
-            profile?.data?.user?.id === renderdata?.downlines?.[i]?.referrer_id && 'Ref from : '+renderdata?.referral_code
-          }
-          </p>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[i]?.referrer?.name}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
-          <p className="font-medium text-md pt-2 text-white">{renderdata?.downlines?.[i]?.user?.name?.length > 0 && renderdata?.downlines?.[i]?.user?.name?.substring(0, 7)+' ...'}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.member_id}</p>
-          <p className="font-italic text-sm text-white">{`${renderdata?.downlines?.[i]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.package?.name?.split(' ')[1]}</p>
+          <p className="font-medium text-md pt-2 text-white">{localdata?.[i]?.user?.name?.length > 0 && localdata?.[i]?.user?.name?.substring(0, 7)+' ...'}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[i]?.user?.member_id}</p>
+          <p className="font-italic text-sm text-white">{`${localdata?.[i]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[i]?.user?.package?.name?.split(' ')[1]}</p>
         </>
       )
     }
-
+    
+    
     return (
       <>
         <p className="font-medium text-md pt-2 text-black mb-3">DAFTAR</p>
         <Button label={v_one?.position} onClick={() =>{
           Router.push({
             pathname: 'newmember',
-            query: { ref: `${renderdata?.referral_code}-${profile?.data?.user?.id !== data.id && profile?.data?.user?.id}`, position:  v_one?.position},
+            query: { ref: `${renderdata?.referral_code}${profile?.data?.user?.id !== data.id ? '-'+profile?.data?.user?.id : ''}`, position:  v_one?.position},
           })
         }} type="submit" />
       </>
@@ -230,36 +232,40 @@ const OrgChartSugest = () => {
   }
   
   const RenderNodeTwo = (v_two,y,i) => {
-    if(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.position === "left"){
+    let localdata = renderdata.downlines[i]?.user?.downlines
+    if(localdata?.length === 1){
+      if(localdata?.[0].position === "right"){
+        localdata.push({})
+        localdata.reverse();
+      }
+    }else{
+      if(localdata?.[0]?.position === "right"){
+        localdata.reverse();
+      }
+    }
+
+    if(localdata?.[y]?.position === "left"){
       return (
         <>
-          <p className="font-italic text-sm text-white pb-2">
-          {
-            profile?.data?.user?.id === renderdata?.downlines?.[i]?.user?.downlines?.[y]?.referrer_id && 'Ref from : '+renderdata?.referral_code
-          }
-          </p>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[y]?.referrer?.name}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
-          <p className="font-medium text-md pt-2 text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.name !== undefined && renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.name?.substring(0, 7)+' ...'}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.member_id}</p>
-          <p className="font-italic text-sm text-white">{`${renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.package?.name?.split(' ')[1]}</p>
+          <p className="font-medium text-md pt-2 text-white">{localdata?.[y]?.user?.name !== undefined && localdata?.[y]?.user?.name?.substring(0, 7)+' ...'}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[y]?.user?.member_id}</p>
+          <p className="font-italic text-sm text-white">{`${localdata?.[y]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[y]?.user?.package?.name?.split(' ')[1]}</p>
         </>
       )
     }
 
-    if(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.position === "right"){
+    if(localdata?.[y]?.position === "right"){
       return (
         <>
-          <p className="font-italic text-sm text-white pb-2">
-          {
-            profile?.data?.user?.id === renderdata?.downlines?.[i]?.user?.downlines?.[y]?.referrer_id && 'Ref from : '+renderdata?.referral_code
-          }
-          </p>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[y]?.referrer?.name}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
-          <p className="font-medium text-md pt-2 text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.name !== undefined && renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.name?.substring(0, 7)+' ...'}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.member_id}</p>
-          <p className="font-italic text-sm text-white">{`${renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.package?.name?.split(' ')[1]}</p>
+          <p className="font-medium text-md pt-2 text-white">{localdata?.[y]?.user?.name !== undefined && localdata?.[y]?.user?.name?.substring(0, 7)+' ...'}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[y]?.user?.member_id}</p>
+          <p className="font-italic text-sm text-white">{`${localdata?.[y]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[y]?.user?.package?.name?.split(' ')[1]}</p>
         </>
       )
     }
@@ -278,36 +284,40 @@ const OrgChartSugest = () => {
   } 
 
   const RenderNodeThre = (v_thre,v,y,i) => {
-    if(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.position === "left"){
+    let localdata = renderdata.downlines[i]?.user?.downlines?.[y]?.user?.downlines
+    if(localdata?.length === 1){
+      if(localdata?.[0].position === "right"){
+        localdata.push({})
+        localdata.reverse();
+      }
+    }else{
+      if(localdata?.[0]?.position === "right"){
+        localdata.reverse();
+      }
+    }
+
+    if(localdata?.[v]?.position === "left"){
       return (
         <>
-          <p className="font-italic text-sm text-white pb-2">
-          {
-            profile?.data?.user?.id === renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.referrer_id && 'Ref from : '+renderdata?.referral_code
-          }
-          </p>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[v]?.referrer?.name}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
-          <p className="font-medium text-md pt-2 text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.name !== undefined && renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.name?.substring(0, 7)+' ...'}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.member_id}</p>
-          <p className="font-italic text-sm text-white">{`${renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.package?.name?.split(' ')[1]}</p>
+          <p className="font-medium text-md pt-2 text-white">{localdata?.[v]?.user?.name !== undefined && localdata?.[v]?.user?.name?.substring(0, 7)+' ...'}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[v]?.user?.member_id}</p>
+          <p className="font-italic text-sm text-white">{`${localdata?.[v]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[v]?.user?.package?.name?.split(' ')[1]}</p>
         </>
       )
     }
 
-    if(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.position === "right"){
+    if(localdata?.[v]?.position === "right"){
       return (
         <>
-          <p className="font-italic text-sm text-white pb-2">
-          {
-            profile?.data?.user?.id === renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.referrer_id && 'Ref from : '+renderdata?.referral_code
-          }
-          </p>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[v]?.referrer?.name}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
-          <p className="font-medium text-md pt-2 text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.name !== undefined && renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.name?.substring(0, 7)+' ...'}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.member_id}</p>
-          <p className="font-italic text-sm text-white">{`${renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
-          <p className="font-italic text-sm text-white">{renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines[v]?.user?.package?.name?.split(' ')[1]}</p>
+          <p className="font-medium text-md pt-2 text-white">{localdata?.[v]?.user?.name !== undefined && localdata?.[v]?.user?.name?.substring(0, 7)+' ...'}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[v]?.user?.member_id}</p>
+          <p className="font-italic text-sm text-white">{`${localdata?.[v]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
+          <p className="font-italic text-sm text-white">{localdata?.[v]?.user?.package?.name?.split(' ')[1]}</p>
         </>
       )
     }
@@ -332,8 +342,8 @@ const OrgChartSugest = () => {
           <div className="flex items-center justify-center" onClick={() => handleGetDetailTree(renderdata?.downlines?.[i]?.user_id)}>
             <div 
               className="border border-gray-300 rounded rounded-md p-5 justify-center items-center"  
-              style={{backgroundColor: renderdata?.downlines?.[i]?.user?.package?.name !== undefined ? 
-              renderColor(renderdata?.downlines?.[i]?.user?.package?.name) : 'white', width: 170, height: 220}}>
+              style={{backgroundColor:renderdata?.downlines?.[i]?.user?.package?.name !== undefined ? 
+                renderColor(renderdata?.downlines?.[i]?.user?.package?.name) : 'white', width: 170, height: 220}}>
               {RenderNodeOne(v_one,i)}
             </div>
           </div>

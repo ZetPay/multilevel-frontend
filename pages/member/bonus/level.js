@@ -14,7 +14,7 @@ export default function Level() {
       name: "No"
     },
     {
-      name: "Name"
+      name: "Type"
     },
     {
       name: "Nominal"
