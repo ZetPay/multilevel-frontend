@@ -5,17 +5,18 @@ import { Tree, TreeNode } from "react-organizational-chart";
 import { useDispatch, useSelector } from 'react-redux';
 import { ProfileActions } from 'store/redux/profileReducer';
 
+const color = {
+  silver: "#c0c0c0",
+  gold: "#d4af37",
+  diamond: "#61e2ff",
+}
+
 const OrgChartSugest = () => {
   const dispatch = useDispatch();
   const { tree: { data } } = useSelector(state => state.profileReducer)
   const profile = useSelector(state => state.profileReducer.profile)
-  const color = {
-    silver: "#c0c0c0",
-    gold: "#d4af37",
-    diamond: "#61e2ff",
-  }
   const renderColor = (param) => {
-    const paket = param?.split(' ')[1].toLowerCase()
+    const paket = param?.split(' ')?.[1].toLowerCase()
     
     switch(paket){
       case "gold":{
@@ -191,35 +192,39 @@ const OrgChartSugest = () => {
       }
     }
 
-    if(localdata?.[i]?.position === "left" && v_one?.position === "left"){
+    if(localdata?.[i]?.position === "left"){
       return (
-        <>
-          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[i]?.referrer?.name}</p>
+        <div className="p-5" style={{backgroundColor: 
+          localdata?.[i]?.user?.package?.name !== undefined && 
+          renderColor(localdata?.[i]?.user?.package?.name)}}>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[i]?.referrer?.name?.substring(0, 7)+' ...'}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
           <p className="font-medium text-md pt-2 text-white">{localdata?.[i]?.user?.name?.length > 0 && localdata?.[i]?.user?.name?.substring(0, 7)+' ...'}</p>
           <p className="font-italic text-sm text-white">{localdata?.[i]?.user?.member_id}</p>
           <p className="font-italic text-sm text-white">{`${localdata?.[i]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
           <p className="font-italic text-sm text-white">{localdata?.[i]?.user?.package?.name?.split(' ')[1]}</p>
-        </>
+        </div>
       )
     }
 
-    if(localdata?.[i]?.position === "right" && v_one?.position === "right"){
+    if(localdata?.[i]?.position === "right"){
       return (
-        <>
-          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[i]?.referrer?.name}</p>
+        <div className="p-5" style={{backgroundColor: 
+          localdata?.[i]?.user?.package?.name !== undefined && 
+          renderColor(localdata?.[i]?.user?.package?.name)}}>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[i]?.referrer?.name?.substring(0, 7)+' ...'}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
           <p className="font-medium text-md pt-2 text-white">{localdata?.[i]?.user?.name?.length > 0 && localdata?.[i]?.user?.name?.substring(0, 7)+' ...'}</p>
           <p className="font-italic text-sm text-white">{localdata?.[i]?.user?.member_id}</p>
           <p className="font-italic text-sm text-white">{`${localdata?.[i]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
           <p className="font-italic text-sm text-white">{localdata?.[i]?.user?.package?.name?.split(' ')[1]}</p>
-        </>
+        </div>
       )
     }
     
     
     return (
-      <>
+      <div className="p-5">
         <p className="font-medium text-md pt-2 text-black mb-3">DAFTAR</p>
         <Button label={v_one?.position} onClick={() =>{
           Router.push({
@@ -227,12 +232,12 @@ const OrgChartSugest = () => {
             query: { ref: `${renderdata?.referral_code}${profile?.data?.user?.id !== data.id ? '-'+profile?.data?.user?.id : ''}`, position:  v_one?.position},
           })
         }} type="submit" />
-      </>
+      </div>
     )
   }
   
   const RenderNodeTwo = (v_two,y,i) => {
-    let localdata = renderdata.downlines[i]?.user?.downlines
+    let localdata = renderdata.downlines?.[i]?.user?.downlines
     if(localdata?.length === 1){
       if(localdata?.[0].position === "right"){
         localdata.push({})
@@ -246,32 +251,32 @@ const OrgChartSugest = () => {
 
     if(localdata?.[y]?.position === "left"){
       return (
-        <>
-          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[y]?.referrer?.name}</p>
+        <div className="p-5" style={{backgroundColor: renderColor(localdata?.[y]?.user?.package?.name)}}>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[y]?.referrer?.name?.substring(0, 7)+' ...'}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
           <p className="font-medium text-md pt-2 text-white">{localdata?.[y]?.user?.name !== undefined && localdata?.[y]?.user?.name?.substring(0, 7)+' ...'}</p>
           <p className="font-italic text-sm text-white">{localdata?.[y]?.user?.member_id}</p>
           <p className="font-italic text-sm text-white">{`${localdata?.[y]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
           <p className="font-italic text-sm text-white">{localdata?.[y]?.user?.package?.name?.split(' ')[1]}</p>
-        </>
+        </div>
       )
     }
 
     if(localdata?.[y]?.position === "right"){
       return (
-        <>
-          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[y]?.referrer?.name}</p>
+        <div className="p-5" style={{backgroundColor: renderColor(localdata?.[y]?.user?.package?.name)}}>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[y]?.referrer?.name?.substring(0, 7)+' ...'}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
           <p className="font-medium text-md pt-2 text-white">{localdata?.[y]?.user?.name !== undefined && localdata?.[y]?.user?.name?.substring(0, 7)+' ...'}</p>
           <p className="font-italic text-sm text-white">{localdata?.[y]?.user?.member_id}</p>
           <p className="font-italic text-sm text-white">{`${localdata?.[y]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
           <p className="font-italic text-sm text-white">{localdata?.[y]?.user?.package?.name?.split(' ')[1]}</p>
-        </>
+        </div>
       )
     }
 
     return (
-      <>
+      <div className="p-5">
         <p className="font-medium text-md pt-2 text-black mb-3">DAFTAR</p>
         <Button label={v_two?.position} onClick={() =>{
             Router.push({
@@ -279,12 +284,12 @@ const OrgChartSugest = () => {
               query: { ref: `${renderdata?.downlines?.[v_two.id]?.user?.referral_code}-${profile?.data?.user?.id}`, position:  v_two?.position},
             })
           }} type="submit" />
-      </>
+      </div>
     )
   } 
 
   const RenderNodeThre = (v_thre,v,y,i) => {
-    let localdata = renderdata.downlines[i]?.user?.downlines?.[y]?.user?.downlines
+    let localdata = renderdata.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines
     if(localdata?.length === 1){
       if(localdata?.[0].position === "right"){
         localdata.push({})
@@ -298,32 +303,32 @@ const OrgChartSugest = () => {
 
     if(localdata?.[v]?.position === "left"){
       return (
-        <>
-          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[v]?.referrer?.name}</p>
+        <div className="p-5" style={{backgroundColor: renderColor(localdata?.[v]?.user?.package?.name)}}>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[v]?.referrer?.name?.substring(0, 7)+' ...'}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
           <p className="font-medium text-md pt-2 text-white">{localdata?.[v]?.user?.name !== undefined && localdata?.[v]?.user?.name?.substring(0, 7)+' ...'}</p>
           <p className="font-italic text-sm text-white">{localdata?.[v]?.user?.member_id}</p>
           <p className="font-italic text-sm text-white">{`${localdata?.[v]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
           <p className="font-italic text-sm text-white">{localdata?.[v]?.user?.package?.name?.split(' ')[1]}</p>
-        </>
+        </div>
       )
     }
 
     if(localdata?.[v]?.position === "right"){
       return (
-        <>
-          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[v]?.referrer?.name}</p>
+        <div className="p-5" style={{backgroundColor: renderColor(localdata?.[v]?.user?.package?.name)}}>
+          <p className="font-italic text-sm text-white pb-2">Ref : {localdata?.[v]?.referrer?.name?.substring(0, 7)+' ...'}</p>
           <img className="w-12 h-12 rounded rounded-full mx-auto" src="/img/team-1-800x800.jpg" />
           <p className="font-medium text-md pt-2 text-white">{localdata?.[v]?.user?.name !== undefined && localdata?.[v]?.user?.name?.substring(0, 7)+' ...'}</p>
           <p className="font-italic text-sm text-white">{localdata?.[v]?.user?.member_id}</p>
           <p className="font-italic text-sm text-white">{`${localdata?.[v]?.user?.referral_code}-${profile?.data?.user?.id}`}</p>
           <p className="font-italic text-sm text-white">{localdata?.[v]?.user?.package?.name?.split(' ')[1]}</p>
-        </>
+        </div>
       )
     }
 
     return (
-      <>
+      <div className="p-5">
         <p className="font-medium text-md pt-2 text-black mb-3">DAFTAR</p>
         <Button label={v_thre?.position} onClick={() =>{
             Router.push({
@@ -331,7 +336,7 @@ const OrgChartSugest = () => {
               query: { ref: `${renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.referral_code}-${profile?.data?.user?.id}`, position:  v_thre?.position},
             })
           }} type="submit" />
-      </>
+      </div>
     )
   } 
     
@@ -339,11 +344,14 @@ const OrgChartSugest = () => {
     return suggest?.downlines?.map((v_one,i) => ( 
       <>
         <TreeNode key={i} label={
-          <div className="flex items-center justify-center" onClick={() => handleGetDetailTree(renderdata?.downlines?.[i]?.user_id)}>
+          <div className="flex items-center justify-center" onClick={() => {
+            if(renderdata?.downlines?.[i]?.user_id){
+              handleGetDetailTree(renderdata?.downlines?.[i]?.user_id)
+            }
+          }}>
             <div 
-              className="border border-gray-300 rounded rounded-md p-5 justify-center items-center"  
-              style={{backgroundColor:renderdata?.downlines?.[i]?.user?.package?.name !== undefined ? 
-                renderColor(renderdata?.downlines?.[i]?.user?.package?.name) : 'white', width: 170, height: 220}}>
+              className="border border-gray-300 rounded rounded-md justify-center items-center"  
+              style={{backgroundColor: 'white', width: 170, height: 220}}>
               {RenderNodeOne(v_one,i)}
             </div>
           </div>
@@ -351,11 +359,14 @@ const OrgChartSugest = () => {
           {v_one?.user?.downlines?.map((v_two,y) => (
             <>
               <TreeNode key={y} label={
-                <div className="flex items-center justify-center" onClick={() =>  handleGetDetailTree(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user_id)}>
+                <div className="flex items-center justify-center" onClick={() => { 
+                  if(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user_id){
+                    handleGetDetailTree(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user_id)
+                  }
+                }}>
                  <div 
-                  className="border rounded rounded-md p-5 w-24 h-30" 
-                  style={{backgroundColor: renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.package?.name !== undefined ? 
-                  renderColor(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.package?.name) : 'white', width: 170, height: 220}}>
+                  className="border rounded rounded-md w-24 h-30" 
+                  style={{backgroundColor: 'white', width: 170, height: 220}}>
                   { RenderNodeTwo(v_two,y,i) }
                  </div>
                 </div>
@@ -363,10 +374,13 @@ const OrgChartSugest = () => {
                 {v_two?.user?.downlines?.map((v_tree,v) => (
                   <>
                     <TreeNode key={v} label={
-                      <div className="flex items-center justify-center" onClick={() =>  handleGetDetailTree(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines?.[v]?.user_id)}>
-                        <div className="border rounded rounded-md p-5" 
-                          style={{backgroundColor: renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines?.[v]?.user?.package?.name !== undefined ? 
-                          renderColor(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines?.[v]?.user?.package?.name) : 'white', width: 170, height: 220}}>
+                      <div className="flex items-center justify-center" onClick={() => {
+                        if(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines?.[v]?.user_id){
+                          handleGetDetailTree(renderdata?.downlines?.[i]?.user?.downlines?.[y]?.user?.downlines?.[v]?.user_id)
+                        }
+                      }}>
+                        <div className="border rounded rounded-md" 
+                          style={{backgroundColor: 'white', width: 170, height: 220}}>
                           {RenderNodeThre(v_tree,v,y,i)}
                         </div>
                       </div>

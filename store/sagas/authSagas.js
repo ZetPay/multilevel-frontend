@@ -72,7 +72,7 @@ function* doAddNewMembber(data) {
 
     yield all([
       put(ProfileActions.doGetProfileRequest()),
-      put(AuthActions.doRegisterSuccess(response.data))
+      put(AuthActions.doAddNewMemberSuccess(response.data))
     ])
 
     payload?.message("Register success!")
@@ -87,7 +87,7 @@ function* doAddNewMembber(data) {
       data?.payload?.error("Register error")
     }
   
-    yield put(AuthActions.doRegisterFailure(error));
+    yield put(AuthActions.doAddNewMemberFailure(error));
   }
 }
 

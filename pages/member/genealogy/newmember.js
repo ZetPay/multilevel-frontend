@@ -554,7 +554,7 @@ export default function Newmember() {
                   </div>
 
                   <div className="text-center mt-6 px-4">
-                    <Button label="Add New Member" isFetching={authData?.register?.fetching} disabled={authData?.register?.fetching} type="submit" />
+                    <Button label="Add New Member" isFetching={authData?.member?.fetching} disabled={authData?.member?.fetching} type="submit" />
                   </div>
                   <div className="flex flex-row align-center">
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />
