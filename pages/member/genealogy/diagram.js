@@ -30,7 +30,7 @@ export default function Diagram() {
                 </div>
                 <div className="overflow-x-scroll flex mx-6 lg:mx-10 py-10 pt-0 bg-white h-100 border border-red-200 justify-center">
                   <div className="w-full" style={{marginRight: 10}}>
-                    <OrgChartSuggest/>
+                    <OrgChartSuggest />
                   </div>
                 </div>
               </div>

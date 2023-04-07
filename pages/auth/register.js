@@ -159,12 +159,10 @@ export default function Register() {
         .email('Must be a valid email')
         .required('Email is required'),
       password: yup.string().required('Password is required'),
-      nik: yup.number().min(0)
-      .max(20).nullable(true),
+      nik: yup.number().nullable(true),
       ttl: yup.string().nullable(true),
       agama: yup.string().nullable(true),
-      phone: yup.number().min(0)
-      .max(15).nullable(true),
+      phone: yup.number().nullable(true),
       jenis_kelamin: yup.string().required('Jenis Kelamin is required'),
       alamat: yup.string().nullable(true),
       bank: yup.string().required('Nama Bank is required'),
