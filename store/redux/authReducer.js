@@ -14,6 +14,19 @@ export const AuthActions = {
     error,
   }),
 
+  doLoginAdminRequest: data => ({
+    type: Types.POST_LOGIN_ADMIN_REQUEST,
+    payload: data,
+  }),
+  doLoginAdminSuccess: data => ({
+    type: Types.POST_LOGIN_ADMIN_SUCCESS,
+    payload: data,
+  }),
+  doLoginAdminFailure: error => ({
+    type: Types.POST_LOGIN_ADMIN_FAILURE,
+    error,
+  }),
+
   // register
   doRegisterRequest: data => ({
     type: Types.POST_REGISTER_REQUEST,
@@ -104,6 +117,7 @@ export const AuthActions = {
 
 const initialState = {
   login: {data: [], fetching: false, error: null},
+  admin_login: {data: [], fetching: false, error: null},
   register: {data: [], fetching: false, error: null},
   members: {data: [], fetching: false, error: null},
   verif: {data: [], fetching: false, error: null},
@@ -133,6 +147,22 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         login: {data: [], fetching: false, error: action.error},
+      };
+
+    case Types.POST_LOGIN_ADMIN_REQUEST:
+      return {
+        ...state,
+        admin_login: {data: [], fetching: true, error: null},
+      };
+    case Types.POST_LOGIN_ADMIN_SUCCESS:
+      return {
+        ...state,
+        admin_login: {data: action.payload, fetching: false, error: null},
+      };
+    case Types.POST_LOGIN_ADMIN_FAILURE:
+      return {
+        ...state,
+        admin_login: {data: [], fetching: false, error: action.error},
       };
       
     // Register

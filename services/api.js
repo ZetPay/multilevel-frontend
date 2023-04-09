@@ -22,6 +22,7 @@ const api = axios.create({
 
 const URL = {
     LOGIN: 'auth/login',
+    LOGIN_ADMIN: 'auth/login/admin',
     REGISTER: 'auth/register',
     PROFILE: 'profile',
     CHECK_POSITION: 'check-position',
@@ -31,6 +32,7 @@ const URL = {
     UPDATE_PAKET: 'profile/upgrade',
     HISTORY_ORDER: 'profile/history/orders',
     BONUS_LEVEL: 'bonus/level',
+    BONUS_LEVEL_FRESH: 'bonus/level/refresh',
     BONUS_SPONSOR: 'bonus/sponsor',
     BONUS_PAIRING: 'bonus/pairing',
     TREE: 'profile/tree',

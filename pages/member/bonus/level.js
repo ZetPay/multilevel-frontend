@@ -34,6 +34,10 @@ export default function Level() {
     dispatch(BonusActions.doGetBonusLevelRequest())
   },[])
 
+  const refreshBonusLevel = () => {
+    dispatch(BonusActions.doPostTrigerBonusLevelRequest());
+  }
+
     return (
         <div className="flex flex-wrap">
             <div className="w-full lg:w-12/12 px-4">
@@ -50,7 +54,10 @@ export default function Level() {
                   </div>
                 </div>
                 <div className="flex px-4 lg:px-10 py-10 pt-0 bg-white">
-                 <Table color="light">
+                 <Table 
+                  refreshing={state?.bonus_level?.fetching}
+                  refresh={refreshBonusLevel}
+                  color="light">
                     <table className="border-collapse items-center w-full bg-transparent">
                       <thead>
                         <tr>

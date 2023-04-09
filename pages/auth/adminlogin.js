@@ -28,10 +28,10 @@ export default function AdminLogin() {
     onSubmit: value => {
       const { email, password } = value
       let data = new FormData();
-      data.append("member_id",email)
+      data.append("username",email)
       data.append("password",password)
 
-      dispatch(AuthActions.doLoginRequest({
+      dispatch(AuthActions.doLoginAdminRequest({
         data: data,
         message: (msg) => alert.success(msg),
         error: (msg) => alert.error(msg),
@@ -138,7 +138,7 @@ export default function AdminLogin() {
                   </div>
 
                   <div className="text-center mt-6">
-                    <Button label="Login" type="submit" disabled={auth?.login?.fetching} isFetching={auth?.login?.fetching} />
+                    <Button label="Login" type="submit" disabled={auth?.admin_login?.fetching} isFetching={auth?.admin_login?.fetching} />
                   </div>
                   <div className="flex flex-row align-center">
                     <hr className="w-full mt-3 border-b-1 border-blueGray-300" />

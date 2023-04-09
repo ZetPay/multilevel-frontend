@@ -31,7 +31,36 @@ function* doLogin(data) {
     }else{
       data?.payload?.error("Username or password invalid!")
     }
-    yield put(AuthActions.doLoginFailure(error));
+    yield put(AuthActions.doLoginFailure(error.message));
+  }
+}
+
+function* doLoginAdmin(data) {
+  try {
+    const {payload} = data;
+    const response = yield call(authorization.post, URL.LOGIN_ADMIN, payload?.data);
+
+    remove('logedin')
+    api.defaults.headers.common.Authorization = `Bearer ${response?.data?.data?.token}`;
+    yield all([
+      put(AuthActions.doLoginAdminSuccess(response.data)),
+      put(ProfileActions.doGetProfileRequest())
+    ])
+
+    set('logedin',response?.data?.data?.token)
+    Cookies.set("logedin",response?.data?.data?.token)
+    payload?.message("Login SuccessFuly!")
+    
+    setTimeout(() => {
+      payload?.navigate();
+    },700);
+  } catch (error) {
+    if(error?.response?.data?.message){
+      data?.payload?.error(error?.response?.data?.message)
+    }else{
+      data?.payload?.error("Username or password invalid!")
+    }
+    yield put(AuthActions.doLoginAdminFailure(error.message));
   }
 }
 
@@ -61,7 +90,7 @@ function* doRegister(data) {
         data?.payload?.error("Register error")
       }
     
-      yield put(AuthActions.doRegisterFailure(error));
+      yield put(AuthActions.doRegisterFailure(error.message));
     }
 }
 
@@ -87,7 +116,7 @@ function* doAddNewMembber(data) {
       data?.payload?.error("Register error")
     }
   
-    yield put(AuthActions.doAddNewMemberFailure(error));
+    yield put(AuthActions.doAddNewMemberFailure(error.message));
   }
 }
 
@@ -109,7 +138,7 @@ function* doCheckRef(data) {
 
     yield put(AuthActions.doCheckRefSuccess(response.data));
   } catch (error) {
-    yield put(AuthActions.doCheckRefFailure(error));
+    yield put(AuthActions.doCheckRefFailure(error.message));
   }
 }
 
@@ -121,12 +150,13 @@ function* doCheckPosition(data) {
     data?.payload?.message("success",response?.data?.message)
   } catch (error) {
     data?.payload?.message("error", error?.response?.data?.message)
-    yield put(AuthActions.doCheckPositionFailure(error));
+    yield put(AuthActions.doCheckPositionFailure(error.message));
   }
 }
 
 export default function* actionWatchAuth() {
   yield takeLatest(Types.POST_LOGIN_REQUEST, doLogin);
+  yield takeLatest(Types.POST_LOGIN_ADMIN_REQUEST, doLoginAdmin);
   yield takeLatest(Types.POST_REGISTER_REQUEST, doRegister);
   yield takeLatest(Types.POST_NEW_MEMBER_REQUEST, doAddNewMembber);
   yield takeLatest(Types.POST_VERIFICATION_REQUEST, doVerification);
