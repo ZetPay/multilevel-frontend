@@ -20,10 +20,10 @@ export default function Level() {
       name: "Nominal"
     },
     {
-      name: "Downline Left"
+      name: "Level"
     },
     {
-      name: "Downline Right"
+      name: "Status"
     },
     {
       name: "Date"
@@ -31,7 +31,7 @@ export default function Level() {
   ])
 
   useEffect(() => {
-    dispatch(BonusActions.doGetBonusLevelRequest())
+    dispatch(BonusActions.doPostTrigerBonusLevelRequest());
   },[])
 
   const refreshBonusLevel = () => {
@@ -84,13 +84,13 @@ export default function Level() {
                                   Rp {formatMoney(y?.nominal)},-
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {y?.referral_left?.name}
+                                  {y?.level}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {y?.referral_right?.name}
+                                  {y?.status}
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {moment(y?.created_at).format("DD-MMM-YYYY h:mm:ss")}
+                                  {moment(y?.created_at).format("DD-MMM-YYYY hh:mm:ss")}
                                 </td>
                             </tr>
                           ))
