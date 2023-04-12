@@ -35,6 +35,7 @@ const URL = {
     BONUS_LEVEL_FRESH: 'bonus/level/refresh',
     BONUS_SPONSOR: 'bonus/sponsor',
     BONUS_PAIRING: 'bonus/pairing',
+    BONUS_PAIRING_FRESH: '/bonus/pairing/refresh',
     TREE: 'profile/tree',
     // payment
     DEPOSIT_LIST: 'list-package',

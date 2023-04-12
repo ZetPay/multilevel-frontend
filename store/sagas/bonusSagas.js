@@ -34,6 +34,16 @@ function* doGetBonusPairing() {
   }
 }
 
+function* doFreshBonusPairing() {
+  try {
+    const { data } = yield call(api.post, URL.BONUS_PAIRING_FRESH);
+  
+    yield put(BonusActions.doRefreshBonusPairingSuccess(data?.data));
+  } catch (error) {
+    yield put(BonusActions.doRefreshBonusPairingFailure(error.message));
+  }
+}
+
 function* doTrigerdBonusLevel() {
   try {
     const { data } = yield call(api.post, URL.BONUS_LEVEL_FRESH);
@@ -52,5 +62,6 @@ export default function* actionWatchBonus() {
   yield takeLatest(Types.GET_BONUS_SPONSOR_REQUEST, doGetBonusSponsor);
   yield takeLatest(Types.GET_BONUS_LEVEL_REQUEST, doGetBonusLevel);
   yield takeLatest(Types.GET_BONUS_PAIRING_REQUEST, doGetBonusPairing);
+  yield takeLatest(Types.REFRESH_BONUS_PAIRING_REQUEST, doFreshBonusPairing);
   yield takeLatest(Types.POST_TRIGER_BONUS_LEVEL_REQUEST, doTrigerdBonusLevel);
 }

@@ -8,7 +8,7 @@ import moment from "moment";
 
 export default function Pairing() {
   const dispatch = useDispatch();
-  const { pairing } = useSelector(state => state.bonusReducer)
+  const { pairing, refresh_pairing } = useSelector(state => state.bonusReducer)
   const [thead] =  useState([
     {
       name: "No"
@@ -36,8 +36,11 @@ export default function Pairing() {
   useEffect(() => {
     dispatch(BonusActions.doGetBonusPairingRequest())
   },[])
-  
 
+  const refreshBonusPairing = () => {
+    dispatch(BonusActions.doRefreshBonusPairingRequest());
+  }
+  
   return (
       <div className="flex flex-wrap">
           <div className="w-full lg:w-12/12 px-4">
@@ -54,7 +57,10 @@ export default function Pairing() {
                 </div>
               </div>
               <div style={{height: 500}} className="flex px-4 lg:px-10 py-10 pt-0 bg-white h-100 border border-red-200">
-                <Table color="light">
+                <Table 
+                refreshing={refresh_pairing?.fetching}
+                refresh={refreshBonusPairing}
+                color="light">
                   <table className="border-collapse items-center w-full bg-transparent">
                     <thead>
                       <tr>

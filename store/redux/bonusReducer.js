@@ -43,6 +43,20 @@ export const BonusActions = {
       error,
     }),
 
+    doRefreshBonusPairingRequest: () => ({
+      type: Types.REFRESH_BONUS_PAIRING_REQUEST,
+    }),
+    doRefreshBonusPairingSuccess: data => {
+      return ({
+        type: Types.REFRESH_BONUS_PAIRING_SUCCESS,
+        payload: data,
+      })
+    },
+    doRefreshBonusPairingFailure: error => ({
+      type: Types.REFRESH_BONUS_PAIRING_FAILURE,
+      error,
+    }),
+
     doPostTrigerBonusLevelRequest: () => ({
       type: Types.POST_TRIGER_BONUS_LEVEL_REQUEST,
     }),
@@ -62,6 +76,7 @@ const initialState = {
     sponsor: {data: [], fetching: false, error: null},
     level: {data: [], fetching: false, error: null},
     pairing: {data: [], fetching: false, error: null},
+    refresh_pairing: {data: [], fetching: false, error: null},
     bonus_level: {data: [], fetching: false, error: null},
 };
 
@@ -113,6 +128,22 @@ const bonusReducer = (state = initialState, action) => {
         return {
           ...state,
           pairing: {data: [], fetching: false, error: action.error},
+        };
+      
+      case Types.REFRESH_BONUS_PAIRING_REQUEST:
+        return {
+          ...state,
+          refresh_pairing: {data: [], fetching: true, error: null},
+        };
+      case Types.REFRESH_BONUS_PAIRING_SUCCESS:
+        return {
+          ...state,
+          refresh_pairing: {data: action.payload, fetching: false, error: null},
+        };
+      case Types.REFRESH_BONUS_PAIRING_FAILURE:
+        return {
+          ...state,
+          refresh_pairing: {data: [], fetching: false, error: action.error},
         };
 
       case Types.POST_TRIGER_BONUS_LEVEL_REQUEST:

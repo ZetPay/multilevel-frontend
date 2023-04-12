@@ -160,15 +160,19 @@ export default function Admintransaction() {
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   <div>
-                                    <div className="flex row">
-                                      <button onClick={() => AppRoveTransaction(y?.order_number, "success")}  type="button" className="flex mx-auto" style={{width: 24, height: 24, backgroundColor: "green", alignItems: 'center', justifyContent: 'center', borderRadius: 5}}>
-                                        <FiCheckCircle width={24} color="white" />
-                                      </button>
-                                      <div style={{width: 10}} />
-                                      <button onClick={() => AppRoveTransaction(y?.order_number, "failed")}  type="button" className="flex mx-auto" style={{width: 24, height: 24, backgroundColor: "red", alignItems: 'center', justifyContent: 'center', borderRadius: 5}}>
-                                        <FiX width={24} color="white" />
-                                      </button>
-                                    </div>
+                                    {
+                                      y?.payment_status === "pending" && (
+                                        <div className="flex row">
+                                          <button onClick={() => AppRoveTransaction(y?.order_number, "success")}  type="button" className="flex mx-auto" style={{width: 24, height: 24, backgroundColor: "green", alignItems: 'center', justifyContent: 'center', borderRadius: 5}}>
+                                            <FiCheckCircle width={24} color="white" />
+                                          </button>
+                                          <div style={{width: 10}} />
+                                          <button onClick={() => AppRoveTransaction(y?.order_number, "failed")}  type="button" className="flex mx-auto" style={{width: 24, height: 24, backgroundColor: "red", alignItems: 'center', justifyContent: 'center', borderRadius: 5}}>
+                                            <FiX width={24} color="white" />
+                                          </button>
+                                        </div>
+                                      )
+                                    }
                                   </div>
                                 </td>
                             </tr>
