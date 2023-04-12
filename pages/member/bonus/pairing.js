@@ -20,10 +20,7 @@ export default function Pairing() {
       name: "Nominal"
     },
     {
-      name: "Downline Left"
-    },
-    {
-      name: "Downline Right"
+      name: "On Level"
     },
     {
       name: "Status"
@@ -87,10 +84,7 @@ export default function Pairing() {
                                 Rp {formatMoney(y?.nominal)},-
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {y?.referral_left?.name}
-                              </td>
-                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {y?.referral_right?.name}
+                                {y?.level}
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                 {y?.status}
